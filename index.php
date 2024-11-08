@@ -108,7 +108,7 @@
                                     <p class="card-text mb-0">Location: Palm Royal Beach</p>
                                     <p class="card-text mb-0">Time: Sat 30 2024, 8:30 PM GMT</p>
                                     <p class="card-text ">Price: GHC 50.00</p>
-                                    <a href="#" class="btn btn-primary col-12">Buy Ticket</a>
+                                    <a href="view_ticket.php" class="btn btn-primary col-12">Buy Ticket</a>
                                 </div>
                             </div>
                         </li>
@@ -139,7 +139,7 @@
                         </li>
                         <li class="card col-10 col-sm-5 col-md-5 col-lg-3 mb-4 p-0 border border-1 ">
                             <div>
-                                <div class="card-image rounded-top" style="background: url('bootstrap-config/images/double_wahala.jpg'); background-size: contain; background-position: center center;     background-repeat: no-repeat; height:14rem; background-size: cover; background-position: center;"></div>
+                                <div class="card-image rounded-top" style="background: url('bootstrap-config/images/double_wahala.jpg'); background-size: fit; background-position: center center;     background-repeat: no-repeat; height:14rem; background-size: cover; background-position: center;"></div>
                                 <div class="card-body">
                                     <h5 class="card-title">Program: Inside Sin City</h5>
                                     <p class="card-text mb-0">Location: Palm Royal Beach</p>
