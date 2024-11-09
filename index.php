@@ -98,8 +98,8 @@
                     <p>Don't Miss These Exciting Events In Ghana </p>
                 </div>
 
-                <div class="my-5">
-                    <ul class="row d-flex justify-content-around gap-2 align-items-center ">
+                <div class="my-5 f-flex align-items-center mx-auto">
+                    <ul class="row d-flex justify-content-around gap-1 align-items-center p-0">
                         <li class="card col-10 col-sm-5 col-md-5 col-lg-3 mb-4 p-0 border border-1 ">
                             <div>
                                 <div class="card-image rounded-top" style="background-image: url('bootstrap-config/images/ball.jpeg'); background-size: contain; background-position: center center;     background-repeat: no-repeat; height:14rem; background-size: cover; background-position: center;"></div>
