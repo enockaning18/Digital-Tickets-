@@ -85,7 +85,7 @@
         </header>
 
         <div class="container-lg p-0 ">
-            <nav class="p-3 mx-auto d-none d-md-flex justify-content-between gap-2 mb-5">
+            <nav class="p-3 mx-auto d-none d-md-flex justify-content-between  gap-2 mb-5">
                 <div><a href="" class="text-decoration-none text-black"> Discover</a> </div>
                 <div><a href="" class="text-decoration-none text-black"> Find Event</a></div>
                 <div><a href="" class="text-decoration-none text-black"> Seal Tickets</a></div>
@@ -94,9 +94,9 @@
                 <div><a href="" class="text-decoration-none text-black"> Help Center</a> </div>
             </nav>
 
-            <section class="mt-5 m-0 row d-flex justify-content-between shadow rounded overflow-hidden">
+            <section class="mt-5 m-0 row d-flex justify-content-between  rounded overflow-hidden align-items-start">
 
-                <div class="border d-none d-md-flex flex-column col-lg-2 p-0 rounded">
+                <div class="border d-none d-md-flex flex-column shadow-sm col-lg-2 p-0 rounded">
 
                     <div class="d-flex gap-2 ps-4 py-3" style="background-color: #F1F3F7;">
                         <div><i class="bi bi-speedometer2 " style="color:#C3063F ;"></i></div>
@@ -127,13 +127,13 @@
                         <div><i class="bi bi-patch-question"></i></div>
                         <div> Help Center</div>
                     </div>
-                    <div class="d-flex gap-2 ps-4 py-3">
+                    <div class="d-flex gap-2 ps-4 py-3 ">
                         <div><i class="bi bi-person-gear"></i></i></div>
                         <div>Account Settings</div>
                     </div>
                 </div>
 
-                <div class="border col-md-12 col-lg-9 d-flex flex-column rounded  p-5">
+                <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
                     <div class="">
                         <h3 style="color:#C3063F;">Hello, User!</h3>
                         <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events</p>
@@ -147,13 +147,13 @@
                             </div>
 
                             <div class="d-flex gap-2 ">
-                                <div><i class="bi bi-gear-wide-connected"></i></div>
-                                <div class="fw-bold">Edit Event</div>
+                                <div><i class="bi bi-gear-wide-connected" style="color:#31708f;"></i></div>
+                                <div class="fw-bold" style="color:#31708f;">Edit Event</div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between row my-3">
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #FEB372;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-folder-plus fs-5"></i></div>
@@ -164,7 +164,7 @@
                                     <div class="">Events Added</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm ">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #BFC9C6;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-globe-americas fs-5"></i></div>
@@ -175,7 +175,7 @@
                                     <div class="">Published Event</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #96A5A0;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-calendar-check fs-5"></i></div>
@@ -186,7 +186,7 @@
                                     <div class="">Upcoming Events</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #F84F1D;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-calendar-range fs-5"></i></div>
@@ -197,9 +197,7 @@
                                     <div class="">Event Dates</div>
                                 </div>
                             </div>
-
                         </div>
-
                     </div>
 
                     <div class="d-flex flex-column">
@@ -210,13 +208,13 @@
                             </div>
 
                             <div class="d-flex gap-2 ">
-                                <div><i class="bi bi-people-fill"></i></div>
-                                <div class="fw-bold">Manage Attendees</div>
+                                <div><i class="bi bi-people-fill" style="color:#31708f;"></i></div>
+                                <div class="fw-bold" style="color:#31708f;">Manage Attendees</div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between row my-3">
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #429596;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-cart2 fs-5"></i></div>
@@ -227,7 +225,7 @@
                                     <div class="">Orders Placed</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm ">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #F3D9B5;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi bi-wallet2 fs-5"></i></div>
@@ -238,7 +236,7 @@
                                     <div class="">Payed Orders</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #DDA25B;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-hourglass-bottom fs-5"></i></div>
@@ -249,7 +247,7 @@
                                     <div class="">Awaiting Payment</div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm">
+                            <div class="col-lg-3 px-3 py-1 border rounded shadow-sm text-white" style="background-color: #CF8D51;">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div> </div>
                                     <div> <i class="bi bi-ticket-detailed fs-5"></i></div>
@@ -260,13 +258,25 @@
                                     <div class="">Ticket Sold</div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
+                    <div class="py-3">
+                        <div>
+                            <h4 style="color:#C3063F ;">
+                                Dashboard Legend
+                            </h4>
                         </div>
 
+                        <div>
+                            <div><i class="bi bi-cart4 fs-5 fw-bold"> </i>
+                        Orders Placed</div>
+                        </div>
                     </div>
+
+                    
+
                 </div>
-
-
             </section>
         </div>
     </container>
