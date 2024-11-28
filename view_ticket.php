@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
+<!DOCTYPE php>
+<php lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
 <head>
     <meta charset="utf-8" />
@@ -205,4 +205,20 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-</html>
+<script>
+    // Get all sidebar links
+    const links = document.querySelectorAll('.sidebar-link');
+
+    // Add event listener for each link
+    links.forEach(link => {
+        link.addEventListener('click', function() {
+            // Remove the 'active' class from all links
+            links.forEach(l => l.classList.remove('active'));
+
+            // Add 'active' class to the clicked link
+            this.classList.add('active');
+        });
+    });
+</script>
+
+</php>
