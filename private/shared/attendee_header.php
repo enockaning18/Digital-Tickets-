@@ -1,3 +1,4 @@
+
 <!DOCTYPE php>
 <php lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
@@ -26,7 +27,7 @@
         <container>
             <header class="d-flex justify-content-between align-items-center shadow-sm p-3">
                 <div>
-                    <img src="bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt="">
+                    <img src="../../bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt="">
                 </div>
 
                 <div class="input-group d-none d-md-flex border-0 nav-item" style="max-width: 500px;">
@@ -39,7 +40,7 @@
                     <button class="btn btn-primary" type="submit">Signup</button>
                 </div>
 
-                <div class="d-flex">
+                <div class="d-flex d-md-none ">
                     <!-- profile menu for small screens -->
                     <nav class="navbar d-md-none">
                         <div class="container-fluid">
@@ -57,39 +58,25 @@
 
                                 <div class="offcanvas-body">
                                     <ul class="list-unstyled m-0 p-0">
+
                                         <li>
                                             <a href="organizer_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                                                <i class="bi bi-speedometer2 me-2"></i> My Ticket
                                             </a>
                                         </li>
                                         <li>
                                             <a href="add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-calendar-check me-2"></i> Add A New Event
+                                                <i class="bi bi-calendar-check me-2"></i> My Cart
                                             </a>
                                         </li>
                                         <li>
                                             <a href="my_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-calendar-plus me-2"></i> My Event
+                                                <i class="bi bi-calendar-plus me-2"></i> My Favorite
                                             </a>
                                         </li>
                                         <li>
                                             <a href="my_venues.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-geo-alt-fill me-2"></i> My Venues
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="add_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-geo me-2"></i> Add A New Venue
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="organizer_program.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-person-vcard me-2"></i> My Organizer Program
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-patch-question me-2"></i> Help Center
+                                                <i class="bi bi-geo-alt-fill me-2"></i> Following
                                             </a>
                                         </li>
                                         <li>
@@ -171,49 +158,30 @@
                     <div class="border d-none d-md-flex flex-column shadow-sm col-lg-2 p-0 rounded">
                         <ul class="list-unstyled m-0 p-0">
 
-                            <li class=" align-items-center ">
-                                <a href="organizer_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
-                                    <i class="bi bi-speedometer2 me-2"></i>
-                                    Dashboard
+                            <li>
+                                <a href="my_ticket.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
+                                    <i class="bi bi-ticket-detailed me-2"></i> My Ticket
                                 </a>
                             </li>
-                            <li class=" align-items-center ">
-                                <a href="add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
-                                    <i class="bi bi-calendar-check me-2"></i>
-                                    Add A New Event
+                            <li>
+                                <a href="my_cart.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
+                                    <i class="bi bi-inboxes-fill me-2"></i>My Cart
                                 </a>
                             </li>
-                            <li class=" align-items-center ">
-                                <a href="my_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
-                                    <i class="bi bi-calendar-plus me-2"></i>
-                                    My Event
+                            <li>
+                                <a href="#" class="sidebar-link d-flex align-items-center ps-4 py-3">
+                                    <i class="bi bi-heart-fill me-2"></i> My Favorite
                                 </a>
                             </li>
-
-
-                            <li class="gap-2 ps-4 py-3  align-items-center">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                <a href="my_venues.php" class="sidebar-link"> My Venues</a>
+                            <li>
+                                <a href="following.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
+                                    <i class="bi bi-geo-alt-fill me-2"></i> Following
+                                </a>
                             </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-geo"></i>
-                                <a href="add_venue.php" class="sidebar-link">Add A New Venue</a>
-                            </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-person-vcard"></i>
-                                <a href="organizer_program.php" class="sidebar-link">My Organizer Program</a>
-                            </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center ">
-                                <i class="bi bi-patch-question"></i>
-                                <a href="help_center.php" class="sidebar-link">Help Center</a>
-                            </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-person-gear"></i>
-                                <a href="account_settings.php" class="sidebar-link">Account Settings</a>
+                            <li>
+                                <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
+                                    <i class="bi bi-gear-wide-connected me-2"></i>Account Settings
+                                </a>
                             </li>
                         </ul>
                     </div>

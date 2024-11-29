@@ -1,4 +1,6 @@
-<?php include('organizer_shared/header.php') ?>
+<?php include("../../private/initialize.php");
+include(SHARED_PATH . "/organizer_header.php"); ?>
+
 
 
 <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
@@ -131,7 +133,7 @@
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-<?php include('organizer_shared/footer.php') ?>
+<?php include(SHARED_PATH . "/organizer_footer.php"); ?>
 
 
 

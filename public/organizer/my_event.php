@@ -1,4 +1,6 @@
-<?php include('organizer_shared/header.php') ?>
+<?php include("../../private/initialize.php");
+include(SHARED_PATH . "/organizer_header.php"); ?>
+
 
 <div class="border col-md-12 col-lg-9 flex-column shadow-sm rounded 0-0 p-md-5">
     <div class="d-block d-md-flex  justify-content-between align-items-center  py-3 px-4 border rounded shadow-sm" style="background-color: #ffffff;">
@@ -114,7 +116,7 @@
                             <div class="d-flex justify-content-start align-items-center">
                                 <div class="avatar-wrapper">
                                     <div class="avatar me-2 rounded">
-                                        <img src="bootstrap-config/images/ball.jpeg" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                        <img src="../../bootstrap-config/images/ball.jpeg" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
                                     </div>
                                 </div>
                                 <div class="d-flex flex-column">
@@ -195,7 +197,7 @@
     }
 </script>
 
-<?php include('organizer_shared/footer.php') ?>
+<?php include(SHARED_PATH . "/organizer_footer.php"); ?>
 
 
 <!-- Sidebar code remains the same -->

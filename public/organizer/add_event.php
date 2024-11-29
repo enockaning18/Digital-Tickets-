@@ -1,4 +1,6 @@
-<?php include('organizer_shared/header.php') ?>
+<?php include("../../private/initialize.php");
+include(SHARED_PATH . "/organizer_header.php"); ?>
+
 
 <!-- Basic Information Starts Here -->
 <div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
@@ -145,12 +147,12 @@
         <span><i class="bi bi-info-circle-fill" style="color: #C3063F;"> </i>Enable sales for an event date does not affect the ticket individual sales status</span>
         <div class="mb-4">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" checked>
-                <label class="form-check-label" for="inlineRadio1">Yes</label>
+                <input class="form-check-input" type="radio" name="sales_date" id="inlineRadio1" value="option1" checked>
+                <label class="form-check-label" for="sales_date">Yes</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">No</label>
+                <input class="form-check-input" type="radio" name="sales_date" id="inlineRadio2" value="option2">
+                <label class="form-check-label" for="sales_date">No</label>
             </div>
         </div>
 
@@ -343,7 +345,7 @@
         });
     });
 </script>
-<?php include('organizer_shared/footer.php') ?>
+<?php include(SHARED_PATH . "/organizer_footer.php"); ?>
 <!-- Sidebar code remains the same -->
 
 </php>
