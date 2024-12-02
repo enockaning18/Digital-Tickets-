@@ -15,6 +15,8 @@ $doc_root = substr($_SERVER['SCRIPT_NAME'], 0, $public_end);
 
 require_once('db_credentials.php');
 require_once('db_functions.php');
+require_once('status_error_functions.php');
+require_once('validation_functions.php');
 
 $database = db_connection();
 
@@ -34,5 +36,7 @@ spl_autoload_register('my_autoload');
 
 Attendee::set_database($database);
 
-// Attendee::set_database($database_connection);
-
+function h($string = '')
+{
+    return htmlspecialchars($string);
+}
