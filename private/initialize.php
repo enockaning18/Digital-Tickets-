@@ -34,7 +34,7 @@ function my_autoload($class)
 }
 spl_autoload_register('my_autoload');
 
-Attendee::set_database($database);
+databaseObject::set_database($database);
 
 function h($string = '')
 {

@@ -1,10 +1,33 @@
 <?php include("../../private/initialize.php");
-include(SHARED_PATH . "/organizer_header.php"); ?>
+include(SHARED_PATH . "/organizer_header.php"); 
 
+if(isset($_POST['add_new_event'])){
+    $args = $_POST['event'];
+    $event = new Event($args);
+    $result = $event->create();
+
+    if ($result === true) {
+        echo "Event added successfully!";
+    } else {
+        $msg = "error :";
+        $msg .= $database->error;
+        exit($msg);
+    }
+} else {
+
+    $event = new Event();
+    // echo display_error($attendee->error);
+
+
+}
+
+
+
+?>
 
 <!-- Basic Information Starts Here -->
 <div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
-    <form action="">
+    <form action="" method="POST">
         <div class="mb-5 text-center">
             <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Info</h2>
             <h5>Create a Memorable Experience</h5>
@@ -15,18 +38,18 @@ include(SHARED_PATH . "/organizer_header.php"); ?>
 
             <div class="mb-4">
                 <label for="event_title" class="mb-3" require>Event Title</label>
-                <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event_name" required="required" maxlength="100" class="form-control">
+                <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_name]" required="required" maxlength="100" class="form-control">
             </div>
 
             <div>
                 <label for="event_title" class="mb-2" require>Event Description</label>
                 <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="event_info" style="height: 100px"> </textarea>
+                    <textarea class="form-control" placeholder="Leave a comment here" id="event_description" name="event[event_description]" style="height: 100px"> </textarea>
                     <label for="event_info">Input Event Description</label>
                 </div>
             </div>
 
-            <div class="mb-4">
+            <!-- <div class="mb-4">
                 <label for="event_category" class="mb-2" require>Event Category</label>
                 <select class="form-select p-2" id="floatingSelectGrid" style="background-color: #F1F3F7;">
                     <option selected>Select Event Category</option>
@@ -50,11 +73,15 @@ include(SHARED_PATH . "/organizer_header.php"); ?>
                     <option value="4">Travel / Outdoor / Camp</option>
                     <option value="5">Workshop / Training</option>
                 </select>
+            </div> -->
+
+            <div class="form-group ">
+                <button type="button" class="btn text-white mx-auto" style="background-color: #c3073f" id="nextBtn" onclick="showView('basic-info', 'event-media')">Next: Event Media</button>
+                <button type="submit" id="account_settings_save" name="add_new_event" class="btn btn-primary btn">Save Changes</button>
             </div>
 
-            <button type="button" class="btn text-white mx-auto" style="background-color: #c3073f" id="nextBtn" onclick="showView('basic-info', 'event-media')">Next: Event Media</button>
-
         </div>
+    </form>
 </div>
 
 <!-- Event Media Starts Here -->
@@ -266,15 +293,11 @@ include(SHARED_PATH . "/organizer_header.php"); ?>
         Add New Ticket
     </button>
 
-    <div class="d-flex gap-0 justify-content-center gap-4">
-        <div>
-            <button type="button" class="btn text-white" style="background-color: #333" id="nextBtn" onclick="showView('event-ticket','timing-location')">Previous: Timing & Location</button>
-        </div>
-    </div>
+
 </div>
 
 
-</form>
+
 </section>
 </div>
 </container>
