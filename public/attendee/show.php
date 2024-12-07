@@ -2,13 +2,13 @@
 include("../../private/initialize.php");
 include(SHARED_PATH . "/attendee_header.php");
 
-$attendee_id = $_GET['attendee_id'] ?? 1;
+$id = $_GET['id'] ?? 1;
 
-$attendee = Attendee::find_by_id($attendee_id);
+$attendee = Attendee::find_by_id($id);
 
 if (isset($_POST['update'])) {
     $args = $_POST['attendee'];
-    $attendee->merge_attendee_data($args);
+    $attendee->merge_object_data($args);
     $result = $attendee->update();
 
     if ($result === true) {

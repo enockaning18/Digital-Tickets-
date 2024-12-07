@@ -1,5 +1,7 @@
 <?php include("../../private/initialize.php");
-include(SHARED_PATH . "/organizer_header.php"); ?>
+include(SHARED_PATH . "/organizer_header.php");
+$event = Event::find_all();
+?>
 
 
 <div class="border col-md-12 col-lg-9 flex-column shadow-sm rounded 0-0 p-md-5">
@@ -112,50 +114,54 @@ include(SHARED_PATH . "/organizer_header.php"); ?>
                 <tbody>
                     <tr>
                         <!-- Event Column -->
-                        <td>
-                            <div class="d-flex justify-content-start align-items-center">
-                                <div class="avatar-wrapper">
-                                    <div class="avatar me-2 rounded">
-                                        <img src="../../bootstrap-config/images/ball.jpeg" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                        <?php foreach ($event as $event) { ?>
+                            <td>
+                                <div class="d-flex justify-content-start align-items-center">
+                                    <div class="avatar-wrapper">
+                                        <div class="avatar me-2 rounded">
+                                            <img src="uploads/<?php echo $event->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column">
+                                        <span class="emp_name text-truncate" style="color: #c3073f;"><?php echo $event->event_name ?></span>
                                     </div>
                                 </div>
-                                <div class="d-flex flex-column">
-                                    <span class="emp_name text-truncate" style="color: #c3073f;">Accra Auto Extravaganza</span>
+                            </td>
+
+                            <td>
+                                <div>
+                                    <div><strong>20%</strong></div>
+                                    <small class="text-muted">0 tickets sold</small>
                                 </div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <div>
-                                <div><strong>20%</strong></div>
-                                <small class="text-muted">0 tickets sold</small>
-                            </div>
-                            <div class="progress progress-xs" style=" height: 5px;">
-                                <div class="progress-bar bg-yellow" role="progressbar" style="width: 20%; background-color: #f39c12;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                            </div>
-                        </td>
-
-                        <td>
-                            <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Event not published</span>
-                        </td>
-
-                        <td>
-                            <span>0%</span>
-                        </td>
-
-
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0" data-bs-toggle="dropdown">
-                                    <i class="bi bi-stack" style="color: #c3073f"> Options</i>
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                    <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> Delete</a>
+                                <div class="progress progress-xs" style=" height: 5px;">
+                                    <div class="progress-bar bg-yellow" role="progressbar" style="width: 20%; background-color: #f39c12;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
+
+                            <td>
+                                <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Event not published</span>
+                            </td>
+
+                            <td>
+                                <span>0%</span>
+                            </td>
+
+
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0" data-bs-toggle="dropdown">
+                                        <i class="bi bi-stack" style="color: #c3073f"> Options</i>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1 mb-2"></i> <i class="bi bi-file-earmark-text me-2 "></i> Details</a>
+                                        <a class="dropdown-item" href="edit_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
+                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
+                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
+                                    </div>
+                                </div>
+                            </td>
                     </tr>
+                <?php } ?>
                 </tbody>
             </table>
         </div>

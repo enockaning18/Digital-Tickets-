@@ -5,6 +5,9 @@ class databaseObject
     static protected $table_name = '';
     static protected $table_column = [];
 
+
+
+
     static public function set_database($database)
     {
         self::$database = $database;
@@ -24,26 +27,36 @@ class databaseObject
     }
 
 
-    protected function sanitize_object_data()
+
+
+    public function sanitize_object_data()
     {
         $sanitize = [];
         foreach ($this->object_data() as $key => $value) {
             $sanitize[$key] = self::$database->escape_string($value);
         }
-
         return $sanitize;
     }
 
 
 
-    public function merge_object_data($args = [])
-    {
+    // public function merge_object_data($args = [])
+    // {
+    //     foreach ($args as $key => $value) {
+    //         if (property_exists($this, $key) && !is_null($value)) {
+    //             $this->$key = $value;
+    //         }
+    //     }
+    // }
+
+    public function merge_object_data($args = []) {
         foreach ($args as $key => $value) {
             if (property_exists($this, $key) && !is_null($value)) {
-                $this->$key = $value;
+                $this->$key = $value; // Updates the object property
             }
         }
     }
+    
 
 
 
@@ -55,7 +68,10 @@ class databaseObject
                 $object->$property = $value;
             }
         }
+        return $object;
     }
+
+
 
     static public function find_by_query_command($query_command)
     {
@@ -74,7 +90,11 @@ class databaseObject
 
     public function create()
     {
+        // Get sanitized object data for insertion
         $object_data = $this->sanitize_object_data();
+        if (isset($this->image)) {
+            $object_data['image'] = $this->image;
+        }
         $query_command = "INSERT INTO " . static::$table_name . " (";
         $query_command .= join(', ', array_keys($object_data));
         $query_command .= ") VALUES ('";
@@ -93,16 +113,27 @@ class databaseObject
         $object_data = $this->sanitize_object_data();
         $object_update = [];
         foreach ($object_data as $key => $value) {
-            $object_update[] = "{$key} = '{$value}'";
+            $object_update[] = "{$key}='{$value}'";
         }
-        $query_command = "UPDATE " . static::$table_column . " SET ";
-        $query_command .= join(', ', $object_update);
-        $query_command .= "WHERE id = '" . self::$database->escape_string($this->id) . "'";
-        $query_command .= " LIMIT 1 ";
 
+        $query_command = "UPDATE " . static::$table_name . " SET ";
+        $query_command .= join(', ', $object_update);
+        $query_command .= " WHERE id='" . self::$database->escape_string($this->id) . "' ";
+        $query_command .= "LIMIT 1";
         $result = self::$database->query($query_command);
         return $result;
     }
+
+
+
+
+
+
+
+
+
+
+
 
     public function delete()
     {
@@ -114,9 +145,9 @@ class databaseObject
         return $result;
     }
 
-    static public function find_by_id()
+    static public function find_by_id($id)
     {
-        $query_command = "SELECT * FROM '" . static::$table_name . "' ";
+        $query_command = "SELECT * FROM " . static::$table_name . " ";
         $query_command .= "WHERE id = '" . self::$database->escape_string($id) . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
@@ -124,5 +155,11 @@ class databaseObject
         } else {
             return false;
         }
+    }
+
+    static public function find_all()
+    {
+        $query_command = "SELECT * FROM " . static::$table_name . " ";
+        return static::find_by_query_command($query_command);
     }
 }

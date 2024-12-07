@@ -114,35 +114,35 @@ $attendee = Attendee::find_all();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($attendee as $attendee) { ?>
+                    <?php foreach ($attendee as $attendees) { ?>
                         <tr>
                             <!-- Event Column -->
                             <td>
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="avatar-wrapper">
                                         <div class="avatar me-2 rounded">
-                                            <img src="../../bootstrap-config/images/ball.jpeg" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                            <img src="uploads/<?php echo $attendees->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column">
-                                        <span class="emp_name text-truncate" style="color: #c3073f;"> <?php echo $attendee->attendee_id ?></span>
+                                        <span class="emp_name text-truncate" style="color: #c3073f;"> <?php echo $attendees->id ?></span>
                                     </div>
                                 </div>
                             </td>
 
                             <td>
                                 <div>
-                                    <div><strong><?php echo $attendee->name ?></strong></div>
+                                    <div><strong><?php echo $attendees->name ?></strong></div>
                                     <small class="text-muted">0 tickets sold</small>
                                 </div>
                             </td>
 
                             <td>
-                                <span class="p-2 fs-6 fs-md-5"><?php echo $attendee->username ?></span>
+                                <span class="p-2 fs-6 fs-md-5"><?php echo $attendees->username ?></span>
                             </td>
 
                             <td>
-                                <span><?php echo $attendee->email ?></span>
+                                <span><?php echo $attendees->email ?></span>
                             </td>
 
 
@@ -152,8 +152,8 @@ $attendee = Attendee::find_all();
                                         <i class="bi bi-stack" style="color: #c3073f"> Options</i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href=" show.php?attendee_id=<?php echo $attendee->attendee_id ?>"><i class="bx bx-edit-alt me-1"></i> show</a>
-                                        <a class="dropdown-item" href="delete.php?attendee_id=<?php echo $attendee->attendee_id ?>"><i class="bx bx-edit-alt me-1"></i> Delete</a>
+                                        <a class="dropdown-item" href=" show.php?id=<?php echo $attendees->id ?>"><i class="bx bx-edit-alt me-1"></i> show</a>
+                                        <a class="dropdown-item" href="delete.php?id=<?php echo $attendees->id ?>"><i class="bx bx-edit-alt me-1"></i> Delete</a>
                                     </div>
                                 </div>
                             </td>
