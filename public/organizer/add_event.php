@@ -1,33 +1,98 @@
-<?php include("../../private/initialize.php");
+<?php
+include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
+
+$errors = [];
 
 if (isset($_POST['add_new_event'])) {
     $args = $_POST['event'];
-    $event = new Event($args);
-    $result = $event->create_new_event();
 
-    if ($result === true) {
-        echo "Event added successfully!";
-    } else {
-        $msg = "error :";
-        $msg .= $database->error;
-        exit($msg);
+    // Validation: Check if event_description is empty
+    if (empty($args['event_name'])) {
+        $errors[] = "Event Name can't be empty";
     }
-} else {
+    if (empty($args['event_contact'])) {
+        $errors[] = "Event Contact can't be empty";
+    }
+    if (empty($args['image'])) {
+        $errors[] = "Event Image must be uploaded";
+    }
+    if (empty($args['ticket_quantity'])) {
+        $errors[] = "Event Ticket Quantity can't be empty";
+    }
+    if (empty($args['ticket_price'])) {
+        $errors[] = "Event Ticket Price can't be empty";
+    }
+    if (empty($args['ticket_name'])) {
+        $errors[] = "Event Ticket Name can't be empty";
+    }
+    if (empty($args['event_date_time_end']) && empty($args['event_date_time_start'])) {
+        $errors[] = "Event Start & End Time must be set";
+    }
 
-    $event = new Event();
-    // echo display_error($attendee->error);
+    // If there are no errors, proceed to create a new event
+    if (empty($errors)) {
+        $event = new Event($args);
+        $result = $event->create_new_event();
 
-
+        if ($result === true) {
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal.fire({
+                    title: 'Success!',
+                    text: 'Event added successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(function() {                
+                    window.location.href = 'organizer_dashboard.php';                
+                });
+            });
+        </script>";
+        } else {
+            $msg = "Error: ";
+            $msg .= $database->error;
+            exit($msg);
+        }
+    }
 }
 
-
-
+// Initialize an empty Event object for the form
+$event = new Event();
 ?>
 
-<!-- Basic Information Starts Here -->
 <div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
-    <form action="" method="POST" enctype="multipart/form-data">
+    <!-- Display Validation Errors -->
+    <?php if (!empty($errors)) { ?>
+
+        <div class="modal fade " id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="text-danger fs-5" id="exampleModalToggleLabel">
+                            <i class="bi bi-exclamation-diamond  me-1"></i>
+                            Error(s)
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <?php foreach ($errors as $error) { ?>
+                                <li><?php echo $error; ?></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #c3063f">
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
+
+    <form id="eventForm" action="" onsubmit="validateForm(event)" method="POST" enctype="multipart/form-data">
         <div class="mb-5 text-center">
             <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Info</h2>
             <h5>Create a Memorable Experience</h5>
@@ -38,7 +103,7 @@ if (isset($_POST['add_new_event'])) {
 
             <div class="mb-4">
                 <label for="event_title" class="mb-3" require>Event Title</label>
-                <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_name]" required="required" maxlength="100" class="form-control">
+                <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_name]" maxlength="100" class="form-control">
             </div>
 
             <div>
@@ -95,7 +160,7 @@ if (isset($_POST['add_new_event'])) {
     <h4>Step 2: Event Media</h4>
     <div class="mb-4">
         <label for="event_event" class="mb-3" require>Upload Events Image</label>
-        <input type="file" name="image" id="upload" class="account-file-input form-control p-2" name="event[image]" required="required" maxlength="100" />
+        <input type="file" name="image" id="upload" class="account-file-input form-control p-2" name="event[image]" maxlength="100" />
     </div>
     <div class="mb-4">
         <h4>Optional</h4>
@@ -137,12 +202,12 @@ if (isset($_POST['add_new_event'])) {
                         <div class="py-4">
                             <h6 class="fw-bold">Contact Phone Number</h6>
                             <p>Enter Phone Number To Be Called For Enquires</p>
-                            <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_contact]" required="required" maxlength="100" class="form-control p-2">
+                            <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_contact]" maxlength="100" class="form-control p-2">
                         </div>
                         <div class="py-4">
                             <h6 class="fw-bold">Contact Email Address</h6>
                             <p>Enter Email Address To Be Reached For Enquires</p>
-                            <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_email]" required="required" maxlength="100" class="form-control p-2">
+                            <input type="text" style="background-color: #F1F3F7;" id="event_name" name="event[event_email]" maxlength="100" class="form-control p-2">
                         </div>
                     </div>
                 </div>
@@ -186,13 +251,13 @@ if (isset($_POST['add_new_event'])) {
 
         <div class="form-group mb-3">
             <label for="event_startdate " class="required mb-3 fw-bold">Event Starts</label>
-            <input type="text" id="event_startdate" name="event[event_date_time_start]" required="required" class="form-control" style="background-color: #F1F3F7; width: 400px;" require>
+            <input type="text" id="event_startdate" name="event[event_date_time_start]" class="form-control" style="background-color: #F1F3F7; width: 400px;" require>
         </div>
 
 
         <div class="form-group mb-3">
             <label for="event_startdate" class="required mb-3 fw-bold">Event Ends</label>
-            <input type="date" id="event_startdate" name="event[event_date_time_end]" required="required" class="form-control" style="background-color: #F1F3F7; width: 400px" require>
+            <input type="date" id="event_startdate" name="event[event_date_time_end]" class="form-control" style="background-color: #F1F3F7; width: 400px" require>
         </div>
 
 
@@ -251,7 +316,7 @@ if (isset($_POST['add_new_event'])) {
                 <span><i class="bi bi-info-circle-fill" style="color: #c3063f"> </i>
                     Examples: General, Regular, VIP, Premium, Early Bird, Student,
                     Group</span>
-                <input type="text" style="background-color: #f1f3f7" class="form-control" name="event[ticket_name]" required="required" maxlength="100" />
+                <input type="text" style="background-color: #f1f3f7" class="form-control" name="event[ticket_name]" maxlength="100" />
             </div>
 
             <div class="mb-4">
@@ -271,12 +336,12 @@ if (isset($_POST['add_new_event'])) {
 
             <div class="mb-4">
                 <label class="fw-bold mb-1">Price</label>
-                <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_price]" required="required" />
+                <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_price]" />
             </div>
 
             <div class="mb-4">
                 <label class="fw-bold mb-1">Quantity Of Tickets Available</label>
-                <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_quantity]" required="required" />
+                <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_quantity]" />
             </div>
         </div>
     </div>
@@ -312,6 +377,22 @@ if (isset($_POST['add_new_event'])) {
             defaultMinute: 30, // Set default minute to 30
             // fixed: false,
         });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const toastElList = [].slice.call(document.querySelectorAll('.toast'));
+        const toastList = toastElList.map(function(toastEl) {
+            return new bootstrap.Toast(toastEl, {
+                autohide: false
+            });
+        });
+
+        toastList.forEach(toast => toast.show());
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+        modal.show();
     });
 
 
@@ -367,7 +448,11 @@ if (isset($_POST['add_new_event'])) {
         });
     });
 </script>
+
+
 <?php include(SHARED_PATH . "/organizer_footer.php"); ?>
 <!-- Sidebar code remains the same -->
+
+
 
 </php>

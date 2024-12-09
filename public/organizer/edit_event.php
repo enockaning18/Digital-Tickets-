@@ -4,9 +4,10 @@ include(SHARED_PATH . "/organizer_header.php");
 
 $id = $_GET['id'] ?? 1;
 $event = Event::find_by_id($id);
-
+$errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['event']['name']['image']) && !empty($_FILES['event']['name']['image'])) {
+
         $uploaded_image = $_FILES['event'];
         $target_dir = "uploads/";
         $image_name = uniqid() . "_" . basename($uploaded_image['name']['image']);
@@ -15,31 +16,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $valid_extensions = ['jpg', 'jpeg', 'png', 'gif'];
         if (!in_array($imageFileType, $valid_extensions)) {
-            die("Invalid file type. Only JPG, JPEG, PNG, and GIF files are allowed.");
+            $errors[] = "Invalid file type. Only JPG, JPEG, PNG, and GIF files are allowed.";
         }
         if ($uploaded_image['error']['image'] === UPLOAD_ERR_OK) {
             if (move_uploaded_file($uploaded_image['tmp_name']['image'], $target_file)) {
                 $args['image'] = $image_name;
             } else {
-                die("Failed to upload the image.");
+                $errors[] = "Failed to upload the image.";
             }
         } else {
-            die("File upload error: " . $uploaded_image['error']['image']);
+            $errors[] = "File upload error: " . $uploaded_image['error']['image'];
         }
     } else {
-
-    }
-
-    // Debugging: Check the $args array
-    var_dump($args);
-    $args = $_POST['event'];
-    print_r($args); // Debugging line to see if 'image' key exists and contains the correct file name.
-    $event->merge_object_data($args);
-    $result = $event->update();
-    if ($result === true) {
-        echo "Event updated successfully!";
-    } else {
-        echo "Database Error: " . $database->error;
+        $args = $_POST['event'];
+        $event->merge_object_data($args);
+        $result = $event->update();
+        if ($result === true) {
+            echo "<script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        swal.fire({
+                            title: 'Success!',
+                            text: 'Details Updated.',
+                            icon: 'success',
+                            confirmButtonText: 'OK'
+                        }).then(function() {                
+                            window.location.href = 'my_event.php';                
+                        });
+                    });
+                </script>";
+        } else {
+            echo "Database Error: " . $database->error;
+        }
     }
 }
 
@@ -49,6 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Basic Information Starts Here -->
 <div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
+    <?php if ($errors > 1) {
+        foreach ($errors as $errors) { ?>
+        <ul>
+            <li class=""><?php echo $errors ?></li>
+        </ul>
+    <?php }
+    } ?>
     <form action="" method="POST" enctype="multipart/form-data">
         <div class="mb-5 text-center">
             <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Info</h2>

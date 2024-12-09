@@ -1,5 +1,6 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
+
 $event = Event::find_all();
 ?>
 
@@ -153,7 +154,10 @@ $event = Event::find_all();
                                         <i class="bi bi-stack" style="color: #c3073f"> Options</i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1 mb-2"></i> <i class="bi bi-file-earmark-text me-2 "></i> Details</a>
+                                        <a class="dropdown-item" href="my_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1">
+                                                <i class="bx bx-edit-alt me-1 mb-2"></i>
+                                                <i class="bi bi-file-earmark-text me-2"></i> Details
+                                        </a>
                                         <a class="dropdown-item" href="edit_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
@@ -165,6 +169,243 @@ $event = Event::find_all();
                 </tbody>
             </table>
         </div>
+        <?php
+        $id = $_GET['id'] ?? 1;
+        if (isset($id)) {
+            $details = Event::find_by_id($id);
+            if ($details == true) { ?>
+                <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Event Details</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless table-striped table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2"><i class="fas fa-file-alt fa-fw text-muted"></i> General information</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%">Status</td>
+                                                        <td><span class="badge badge-warning">Event is not published</span></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="30%">Title</td>
+                                                        <td>Accra Auto Extravaganza</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Reference</td>
+                                                        <td>d3489cbf47</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Creation date</td>
+                                                        <td>Tue 26 Nov 2024, 8:55 PM GMT</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Update date</td>
+                                                        <td>Wed 27 Nov 2024, 8:28 AM GMT</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Views</td>
+                                                        <td>1 view(s)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Added to favorites by</td>
+                                                        <td>0 user(s)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Category</td>
+                                                        <td>Performing / Visual Arts</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Publicly show attendees</td>
+                                                        <td>No</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Allow attendees to leave reviews</td>
+                                                        <td>No</td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless table-striped table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2"><i class="fas fa-image fa-fw text-muted"></i> Images</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%">Main image</td>
+                                                        <td>
+                                                            <a class="fancybox" href="/uploads/events/674635be4f649546944784.png" data-toggle="tooltip" title="Enlarge">
+                                                                <img src="/uploads/events/674635be4f649546944784.png" class="img-thumbnail img-100-100">
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Gallery</td>
+                                                        <td>
+                                                            0 image(s)
+                                                            <div class="gallery photos-gallery clearfix">
+
+                                                            </div>
+
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th><i class="fas fa-calendar fa-fw text-muted"></i> Event dates</th>
+                                                        <th><i class="fas fa-ticket-alt fa-fw text-muted"></i> Tickets</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50%">
+                                                            <h6>Event date 1</h6>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-borderless table-striped table-hover table-sm">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="30%">Status</td>
+                                                                            <td>
+                                                                                <span class="badge badge-warning">Event is not published</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Sales</td>
+                                                                            <td>
+                                                                                0
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Reference</td>
+                                                                            <td>9c4de8c647</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td width="50%">Venue</td>
+                                                                            <td>+2 Pub</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Address</td>
+                                                                            <td>+2 Pub, Kumasi, Ghana00233 , , Ghana</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Tickets types</td>
+                                                                            <td>1</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Start date</td>
+                                                                            <td>Thu 07 Nov 2024, 9:00 PM GMT</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>End date</td>
+                                                                            <td>Thu 05 Dec 2024, 8:00 PM GMT</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <h6>Ticket 1</h6>
+                                                            <div class="table-responsive">
+                                                                <table class="table table-borderless table-striped table-hover table-sm">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td width="30%">Status</td>
+                                                                            <td>
+                                                                                <span class="badge badge-danger">Event is not published</span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Sales</td>
+                                                                            <td>
+                                                                                0
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Price</td>
+                                                                            <td>
+                                                                                ₵20
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Quantity</td>
+                                                                            <td>200</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Reference</td>
+                                                                            <td>9c33012c4d</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Name</td>
+                                                                            <td>Virtual Ticket</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Currently in cart</td>
+                                                                            <td>0</td>
+                                                                        </tr>
+
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="table-responsive">
+                                            <table class="table table-borderless table-striped table-hover table-sm">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="2"><i class="fas fa-star fa-fw text-muted"></i> Reviews</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%">Count</td>
+                                                        <td>0</td>
+                                                    </tr>
+                                                </tbody>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        <?php }
+        }
+        ?>
+
+
+
     </div>
 
 </div>
@@ -201,11 +442,32 @@ $event = Event::find_all();
             targetDiv.classList.add('show'); // Show the div
         }
     }
-</script>
 
+
+    function loadEventDetails(button) {
+        const eventId = button.getAttribute('data-id');
+
+        // Make an AJAX call to fetch event details
+        fetch(`/event/public/organizer/event_details.php?id=${eventId}`)
+            .then(response => response.json())
+            .then(data => {
+                // Populate the modal with the event details
+                document.getElementById('recipient-name').value = data.event_name;
+                document.getElementById('message-text').innerText = data.description || "No description available.";
+            })
+            .catch(error => {
+                console.error("Error fetching event details:", error);
+            });
+
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+        var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'), {
+            keyboard: true
+        });
+        exampleModal.show(); // Show the modal
+    });
+</script>
 <?php include(SHARED_PATH . "/organizer_footer.php"); ?>
 
-
-<!-- Sidebar code remains the same -->
 
 </php>
