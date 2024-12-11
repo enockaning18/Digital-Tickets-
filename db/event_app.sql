@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2024 at 09:55 AM
+-- Generation Time: Dec 11, 2024 at 05:42 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -135,6 +135,8 @@ CREATE TABLE `venue` (
   `id` int(11) NOT NULL,
   `venue_name` varchar(200) NOT NULL,
   `venue_address` varchar(200) NOT NULL,
+  `latitude` varchar(200) NOT NULL,
+  `longitude` varchar(200) NOT NULL,
   `venue_city` varchar(200) NOT NULL,
   `venue_region` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -143,8 +145,8 @@ CREATE TABLE `venue` (
 -- Dumping data for table `venue`
 --
 
-INSERT INTO `venue` (`id`, `venue_name`, `venue_address`, `venue_city`, `venue_region`) VALUES
-(1, 'Brunie Sports Complex', 'https://maps.app.goo.gl/DgCXTeHdEmUHTRx66', 'Kumasi', 'Ashanti Region');
+INSERT INTO `venue` (`id`, `venue_name`, `venue_address`, `latitude`, `longitude`, `venue_city`, `venue_region`) VALUES
+(1, 'Brunie Sports Complex', '6.6893623422429, 1.644285145655187', '6.689697255865689 ', '-1.6448422741386837', 'Kumasi', 'Ashanti Region');
 
 --
 -- Indexes for dumped tables
