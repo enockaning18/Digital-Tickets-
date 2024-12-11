@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
     <?php if ($errors > 1) {
         foreach ($errors as $errors) { ?>
-        <ul>
-            <li class=""><?php echo $errors ?></li>
-        </ul>
+            <ul>
+                <li class=""><?php echo $errors ?></li>
+            </ul>
     <?php }
     } ?>
     <form action="" method="POST" enctype="multipart/form-data">
@@ -258,8 +258,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <span><i class="bi bi-info-circle-fill" style="color: #C3063F;"> </i>Select from public venues or add your own via the "my venues" option in the sidebar.</span>
             <label for="event_category" class="mb-2" require>Select Venue</label>
             <select class="form-select p-2" id="floatingSelectGrid" name="event[event_venue]" style="background-color: #F1F3F7; width: 600px">
-                <option value="Brunie Sports Complex" <?php echo ($event->event_venue === "Brunie Sports Complex") ? 'selected' : ''; ?>>Brunie Sports Complex</option>
-                <option value="Basement Bar and Loudge" <?php echo ($event->event_venue === "Basement Bar and Loudge") ? 'selected' : ''; ?>>Basement Bar and Loudge</option>
+                <option value="" disabled selected>Select Event </option>
+                <?php $venue = Venue::find_all();
+                foreach ($venue as $venue) { ?>
+                    <option value="<?php echo $venue->venue_name ?>" <?php echo ($event->event_venue === $venue->venue_name ? 'selected' : '') ?>><?php echo $venue->venue_name ?></option>
+                <?php } ?>
             </select>
         </div>
 

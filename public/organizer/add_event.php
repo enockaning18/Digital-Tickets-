@@ -280,8 +280,10 @@ $event = new Event();
             <label for="event_category" class="mb-2" require>Select Venue</label>
             <select class="form-select p-2" id="floatingSelectGrid" name="event[event_venue]" style="background-color: #F1F3F7; width: 600px">
                 <option value="" disabled selected>Select Event </option>
-                <option value="Brunie Sports Complex">Brunie Sports Complex</option>
-                <option value="Basement Bar and Loudge">Basement Bar and Loudge</option>
+                <?php $venue = Venue::find_all();
+                foreach ($venue as $venue) { ?>
+                    <option value="<?php echo $venue->venue_name ?>"><?php echo $venue->venue_name ?></option>
+                <?php } ?>
             </select>
         </div>
 

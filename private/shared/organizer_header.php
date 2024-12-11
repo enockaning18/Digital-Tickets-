@@ -189,19 +189,37 @@
                                     My Event
                                 </a>
                             </li>
-
-
-                            <li class="gap-2 ps-4 py-3  align-items-center">
-                                <i class="bi bi-geo-alt-fill"></i>
-                                <a href="my_venues.php" class="sidebar-link"> My Venues</a>
+                            <li class=" align-items-center ">
+                                <a href="add_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-geo me-2"></i>
+                                    Add A New Venue
+                                </a>
+                            </li>
+                            <li class=" align-items-center ">
+                                <a href="my_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-geo-alt-fill me-2"></i>
+                                    My Venues
+                                </a>
+                            </li>
+                            <li class=" align-items-center ">
+                                <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-patch-question me-2"></i>
+                                    Help Center
+                                </a>
                             </li>
 
-                            <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-geo"></i>
-                                <a href="add_venue.php" class="sidebar-link">Add A New Venue</a>
+                            <li class=" align-items-center ">
+                                <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-person-gear me-2"></i>
+                                    Account Settings
+                                </a>
                             </li>
 
-                            <li class="gap-2 ps-4 py-3 align-items-center">
+
+
+
+
+                            <!-- <li class="gap-2 ps-4 py-3 align-items-center">
                                 <i class="bi bi-person-vcard"></i>
                                 <a href="organizer_program.php" class="sidebar-link">My Organizer Program</a>
                             </li>
@@ -214,7 +232,7 @@
                             <li class="gap-2 ps-4 py-3 align-items-center">
                                 <i class="bi bi-person-gear"></i>
                                 <a href="account_settings.php" class="sidebar-link">Account Settings</a>
-                            </li>
+                            </li> -->
                         </ul>
                     </div>
 

@@ -140,7 +140,7 @@ $event = Event::find_all();
                             </td>
 
                             <td>
-                                <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Event not published</span>
+                                <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;"> Not published</span>
                             </td>
 
                             <td>
@@ -170,7 +170,7 @@ $event = Event::find_all();
             </table>
         </div>
         <?php
-        $id = $_GET['id'] ?? 1;
+        $id = $_GET['id'] ?? 'null';
         if (isset($id)) {
             $details = Event::find_by_id($id);
             if ($details == true) { ?>
@@ -178,7 +178,7 @@ $event = Event::find_all();
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Event Details</h1>
+                                <h1 class="modal-title fs-5" id="exampleModalLabel"><?php echo $details->event_name ?> Details: </h1>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
@@ -194,27 +194,27 @@ $event = Event::find_all();
                                                 <tbody>
                                                     <tr>
                                                         <td width="30%">Status</td>
-                                                        <td><span class="badge badge-warning">Event is not published</span></td>
+                                                        <td><span class="badge bg-danger">Event is not published</span></td>
                                                     </tr>
                                                     <tr>
                                                         <td width="30%">Title</td>
-                                                        <td>Accra Auto Extravaganza</td>
+                                                        <td><?php echo $details->event_name ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Reference</td>
-                                                        <td>d3489cbf47</td>
+                                                        <td><?php echo $details->id ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Creation date</td>
-                                                        <td>Tue 26 Nov 2024, 8:55 PM GMT</td>
+                                                        <td><?php echo $details->event_date_time_start ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Update date</td>
-                                                        <td>Wed 27 Nov 2024, 8:28 AM GMT</td>
+                                                        <td><?php echo $details->event_date_time_start ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Views</td>
-                                                        <td>1 view(s)</td>
+                                                        <td>0 view(s)</td>
                                                     </tr>
                                                     <tr>
                                                         <td>Added to favorites by</td>
@@ -222,7 +222,7 @@ $event = Event::find_all();
                                                     </tr>
                                                     <tr>
                                                         <td>Category</td>
-                                                        <td>Performing / Visual Arts</td>
+                                                        <td><?php echo $details->event_category ?></td>
                                                     </tr>
                                                     <tr>
                                                         <td>Publicly show attendees</td>
@@ -237,7 +237,7 @@ $event = Event::find_all();
                                             </table>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-6 ">
                                         <div class="table-responsive">
                                             <table class="table table-borderless table-striped table-hover table-sm">
                                                 <thead>
@@ -249,19 +249,15 @@ $event = Event::find_all();
                                                     <tr>
                                                         <td width="30%">Main image</td>
                                                         <td>
-                                                            <a class="fancybox" href="/uploads/events/674635be4f649546944784.png" data-toggle="tooltip" title="Enlarge">
-                                                                <img src="/uploads/events/674635be4f649546944784.png" class="img-thumbnail img-100-100">
+                                                            <a class="fancybox" href="/event/public/organizer/uploads/<?php echo $details->image ?>" data-toggle="tooltip" title="Enlarge">
+                                                                <img src="uploads/<?php echo $details->image ?>" class="img-thumbnail" style="width: 240px; ">
                                                             </a>
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Gallery</td>
                                                         <td>
-                                                            0 image(s)
-                                                            <div class="gallery photos-gallery clearfix">
-
-                                                            </div>
-
+                                                            1 image(s)
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -271,24 +267,24 @@ $event = Event::find_all();
                                     </div>
                                     <div class="col-lg-12">
                                         <div class="table-responsive">
-                                            <table class="table table-borderless table-sm">
+                                            <table class="table table-borderless table-sm ">
                                                 <thead>
-                                                    <tr>
-                                                        <th><i class="fas fa-calendar fa-fw text-muted"></i> Event dates</th>
-                                                        <th><i class="fas fa-ticket-alt fa-fw text-muted"></i> Tickets</th>
+                                                    <tr class="row d-flex">
+                                                        <th class="col-lg-6"><i class="fas fa-calendar fa-fw text-muted px-1 "></i> Event dates</th>
+                                                        <th class="col-lg-6"><i class="fas fa-ticket-alt fa-fw text-muted  px-1 "></i> Tickets</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td width="50%">
-                                                            <h6>Event date 1</h6>
+                                                    <tr class="row">
+                                                        <td class="col-12 col-lg-6 p-3">
+                                                            <h6>Event date </h6>
                                                             <div class="table-responsive">
                                                                 <table class="table table-borderless table-striped table-hover table-sm">
                                                                     <tbody>
                                                                         <tr>
                                                                             <td width="30%">Status</td>
                                                                             <td>
-                                                                                <span class="badge badge-warning">Event is not published</span>
+                                                                                <span class="badge bg-danger">Event is not published</span>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -299,15 +295,15 @@ $event = Event::find_all();
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Reference</td>
-                                                                            <td>9c4de8c647</td>
+                                                                            <td><?php echo $details->id ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td width="50%">Venue</td>
-                                                                            <td>+2 Pub</td>
+                                                                            <td><?php echo $details->event_venue ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Address</td>
-                                                                            <td>+2 Pub, Kumasi, Ghana00233 , , Ghana</td>
+                                                                            <td> Kumasi, Ghana00233 , Ghana</td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Tickets types</td>
@@ -315,17 +311,17 @@ $event = Event::find_all();
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Start date</td>
-                                                                            <td>Thu 07 Nov 2024, 9:00 PM GMT</td>
+                                                                            <td><?php echo $details->event_date_time_start ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>End date</td>
-                                                                            <td>Thu 05 Dec 2024, 8:00 PM GMT</td>
+                                                                            <td><?php echo $details->event_date_time_end ?></td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                         </td>
-                                                        <td>
+                                                        <td class="col-12 col-lg-6 p-3">
                                                             <h6>Ticket 1</h6>
                                                             <div class="table-responsive">
                                                                 <table class="table table-borderless table-striped table-hover table-sm">
@@ -333,7 +329,7 @@ $event = Event::find_all();
                                                                         <tr>
                                                                             <td width="30%">Status</td>
                                                                             <td>
-                                                                                <span class="badge badge-danger">Event is not published</span>
+                                                                                <span class="badge bg-danger">Event is not published</span>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
@@ -345,20 +341,20 @@ $event = Event::find_all();
                                                                         <tr>
                                                                             <td>Price</td>
                                                                             <td>
-                                                                                ₵20
+                                                                                <?php echo $details->ticket_price ?>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Quantity</td>
-                                                                            <td>200</td>
+                                                                            <td><?php echo $details->ticket_quantity ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Reference</td>
-                                                                            <td>9c33012c4d</td>
+                                                                            <td><?php echo $details->id ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Name</td>
-                                                                            <td>Virtual Ticket</td>
+                                                                            <td><?php echo $details->ticket_name ?></td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td>Currently in cart</td>
@@ -371,24 +367,6 @@ $event = Event::find_all();
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="table-responsive">
-                                            <table class="table table-borderless table-striped table-hover table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th colspan="2"><i class="fas fa-star fa-fw text-muted"></i> Reviews</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td width="30%">Count</td>
-                                                        <td>0</td>
-                                                    </tr>
-                                                </tbody>
-
                                             </table>
                                         </div>
                                     </div>
