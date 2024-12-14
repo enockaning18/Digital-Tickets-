@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Dec 11, 2024 at 05:42 PM
+-- Generation Time: Dec 14, 2024 at 07:37 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.15
 
@@ -118,12 +118,20 @@ INSERT INTO `event_copy` (`id`, `event_name`, `event_description`) VALUES
 CREATE TABLE `organizer` (
   `organizer_id` int(11) NOT NULL,
   `organizer_phone` varchar(200) NOT NULL,
+  `organizer_name` varchar(200) NOT NULL,
   `organizer_email` varchar(200) NOT NULL,
-  `organizer_first_nanme` varchar(200) NOT NULL,
-  `organizer_last_name` varchar(200) NOT NULL,
-  `organizer_username` varchar(200) NOT NULL,
   `organizer_password` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `organizer`
+--
+
+INSERT INTO `organizer` (`organizer_id`, `organizer_phone`, `organizer_name`, `organizer_email`, `organizer_password`) VALUES
+(1, '0556061647', 'Okyere', 'okyere@gmail.com', '$2y$10$5FKlk5tYM0FyEj6fUQrEF.HRzpE4IxyqpLfy2OvzrXVdF64PUA.a.'),
+(2, '0556061647', 'Okyere', 'okyere@gmail.com', '$2y$10$P5aishoAQ33AoWGLh8uAz.YeulD7uV0pOdTzkIXMXBPuS.z4MUMTG'),
+(3, '121', 'adawd', 'enock@gmail.com', '$2y$10$XPl/h5Ow.nBTI2a4a.t39ei8FBQ41gkawqoBAw7JKCDIlMn2fyXjS'),
+(4, '', '', '', '$2y$10$giaGhKFUOAxp6tdMMZtbuOzME8dK5hwCEeDIQ6UPVkfro06e7BO6u');
 
 -- --------------------------------------------------------
 
@@ -208,7 +216,7 @@ ALTER TABLE `event_copy`
 -- AUTO_INCREMENT for table `organizer`
 --
 ALTER TABLE `organizer`
-  MODIFY `organizer_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `organizer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `venue`

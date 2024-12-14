@@ -16,19 +16,27 @@ $venue = Venue::find_by_id($id);
 if (!$venue) {
     echo "Venue not found.";
     exit;
-}
-?>
+} ?>
+<div class="border col-md-12 col-lg-9 flex-column shadow-sm rounded 0-0 p-md-5">
 
-<div class="container mt-5">
-    <h2 class="mb-4"><?php echo h($venue->venue_name); ?></h2>
+    <div class="container mt-5">
+        <h2 class="mb-4"><?php echo h($venue->venue_name); ?></h2>
 
-    <div id="map" style="height: 400px; width: 100%;"></div>
+        <div id="map" style="height: 400px; width: 100%;"></div>
 
-    <h4 class="mt-4">Venue Details</h4>
-    <p><strong>Address:</strong> <?php echo h($venue->venue_address); ?></p>
-    <p><strong>City:</strong> <?php echo h($venue->venue_city); ?></p>
-    <p><strong>Region:</strong> <?php echo h($venue->venue_region); ?></p>
+        <h4 class="mt-4">Venue Details</h4>
+        <p><strong>Address:</strong> <?php echo h($venue->venue_address); ?></p>
+        <p><strong>City:</strong> <?php echo h($venue->venue_city); ?></p>
+        <p><strong>Region:</strong> <?php echo h($venue->venue_region); ?></p>
+    </div>
 </div>
+</section>
+</div>
+</container>
+
+
+</body>
+
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvmO1nQOx3Dfuef4Zn7SlLmzSp-6_wvlU"></script>
 <script>

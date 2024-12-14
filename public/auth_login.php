@@ -103,7 +103,7 @@
             <!-- Hamburger menu ends here -->
         </header>
 
-        <div class="container-lg p-0">
+        <div class=" p-0 container-md">
             <nav class="p-3 mx-auto d-none d-md-flex justify-content-between gap-2 mb-5">
                 <div><a href="" class="text-decoration-none text-black"> Discover</a> </div>
                 <div><a href="" class="text-decoration-none text-black"> Find Event</a></div>
@@ -112,3 +112,69 @@
                 <div><a href="" class="text-decoration-none text-black"> Premium Event</a> </div>
                 <div><a href="" class="text-decoration-none text-black"> Help Center</a> </div>
             </nav>
+        </div>
+    </container>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-4 offset-lg-4 mt-5 ">
+
+                <div class="col-12 mb-5 text-center">
+                    <h2 style="font-size:24px; font-weight:600; color: #333;">Welcome back!</h2>
+                    <p style="font-size:18px; font-weight:400; color: #333;">We're glad to see you again 👋</p>
+                </div>
+                <form action="/en/login_check" method="post">
+
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-0"> <i class="bi bi-person-check-fill p-1"></i> </span>
+                            </div>
+                            <input name="username" value="" class="form-control" placeholder="Mobile Number / Email / Username" type="text" >
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text border-0"><i class="bi bi-shield-lock-fill p-1"></i> </span>
+                            </div>
+                            <input name="password" class="form-control" placeholder="Password" type="password" >
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="remember_me" name="_remember_me" value="on">
+                            <label class="custom-control-label" for="remember_me">Remember me</label>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group mb-3 row">
+                        <button type="submit" name="submit" class="btn btn-primary btn-block col-12">Sign in</button>
+                    </div>
+                    <p class="text-center"><a href="/en/resetting/request">Forgot your password ?</a></p>
+                    <p class="text-center">Not a member yet ? <a href="/en/signup/attendee" class="text-primary _600">Sign up</a></p>
+                    <p class="text-center">Hosting an event ? <a href="auth_register_organizer.php" class="text-primary _600">Sign up as an organizer</a></p>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+
+<script src="../bootstrap-config/assets/vendor/libs/jquery/jquery.js"></script>
+<script src="../bootstrap-config/libs/popper/popper.js"></script>
+<script src="../bootstrap-config/js/bootstrap.js"></script>
+<script src="../bootstrap-config/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+<script src="../bootstrap-config/assets/vendor/js/menu.js"></script>
+<script src="../bootstrap-config/assets/js/main.js"></script>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>

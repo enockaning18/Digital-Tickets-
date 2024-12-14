@@ -77,7 +77,7 @@ $venue = Venue::find_all();
                         <!-- Event Column -->
                         <?php foreach ($venue as $venue) { ?>
                             <td>
-                                <span class="" style="color: #c3073f;"><a href="view_venue.php?id=<?php echo $venue->id ?>"><?php echo $venue->venue_name ?></a></span>
+                                <span class="" style="color: #c3073f;"><a href="view_venue.php?id=<?php echo $venue->id ?>" class="text-decoration-none text-black"><?php echo $venue->venue_name ?></a></span>
                             </td>
 
                             <td>
@@ -85,7 +85,7 @@ $venue = Venue::find_all();
                             </td>
 
                             <td>
-                                <span>0%</span>
+                                <span>0</span>
                             </td>
 
                             <td>
@@ -99,7 +99,7 @@ $venue = Venue::find_all();
                                         <i class="bi bi-stack" style="color: #c3073f"> Options</i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="my_venue.php?id=<?php echo $venue->id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
+                                        <a class="dropdown-item" href="my_venue.php?id=<?php echo $venue->id ?>"><i class="bx bx-edit-alt me-1 "></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
                                     </div>
                                 </div>
@@ -182,12 +182,7 @@ $venue = Venue::find_all();
         <?php }
         }
         ?>
-
-
-
     </div>
-
-    <iframe src="https://www.google.com/maps/place/Veronique+Heights/@6.6931539,-1.6469263,15z/data=!4m9!3m8!1s0xfdb97f652f9f903:0xa3df8c3c140c6850!5m2!4m1!1i2!8m2!3d6.6810479!4d-1.6315355!16s%2Fg%2F11kbkhpjnb?entry=ttu&g_ep=EgoyMDI0MTIwOC4wIKXMDSoASAFQAw%3D%3D" width="600" height="450" style="border:0;"></iframe>
 
 </div>
 </section>
