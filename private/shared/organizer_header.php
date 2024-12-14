@@ -1,3 +1,4 @@
+<?php require_once("../../private/initialize.php"); ?>
 <!DOCTYPE php>
 <php lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
@@ -34,18 +35,15 @@
                     <span class="input-group-text"><i class="bi bi-search fs-5 fw-bold lh-0 "></i></span>
                 </div>
 
-
                 <div class="nav-item dropdown">
-                    <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="bi bi-person-check-fill"></i> Name
+                    <a class="nav-link fs-5" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?>
                     </a>
                     <div class="dropdown-menu">
                         <li><a class="dropdown-item" href="organizer_dashboard.php">Dashboard</a></li>
                         <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
                     </div>
                 </div>
-
-
 
 
                 <div class="d-flex d-md-none ">

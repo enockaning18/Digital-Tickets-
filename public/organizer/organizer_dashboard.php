@@ -1,13 +1,13 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
-require_login(); 
+require_login();
 ?>
 
 
 
 <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
     <div class="">
-        <h3 style="color:#C3063F;">Hello, User!</h3>
+        <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ?>!</h3>
         <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events</p>
     </div>
 

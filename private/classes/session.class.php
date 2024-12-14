@@ -3,6 +3,7 @@
 class Session
 {
     private $organizer_id;
+    public $organizer_name;
 
 
     public function __construct()
@@ -15,8 +16,8 @@ class Session
     {
         if ($organizer) {
             session_regenerate_id();
-            $_SESSION['id'] = $organizer->id;
-            $this->organizer_id = $organizer->id;
+            $this->organizer_id = $_SESSION['id'] = $organizer->id;
+            $this->organizer_name = $_SESSION['organizer_name'] = $organizer->organizer_name;
         }
         return true;
     }
@@ -29,7 +30,9 @@ class Session
     public function logout()
     {
         unset($_SESSION['id']);
+        unset($_SESSION['organizer_name']);
         unset($this->organizer_id);
+        unset($this->organizer_name);
         return true;
     }
 
@@ -37,6 +40,7 @@ class Session
     {
         if (isset($_SESSION['id'])) {
             $this->organizer_id = $_SESSION['id'];
+            $this->organizer_name = $_SESSION['organizer_name'];
         }
     }
 }
