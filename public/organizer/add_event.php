@@ -1,7 +1,7 @@
 <?php
 include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
-
+require_login();
 $errors = [];
 
 if (isset($_POST['add_new_event'])) {

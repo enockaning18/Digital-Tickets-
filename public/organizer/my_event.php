@@ -1,6 +1,6 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
-
+require_login();
 $event = Event::find_all();
 ?>
 

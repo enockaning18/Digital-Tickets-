@@ -1,5 +1,7 @@
 <?php include("../../private/initialize.php");
-include(SHARED_PATH . "/organizer_header.php"); ?>
+include(SHARED_PATH . "/organizer_header.php");
+require_login(); 
+?>
 
 
 

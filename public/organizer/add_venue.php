@@ -1,6 +1,6 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
-
+require_login();
 $erros = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $args = $_POST['venue'];

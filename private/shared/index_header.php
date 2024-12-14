@@ -31,12 +31,12 @@
             <div class="d-none d-md-flex">
                 <button class="btn btn-outline-primary border-0" type="submit">
                     <div class="nav-item dropdown">
-                        <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Login
                         </a>
                         <div class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Attendee</a></li>
-                            <li><a class="dropdown-item" href="#">Organizer</a></li>
+                            <li><a class="dropdown-item" href="auth_login.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_login.php">Organizer</a></li>
                         </div>
                     </div>
                 </button>
@@ -47,8 +47,8 @@
                             Signup
                         </a>
                         <div class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Attendee</a></li>
-                            <li><a class="dropdown-item" href="#">Organizer</a></li>
+                            <li><a class="dropdown-item" href="auth_register_organizer.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_register_organizer.php">Organizer</a></li>
                         </div>
                     </div>
                 </button>

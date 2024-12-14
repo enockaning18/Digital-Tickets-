@@ -29,10 +29,13 @@ class Organizer extends databaseObject
         $this->organizer_password = password_hash($this->organizer_hashed_password, PASSWORD_BCRYPT);
     }
 
-    static public function find_by_organizer_email($organizer_email)
+
+
+
+    static public function find_by_organizer_email($email)
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
-        $query_command .= "WHERE organizer_email='" . self::$database->escape_string($organizer_email) . "'";
+        $query_command .= "WHERE organizer_email = '" . $email . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
             return array_shift($obj_array);
@@ -40,6 +43,13 @@ class Organizer extends databaseObject
             return false;
         }
     }
+
+
+    public function verify_password($password)
+    {
+        return password_verify($password, $this->organizer_password);
+    }
+
 
     protected function validate()
     {

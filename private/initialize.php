@@ -1,4 +1,7 @@
 <?php
+
+ob_start();
+
 define("PRIVATE_PATH", dirname(__FILE__));
 define("PROJECT_PATH", dirname(PRIVATE_PATH));
 define("PUBLIC_PATH", PROJECT_PATH . '/public');
@@ -40,4 +43,16 @@ databaseObject::set_database($database);
 function h($string = '')
 {
     return htmlspecialchars($string);
+}
+
+$session = new Session;
+
+function require_login()
+{
+    global $session;
+    if (!$session->is_logged_in()) {
+        header('Location: ../index.php');
+    } else {
+        #continue
+    }
 }

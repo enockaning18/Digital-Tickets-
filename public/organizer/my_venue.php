@@ -1,9 +1,8 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
+require_login();
 $id = $_GET['id'] ?? 'null';
 $venue = Venue::find_all();
-
-
 ?>
 
 

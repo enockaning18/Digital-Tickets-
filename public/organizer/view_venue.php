@@ -1,6 +1,7 @@
 <?php
 include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
+require_login();
 
 // Get venue ID from the URL
 $id = $_GET['id'] ?? null;

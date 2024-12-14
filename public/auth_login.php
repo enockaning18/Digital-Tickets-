@@ -1,3 +1,56 @@
+<?php
+include("../private/initialize.php");
+
+$errors = [];
+if (isset($_POST['auth_login'])) {
+    $email = $_POST['organizer_email'];
+    $password = $_POST['organizer_password'];
+
+    // Validate input
+    if (empty($email)) {
+        $errors[] = "Email can't be empty";
+    }
+    if (empty($password)) {
+        $errors[] = "Password can't be empty";
+    }
+
+    // Proceed only if there are no errors
+    if (empty($errors)) {
+        $organizer = Organizer::find_by_organizer_email($email);
+
+        if ($organizer && $organizer->verify_password($password)) {
+
+            $session->login($organizer);
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal.fire({
+                    title: 'Success! 🎉',
+                    text: 'Login Successfully!',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(function() {
+                    window.location.href = 'organizer/organizer_dashboard.php';
+                });
+            });
+            </script>";
+        } else {
+            // Error message for incorrect email or password
+            echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal.fire({
+                    title: 'Error! ❌',
+                    text: 'Invalid email or password!',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            });
+            </script>";
+        }
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
@@ -114,6 +167,35 @@
             </nav>
         </div>
     </container>
+    <?php if (!empty($errors)) { ?>
+
+        <div class="modal fade " id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="text-danger fs-5" id="exampleModalToggleLabel">
+                            <i class="bi bi-exclamation-diamond  me-1"></i>
+                            Error(s)
+                        </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <?php foreach ($errors as $error) { ?>
+                                <li><?php echo $error; ?></li>
+                            <?php } ?>
+                        </ul>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #c3063f">
+                            Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <?php } ?>
 
     <div class="container">
         <div class="row">
@@ -123,14 +205,14 @@
                     <h2 style="font-size:24px; font-weight:600; color: #333;">Welcome back!</h2>
                     <p style="font-size:18px; font-weight:400; color: #333;">We're glad to see you again 👋</p>
                 </div>
-                <form action="/en/login_check" method="post">
+                <form id="auth_login_form" action="" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group mb-3">
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text border-0"> <i class="bi bi-person-check-fill p-1"></i> </span>
                             </div>
-                            <input name="username" value="" class="form-control" placeholder="Mobile Number / Email / Username" type="text" >
+                            <input name="organizer_email" value="" class="form-control" placeholder="Mobile Number / Email / Username" type="text">
                         </div>
                     </div>
 
@@ -139,7 +221,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text border-0"><i class="bi bi-shield-lock-fill p-1"></i> </span>
                             </div>
-                            <input name="password" class="form-control" placeholder="Password" type="password" >
+                            <input name="organizer_password" class="form-control" placeholder="Password" type="password">
                         </div>
                     </div>
 
@@ -152,7 +234,7 @@
 
 
                     <div class="form-group mb-3 row">
-                        <button type="submit" name="submit" class="btn btn-primary btn-block col-12">Sign in</button>
+                        <button type="submit" name="auth_login" class="btn btn-primary btn-block col-12">Sign in</button>
                     </div>
                     <p class="text-center"><a href="/en/resetting/request">Forgot your password ?</a></p>
                     <p class="text-center">Not a member yet ? <a href="/en/signup/attendee" class="text-primary _600">Sign up</a></p>
@@ -164,17 +246,17 @@
         </div>
     </div>
 </body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+        modal.show();
+    });
+</script>
 
 
-
-
-<script src="../bootstrap-config/assets/vendor/libs/jquery/jquery.js"></script>
-<script src="../bootstrap-config/libs/popper/popper.js"></script>
-<script src="../bootstrap-config/js/bootstrap.js"></script>
-<script src="../bootstrap-config/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="../bootstrap-config/assets/vendor/js/menu.js"></script>
-<script src="../bootstrap-config/assets/js/main.js"></script>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
+</html>
+<script src="../bootstrap-config/sweetalert2/jquery-3.7.1.min.js"></script>
+<script src="../bootstrap-config/sweetalert2/sweetalert2.all.min.js"></script>
 
 </html>

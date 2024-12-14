@@ -34,10 +34,19 @@
                     <span class="input-group-text"><i class="bi bi-search fs-5 fw-bold lh-0 "></i></span>
                 </div>
 
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-outline-primary border-0" type="submit">Login</button>
-                    <button class="btn btn-primary" type="submit">Signup</button>
+
+                <div class="nav-item dropdown">
+                    <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-person-check-fill"></i> Name
+                    </a>
+                    <div class="dropdown-menu">
+                        <li><a class="dropdown-item" href="organizer_dashboard.php">Dashboard</a></li>
+                        <li><a class="dropdown-item" href="../logout.php">Logout</a></li>
+                    </div>
                 </div>
+
+
+
 
                 <div class="d-flex d-md-none ">
                     <!-- profile menu for small screens -->
@@ -214,29 +223,5 @@
                                     Account Settings
                                 </a>
                             </li>
-
-
-
-
-
-                            <!-- <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-person-vcard"></i>
-                                <a href="organizer_program.php" class="sidebar-link">My Organizer Program</a>
-                            </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center ">
-                                <i class="bi bi-patch-question"></i>
-                                <a href="help_center.php" class="sidebar-link">Help Center</a>
-                            </li>
-
-                            <li class="gap-2 ps-4 py-3 align-items-center">
-                                <i class="bi bi-person-gear"></i>
-                                <a href="account_settings.php" class="sidebar-link">Account Settings</a>
-                            </li> -->
                         </ul>
                     </div>
-
-
-
-
-                    <!-- Sidebar code remains the same -->
