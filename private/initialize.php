@@ -45,6 +45,15 @@ function h($string = '')
     return htmlspecialchars($string);
 }
 
+function slugify($text)
+{
+    // Replace non-alphanumeric characters with hyphens
+    $text = preg_replace('/[^A-Za-z0-9-]+/', '-', strtolower($text));
+    // Trim hyphens at the beginning and end
+    $text = trim($text, '-');
+    return $text;
+}
+
 $session = new Session;
 
 function require_login()

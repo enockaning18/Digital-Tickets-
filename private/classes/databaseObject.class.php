@@ -26,9 +26,6 @@ class databaseObject
         return $object_data;
     }
 
-
-
-
     public function sanitize_object_data()
     {
         $sanitize = [];
@@ -38,17 +35,6 @@ class databaseObject
         return $sanitize;
     }
 
-
-
-    // public function merge_object_data($args = [])
-    // {
-    //     foreach ($args as $key => $value) {
-    //         if (property_exists($this, $key) && !is_null($value)) {
-    //             $this->$key = $value;
-    //         }
-    //     }
-    // }
-
     public function merge_object_data($args = []) {
         foreach ($args as $key => $value) {
             if (property_exists($this, $key) && !is_null($value)) {
@@ -57,9 +43,6 @@ class databaseObject
         }
     }
     
-
-
-
     static protected function instantiate($record)
     {
         $object = new static;
@@ -123,17 +106,6 @@ class databaseObject
         $result = self::$database->query($query_command);
         return $result;
     }
-
-
-
-
-
-
-
-
-
-
-
 
     public function delete()
     {

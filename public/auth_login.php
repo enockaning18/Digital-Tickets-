@@ -108,10 +108,10 @@ if (isset($_POST['auth_login'])) {
             </div>
 
             <!-- Hamburger menu for small screens -->
-            <nav class="navbar bg-body-tertiary d-md-none">
-                <div class="container-fluid">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
+            <nav class="navbar d-md-none bg-white">
+                <div class="container-fluid bg-white" style="background-color:ffff; color:#c3073f">
+                    <button class="navbar-toggler bg-white" style=" color:#c3073f" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon text-success"></span>
                     </button>
                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
 
@@ -139,10 +139,34 @@ if (isset($_POST['auth_login'])) {
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Help Center</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Login</a>
-                                    <a class="nav-link" href="#">SignUp</a>
+
+                                <li>
+                                    <div class="nav-item dropdown <?php if ($session->is_logged_in()) {
+                                                                        echo 'd-none' ?? '';
+                                                                    } ?>">
+                                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Login
+                                        </a>
+                                        <div class="dropdown-menu border border-0">
+                                            <a class="dropdown-item" href="auth_login.php">Attendee</a>
+                                            <a class="dropdown-item" href="auth_login.php">Organizer</a>
+                                        </div>
+                                    </div>
                                 </li>
+                                <li>
+                                    <div class="nav-item dropdown <?php if ($session->is_logged_in()) {
+                                                                        echo 'd-none' ?? '';
+                                                                    } ?>">
+                                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Signup
+                                        </a>
+                                        <div class="dropdown-menu border border-0">
+                                            <a class="dropdown-item" href="auth_login.php">Attendee</a>
+                                            <a class="dropdown-item" href="auth_register_organizer.php">Organizer</a>
+                                        </div>
+                                    </div>
+                                </li>
+
 
                             </ul>
                             <form class="d-flex mt-3" role="search">

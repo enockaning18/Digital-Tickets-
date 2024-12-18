@@ -1,7 +1,21 @@
 <?php require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
 $event = Event::find_all();
+
 ?>
+<!-- Hero Section -->
+<div class="hero-section text-center" style=" padding: 50px 20px;">
+    <h1 style="font-size: 3rem; color: #333; margin-bottom: 20px;">
+        Welcome to Ghana's Premier Event Hub
+    </h1>
+    <p style="font-size: 1.25rem; color: #555; max-width: 700px; margin: 0 auto;">
+        Discover and secure tickets for the most exciting events happening across Ghana.
+        From concerts to workshops, we’ve got something for everyone!
+    </p>
+    <a href="discover.php" class="btn btn-primary mt-4" style="font-size: 1rem; padding: 10px 20px; color: #fff;">
+        Discover Events
+    </a>
+</div>
 
 <section class="mt-5 m-0">
     <div class="d-flex flex-column text-center justify-content-center">
@@ -20,7 +34,11 @@ $event = Event::find_all();
                             <p class="card-text mb-0">Location: <?php echo $event->event_venue ?></p>
                             <p class="card-text mb-0">Time: <?php echo $event->event_date_time_start ?></p>
                             <p class="card-text ">Price: GHC <?php echo $event->ticket_price ?>.00</p>
-                            <a href="view_ticket.php?id=<?php echo $event->id ?>" class="btn btn-primary col-12">Buy Ticket</a>
+                            <?php
+                            $event_name_slug = slugify($event->event_name);
+                            ?>
+                            <a href="view_ticket.php?event=<?php echo urlencode($event_name_slug) ?>&id=<?php echo $event->id ?>" class="btn btn-primary col-12">Buy Ticket</a>
+
                         </div>
                     </div>
                 </li>

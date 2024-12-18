@@ -27,7 +27,9 @@
         <container>
             <header class="d-flex justify-content-between align-items-center shadow-sm p-3">
                 <div>
-                    <a href="../index.php"><img src="../../bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt=""></a>
+                    <a href="../index.php">
+                        <img src="../../bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt="">
+                    </a>
                 </div>
 
                 <div class="input-group d-none d-md-flex border-0 nav-item" style="max-width: 500px;">
@@ -64,44 +66,47 @@
 
                                 <div class="offcanvas-body">
                                     <ul class="list-unstyled m-0 p-0">
-                                        <li>
-                                            <a href="organizer_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-speedometer2 me-2"></i> Dashboard
+                                        <li class=" align-items-center ">
+                                            <a href="admin_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-speedometer2 me-2"></i>
+                                                Dashboard
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-calendar-check me-2"></i> Add A New Event
+                                        <li class=" align-items-center ">
+                                            <a href="admin_add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-calendar-check me-2"></i>
+                                                Add A New Event
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="my_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-calendar-plus me-2"></i> My Event
+                                        <li class=" align-items-center ">
+                                            <a href="admin_organizers.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-calendar-plus me-2"></i>
+                                                Organizers
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="my_venues.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-geo-alt-fill me-2"></i> My Venues
+                                        <li class=" align-items-center ">
+                                            <a href="admin_attendees.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-geo me-2"></i>
+                                                Attendees
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="add_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-geo me-2"></i> Add A New Venue
+                                        <li class=" align-items-center ">
+                                            <a href="admin_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-geo-alt-fill me-2"></i>
+                                                Venues
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="organizer_program.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-person-vcard me-2"></i> My Organizer Program
+                                        <li class=" align-items-center ">
+                                            <a href="ordered_ticket.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-patch-question me-2"></i>
+                                                Ordered Ticket
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-patch-question me-2"></i> Help Center
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-person-gear me-2"></i> Account Settings
+
+                                        <li class=" align-items-center ">
+                                            <a href="admin_account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-person-gear me-2"></i>
+                                                Account Settings
                                             </a>
                                         </li>
                                     </ul>
@@ -177,46 +182,45 @@
                     <!-- Sidebar code remains the same -->
                     <div class="border d-none d-md-flex flex-column shadow-sm col-lg-2 p-0 rounded">
                         <ul class="list-unstyled m-0 p-0">
-
                             <li class=" align-items-center ">
-                                <a href="organizer_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_dashboard.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-speedometer2 me-2"></i>
                                     Dashboard
                                 </a>
                             </li>
                             <li class=" align-items-center ">
-                                <a href="add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_add_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-calendar-check me-2"></i>
                                     Add A New Event
                                 </a>
                             </li>
                             <li class=" align-items-center ">
-                                <a href="my_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_organizers.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-calendar-plus me-2"></i>
-                                    My Event
+                                    Organizers
                                 </a>
                             </li>
                             <li class=" align-items-center ">
-                                <a href="add_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_attendees.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-geo me-2"></i>
-                                    Add A New Venue
+                                    Attendees
                                 </a>
                             </li>
                             <li class=" align-items-center ">
-                                <a href="my_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-geo-alt-fill me-2"></i>
-                                    My Venues
+                                    Venues
                                 </a>
                             </li>
                             <li class=" align-items-center ">
-                                <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="ordered_ticket.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-patch-question me-2"></i>
-                                    Help Center
+                                    Ordered Ticket
                                 </a>
                             </li>
 
                             <li class=" align-items-center ">
-                                <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                <a href="admin_account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-person-gear me-2"></i>
                                     Account Settings
                                 </a>

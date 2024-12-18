@@ -1,9 +1,36 @@
-<?php require_once('../private/initialize.php');
+<?php 
+require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
-$id = $_GET['id'] ?? 1;
 
-$event = Event::find_by_id($id);
+// Get event ID and slug from URL
+$event_id = $_GET['id'] ?? null;
+$event_slug = $_GET['event_name'] ?? null;
+
+// Fetch the event details using the ID
+if ($event_id) {
+    $event = Event:: find_by_id($event_id); // Fetch event from database
+
+    if ($event) {
+        // Generate the correct slug from the event name
+        $correct_slug = slugify($event->event_name);
+
+        // Check if the slug in the URL matches the correct slug
+        if ($correct_slug !== $event_slug) {
+            // Redirect to the correct URL if slugs don't match
+            header("Location: view_ticket.php?event_name=$correct_slug&id=$event_id");
+            exit();
+        }
+    } else {
+        echo "Event not found.";
+        exit();
+    }
+} else {
+    echo "Invalid event ID.";
+    exit();
+}
 ?>
+
+
 
 <section class="mt-5 m-0 row d-flex justify-content-around ">
     <div class="border col-sm-12 col-lg-5 p-0 rounded shadow rounded">
