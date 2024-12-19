@@ -41,8 +41,8 @@
                 </div>
             </div>
 
-            <div class="d-none d-md-flex">
-                <?php if (!$session->is_logged_in()) { ?>
+            <?php if (!$session->is_logged_in()) { ?>
+                <div class="d-none d-md-flex">
                     <button class="btn btn-outline-primary border-0" type="submit">
                         <div class="nav-item dropdown">
                             <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -66,8 +66,8 @@
                             </div>
                         </div>
                     </button>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } ?>
 
             <!-- Hamburger menu for small screens -->
             <nav class="navbar d-md-none bg-white">

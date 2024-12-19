@@ -26,6 +26,24 @@ class databaseObject
         return $object_data;
     }
 
+    public function object_data_for_insert()
+    {
+        $object_data = [];
+        foreach (static::$table_column as $column) {
+            $object_data[$column] = $this->$column;
+        }
+        return $object_data;
+    }
+
+    public function sanitize_object_data_for_insert()
+    {
+        $sanitize = [];
+        foreach ($this->object_data_for_insert() as $key => $value) {
+            $sanitize[$key] = self::$database->escape_string($value);
+        }
+        return $sanitize;
+    }
+
     public function sanitize_object_data()
     {
         $sanitize = [];
@@ -35,14 +53,15 @@ class databaseObject
         return $sanitize;
     }
 
-    public function merge_object_data($args = []) {
+    public function merge_object_data($args = [])
+    {
         foreach ($args as $key => $value) {
             if (property_exists($this, $key) && !is_null($value)) {
                 $this->$key = $value; // Updates the object property
             }
         }
     }
-    
+
     static protected function instantiate($record)
     {
         $object = new static;
@@ -74,7 +93,7 @@ class databaseObject
     public function create()
     {
         // Get sanitized object data for insertion
-        $object_data = $this->sanitize_object_data();
+        $object_data = $this->sanitize_object_data_for_insert();
         if (isset($this->image)) {
             $object_data['image'] = $this->image;
         }
@@ -133,5 +152,21 @@ class databaseObject
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
         return static::find_by_query_command($query_command);
+    }
+
+    public function uniqid_code_for_reference($length = 10)
+    {
+        // Generate an MD5 hash and shuffle the characters
+        return substr(str_shuffle(md5(uniqid(mt_rand(), true))), 0, $length);
+    }
+
+    public function uniqid_code_for_id($length = 7)
+    {
+        $numbers = '0123456789';
+        $code = '';
+        for ($i = 0; $i < $length; $i++) {
+            $code .= $numbers[random_int(0, strlen($numbers) - 1)];
+        }
+        return $code;
     }
 }

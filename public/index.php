@@ -37,7 +37,7 @@ $event = Event::find_all();
                             <?php
                             $event_name_slug = slugify($event->event_name);
                             ?>
-                            <a href="view_ticket.php?event=<?php echo urlencode($event_name_slug) ?>&id=<?php echo $event->id ?>" class="btn btn-primary col-12">Buy Ticket</a>
+                            <a href="view_ticket.php?event=<?php echo urlencode($event_name_slug) ?>&event_reference_id=<?php echo $event->event_reference_id ?>" class="btn btn-primary col-12">Buy Ticket</a>
 
                         </div>
                     </div>

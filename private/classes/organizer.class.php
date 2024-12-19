@@ -6,12 +6,14 @@ class Organizer extends databaseObject
 
     static protected $database;
     static protected $table_name = 'organizer';
-    static protected $table_column = ['organizer_phone', 'organizer_name', 'organizer_email', 'organizer_password'];
+    static protected $table_column = ['id','organizer_reference_id', 'organizer_phone', 'organizer_name', 'organizer_email', 'organizer_password'];
     public $errors = [];
 
 
     public function __construct($args = [])
     {
+        $this->id = $this->uniqid_code_for_id() ?? '';
+        $this->organizer_reference_id = $this->uniqid_code_for_reference() ?? '';
         $this->organizer_phone = $args['organizer_phone'] ?? '';
         $this->organizer_name = $args['organizer_name'] ?? '';
         $this->organizer_email = $args['organizer_email'] ?? '';
@@ -78,4 +80,5 @@ class Organizer extends databaseObject
     public $organizer_email;
     public $organizer_password;
     public $organizer_hashed_password;
+    public $organizer_reference_id;
 }

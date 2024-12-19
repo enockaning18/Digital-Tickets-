@@ -14,9 +14,6 @@ if (isset($_POST['add_new_event'])) {
     if (empty($args['event_contact'])) {
         $errors[] = "Event Contact can't be empty";
     }
-    if (empty($args['image'])) {
-        $errors[] = "Event Image must be uploaded";
-    }
     if (empty($args['ticket_quantity'])) {
         $errors[] = "Event Ticket Quantity can't be empty";
     }

@@ -1,14 +1,14 @@
-<?php 
+<?php
 require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
 
 // Get event ID and slug from URL
-$event_id = $_GET['id'] ?? null;
+$event_reference_id = $_GET['event_reference_id'] ?? null;
 $event_slug = $_GET['event_name'] ?? null;
 
 // Fetch the event details using the ID
-if ($event_id) {
-    $event = Event:: find_by_id($event_id); // Fetch event from database
+if ($event_reference_id) {
+    $event = Event::find_by_reference_id($event_reference_id); // Fetch event from database
 
     if ($event) {
         // Generate the correct slug from the event name
@@ -17,7 +17,7 @@ if ($event_id) {
         // Check if the slug in the URL matches the correct slug
         if ($correct_slug !== $event_slug) {
             // Redirect to the correct URL if slugs don't match
-            header("Location: view_ticket.php?event_name=$correct_slug&id=$event_id");
+            header("Location: view_ticket.php?event_name=$correct_slug&event_reference_id=$event_reference_id");
             exit();
         }
     } else {
@@ -189,7 +189,7 @@ if ($event_id) {
                     </div>
 
                     <div class="d-flex flex-column align-items-start">
-                        <div>Okyere’s Awards</div>
+                        <div><?php echo $event->organizer_name ?></div>
                         <div class="d-flex gap-2 py-1 px-4 border  rounded mt-1">Follow</div>
                     </div>
 
