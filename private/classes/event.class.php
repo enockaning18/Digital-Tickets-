@@ -37,15 +37,10 @@ class Event extends databaseObject
 
     static public function find_by_reference_id($id)
     {
-        $query_command = "SELECT organizer.organizer_name, organizer.organizer_phone, organizer.organizer_email, ";
-        $query_command .= " organizer.organizer_name, organizer.organizer_phone, organizer.organizer_email, ";
-        $query_command .= " event.event_name, event.event_reference_id,event.event_description, event.event_category, event.image, ";
-        $query_command .= " event.event_contact, event.event_email, event.event_date_time_start, event.event_date_time_end,  ";
-        $query_command .= " event.event_mode, event.event_venue, event.ticket_name, event.ticket_price, event.ticket_type, ";
-        $query_command .= " event.ticket_name, event.ticket_price, event.ticket_type, event.ticket_quantity";
+        $query_command = "SELECT * ";
         $query_command .= " FROM " . static::$table_name . " ";
-        $query_command .= " JOIN `organizer` ON event.organizer_id  = organizer.id ";
-        $query_command .= " WHERE event.organizer_id = '" . $id . "' ";
+        $query_command .= " JOIN `organizer` ON organizer_id  = organizer.id ";
+        $query_command .= " WHERE organizer_id = '" . $id . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
             return array_shift($obj_array);

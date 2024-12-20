@@ -142,7 +142,7 @@
             <!-- Hamburger menu ends here -->
         </header>
 
-        <div class="container-lg p-0">
+        <div class="container-xl p-0">
             <nav class="p-3 mx-auto d-none d-md-flex justify-content-between gap-2 mb-5">
                 <div><a href="" class="text-decoration-none text-black"> Discover</a> </div>
                 <div><a href="" class="text-decoration-none text-black"> Find Event</a></div>

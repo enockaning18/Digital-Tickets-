@@ -17,7 +17,7 @@ if ($event_reference_id) {
         // Check if the slug in the URL matches the correct slug
         if ($correct_slug !== $event_slug) {
             // Redirect to the correct URL if slugs don't match
-            header("Location: view_ticket.php?event_name=$correct_slug&event_reference_id=$event_reference_id");
+            header("Location: view_event.php?event_name=$correct_slug&event_reference_id=$event_reference_id");
             exit();
         }
     } else {
