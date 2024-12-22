@@ -21,6 +21,7 @@ require_once('db_functions.php');
 require_once('status_error_functions.php');
 require_once('validation_functions.php');
 require_once('shared/scripts.php');
+require_once '../../vendor/autoload.php';
 
 $database = db_connection();
 
@@ -65,3 +66,16 @@ function require_login()
         #continue
     }
 }
+
+
+$client_id = '733098577785-o0ei2ogi9fh6on2a9u5vt67p1vdu7ir0.apps.googleusercontent.com';
+$client_secret = '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';
+$redirect_url = 'http://localhost/event/public/organizer/organizer_dashboard.php';
+
+// create Client Request to access Google API
+$client = new Google_Client();
+$client->setClientId($client_id);
+$client->setClientSecret($client_secret);
+$client->setRedirectUri($redirect_url);
+$client->addScope("email");
+$client->addScope("profile");
