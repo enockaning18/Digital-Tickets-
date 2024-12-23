@@ -1,6 +1,8 @@
 <?php require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
 $event = Event::find_all();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 ?>
 <!-- Hero Section -->

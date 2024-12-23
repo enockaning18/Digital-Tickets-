@@ -162,7 +162,7 @@ if ($event_reference_id) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button>
+                                  <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a>  
                                 </div>
                             </div>
                         </div>

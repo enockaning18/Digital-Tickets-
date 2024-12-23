@@ -288,6 +288,7 @@ if (isset($_POST['auth_register_organizer'])) {
                         <button type="submit" name="auth_register_organizer" class=" col btn btn-primary btn-block p-2">Create Account</button>
                     </div>
                     <p class="text-center">Already have an account? <a href="auth_login.php">Sign in</a></p>
+                    <a href="<?php echo $client->createAuthUrl() ?> ">Google Login</a>;
                 </form>
             </div>
         </div>

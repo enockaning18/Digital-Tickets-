@@ -1,6 +1,9 @@
 <?php
 
 ob_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 
 define("PRIVATE_PATH", dirname(__FILE__));
 define("PROJECT_PATH", dirname(PRIVATE_PATH));
@@ -21,7 +24,8 @@ require_once('db_functions.php');
 require_once('status_error_functions.php');
 require_once('validation_functions.php');
 require_once('shared/scripts.php');
-require_once '../../vendor/autoload.php';
+require_once('vendor/autoload.php');
+
 
 $database = db_connection();
 
