@@ -28,9 +28,8 @@ if (isset($_GET['code'])) {
         $userinfo = mysqli_fetch_assoc($result);
         $token = $userinfo['token'];
     } else {
-        // user is not exists
-        $query_command = "INSERT INTO oauth_google_users (email, first_name, last_name, gender, full_name, picture, verifiedEmail, token) VALUES ('{$userinfo['email']}', '{$userinfo['first_name']}', '{$userinfo['last_name']}', '{$userinfo['gender']}', '{$userinfo['full_name']}', '{$userinfo['picture']}', '{$userinfo['verifiedEmail']}', '{$userinfo['token']}')";
-        $result = mysqli_query($database, $query_command);
+        $oauth_google_user = new oauth_google_organizer($userinfo);
+        $result = $oauth_google_user->create();
         if ($result) {
             $token = $userinfo['token'];
         } else {
@@ -43,13 +42,13 @@ if (isset($_GET['code'])) {
     $_SESSION['user_token'] = $token;
 } else {
     if (!isset($_SESSION['user_token'])) {
-        header("Location: ../index.php");
+        header("Location: ../indexas.php");
         die();
     }
 
     // checking if user is already exists in database
-    $sql = "SELECT * FROM auth_google_organizers WHERE token ='{$_SESSION['user_token']}'";
-    $result = mysqli_query($conn, $sql);
+    $query_command = "SELECT * FROM oauth_google_users WHERE token ='{$_SESSION['user_token']}'";
+    $result = mysqli_query($database, $query_command);
     if (mysqli_num_rows($result) > 0) {
         // user is exists
         $userinfo = mysqli_fetch_assoc($result);
@@ -58,14 +57,14 @@ if (isset($_GET['code'])) {
 
 
 
-// require_login();
+require_login();
 ?>
 
 
 
 <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
     <div class="">
-        <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ?>!</h3>
+        <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ??  $userinfo['full_name']; ?> !</h3>
         <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events <?php echo $userinfo['email']; ?></p>
     </div>
 

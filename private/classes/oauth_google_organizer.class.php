@@ -39,17 +39,17 @@ class oauth_google_organizer extends databaseObject
 
 
 
-    static public function find_by_organizer_email($email)
-    {
-        $query_command = "SELECT * FROM " . static::$table_name . " ";
-        $query_command .= "WHERE organizer_email = '" . $email . "' ";
-        $obj_array = static::find_by_query_command($query_command);
-        if (!empty($obj_array)) {
-            return array_shift($obj_array);
-        } else {
-            return false;
-        }
-    }
+    // static public function find_by_organizer_email($email)
+    // {
+    //     $query_command = "SELECT * FROM " . static::$table_name . " ";
+    //     $query_command .= "WHERE organizer_email = '" . $email . "' ";
+    //     $obj_array = static::find_by_query_command($query_command);
+    //     if (!empty($obj_array)) {
+    //         return array_shift($obj_array);
+    //     } else {
+    //         return false;
+    //     }
+    // }
 
 
 
