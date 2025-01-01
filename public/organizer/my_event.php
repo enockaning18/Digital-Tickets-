@@ -142,7 +142,12 @@ if ($event) { ?>
                             </td>
 
                             <td>
-                                <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;"> Not published</span>
+                                <?php if ($event->status === '1') { ?>
+                                    <span class="p-2 fs-6 fs-md-5 bg-success text-white">Published</span>
+                                <?php } else {  ?>
+                                    <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Not Published</span>
+                                <?php } ?>
+
                             </td>
 
                             <td>
@@ -161,7 +166,7 @@ if ($event) { ?>
                                                 <i class="bi bi-file-earmark-text me-2"></i> Details
                                         </a>
                                         <a class="dropdown-item" href="edit_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
-                                        <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
+                                        <a class="dropdown-item" href="publish_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
                                         <a class="dropdown-item" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
                                     </div>
                                 </div>

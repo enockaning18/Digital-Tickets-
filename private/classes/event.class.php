@@ -11,7 +11,7 @@ class Event extends databaseObject
         'event_date_time_end', 'event_mode',
         'event_venue', 'ticket_name',
         'ticket_type', 'ticket_price',
-        'ticket_quantity', 'event_reference_id', 'organizer_id'
+        'ticket_quantity', 'event_reference_id', 'organizer_id', 'status'
     ];
 
     public function __construct($args = [])
@@ -33,19 +33,38 @@ class Event extends databaseObject
         $this->ticket_type = $args['ticket_type'] ?? '';
         $this->ticket_quantity = $args['ticket_quantity'] ?? '';
         $this->organizer_id = $_SESSION['id'] ?? '';
+        $this->status = 0;
     }
 
     static public function find_by_reference_id($id)
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
         $query_command .= " JOIN `organizer` ON organizer_id  = organizer.id ";
-        $query_command .= " WHERE event_reference_id = '" . $id . "' ";
+        $query_command .= " WHERE organizer_id = '" . $id . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
             return array_shift($obj_array);
         } else {
             return false;
         }
+    }
+
+    static public function find_event_published()
+    {
+        $query_command = "SELECT * FROM " . static::$table_name . " ";
+        $query_command .= " WHERE status = '" . 1 . "' ";
+        return static::find_by_query_command($query_command);
+    }
+
+
+    public function publish_event($event_reference_id)
+    {
+        $query_command = "UPDATE " . static::$table_name . " SET ";
+        $query_command .= " status = '" . 1 . "' ";
+        $query_command .= " WHERE event_reference_id= '" . $event_reference_id . "' ";
+        $query_command .= "LIMIT 1";
+        $result = self::$database->query($query_command);
+        return $result;
     }
 
 
@@ -108,4 +127,5 @@ class Event extends databaseObject
     public $event_reference_id;
     public $organizer_id;
     public $organizer_name;
+    public $status;
 }
