@@ -51,6 +51,7 @@ ini_set('display_errors', 1);
 </section>
 </div>
 </container>
+<?php include('../private/shared/index_footer.php'); ?>
 
 
 </body>

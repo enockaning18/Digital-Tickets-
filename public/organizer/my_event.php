@@ -1,7 +1,7 @@
 <?php include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
 require_login();
-$organizer_id = $_SESSION['id'];
+$organizer_id = $_SESSION['id'] ?? $_SESSION['user_token'];
 $event = Event::find_by_reference_id($organizer_id);
 
 if ($event) { ?>

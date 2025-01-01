@@ -41,8 +41,8 @@ if (isset($_GET['code'])) {
     // save user data into session
     $_SESSION['user_token'] = $token;
 } else {
-    if (!isset($_SESSION['user_token'])) {
-        header("Location: ../indexas.php");
+    if (!isset($_SESSION['user_token']) && !isset($_SESSION['id'])) {
+        header("Location: ../index.php");
         die();
     }
 
@@ -65,7 +65,7 @@ require_login();
 <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
     <div class="">
         <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ??  $userinfo['full_name']; ?> !</h3>
-        <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events <?php echo $userinfo['email']; ?></p>
+        <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events <?php echo $userinfo['email'] ?? $session->organizer_name; ?></p>
     </div>
 
     <div class="d-flex flex-column">

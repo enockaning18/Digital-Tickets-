@@ -287,8 +287,19 @@ if (isset($_POST['auth_register_organizer'])) {
                     <div class="form-group row mb-3">
                         <button type="submit" name="auth_register_organizer" class=" col btn btn-primary btn-block p-2">Create Account</button>
                     </div>
-                    <p class="text-center">Already have an account? <a href="auth_login.php">Sign in</a></p>
-                    <a href="<?php echo $client->createAuthUrl() ?> ">Google Login</a>;
+                    <a id="google-login" class="text-decoration-none" href="<?php echo $client->createAuthUrl(); ?>">
+                        <div class="form-group row mb-3">
+                            <button type="submit" name="auth_register_organizer" style="color:#c3063f; border-color:#c3063f" class=" btn  rounded btn-block p-2"> <i class="bi bi-google me-2"></i>Continue with Google</button>
+                        </div>
+                    </a>
+                    <p class="text-center">Already have an account?
+                        <a href="auth_login.php">Sign in</a>
+                    </p>
+
+                    <div id="page-loader" class="loader-overlay">
+                        <div class="loader"></div>
+                    </div>
+
                 </form>
             </div>
         </div>
@@ -297,12 +308,37 @@ if (isset($_POST['auth_register_organizer'])) {
 
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="../bootstrap-config/css/style.css" rel="stylesheet" />
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
         modal.show();
     });
+
+
+    // loader
+    document.addEventListener("DOMContentLoaded", function() {
+        const loginLink = document.getElementById("google-login");
+        const loaderOverlay = document.getElementById("page-loader");
+
+        loginLink.addEventListener("click", function(event) {
+            // Show the loader overlay
+            loaderOverlay.style.display = "flex";
+
+            // Allow the browser to handle the redirection after showing the loader
+            setTimeout(() => {
+                window.location.href = loginLink.href;
+            }, 0); // Set to `0` to instantly redirect
+
+            // Prevent the default link click behavior
+            event.preventDefault();
+        });
+    });
 </script>
+
+
+
+
 
 
 </html>
