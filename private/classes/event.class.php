@@ -67,6 +67,17 @@ class Event extends databaseObject
         return $result;
     }
 
+    public function delete_event($event_reference_id)
+    {
+        $query = "DELETE FROM " . static::$table_name . " WHERE event_reference_id = ? LIMIT 1";
+        $stmt = self::$database->prepare($query);
+        $stmt->bind_param("s", $event_reference_id); // Use "s" for string binding
+        $stmt->execute();
+
+        return $stmt->affected_rows > 0; // Return true if rows were affected
+    }
+
+
 
 
     public function create_new_event()
