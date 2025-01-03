@@ -8,7 +8,7 @@ $event_slug = $_GET['event_name'] ?? null;
 
 // Fetch the event details using the ID
 if ($event_reference_id) {
-    $event = Event::find_by_reference_id($event_reference_id); // Fetch event from database
+    $event = Event::find_reference_at_view($event_reference_id); // Fetch event from database
 
     if ($event) {
         // Generate the correct slug from the event name
@@ -162,7 +162,7 @@ if ($event_reference_id) {
                                     </div>
                                 </div>
                                 <div class="modal-footer">
-                                  <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a>  
+                                    <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a>
                                 </div>
                             </div>
                         </div>

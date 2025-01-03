@@ -2,8 +2,8 @@
 include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
 require_login();
-$id = $_GET['id'] ?? 1;
-$event = Event::find_by_id($id);
+$id = $_GET['event_reference_id'] ?? 1;
+$event = Event::find_event_by_id($id);
 $errors = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_FILES['event']['name']['image']) && !empty($_FILES['event']['name']['image'])) {

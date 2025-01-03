@@ -5,65 +5,62 @@ class Attendee extends databaseObject
 
     static protected $database;
     static protected $table_name = 'attendee';
-    static protected $table_column = ['email', 'username', 'name', 'phone', 'password', 'birthdate', 'image'];
+    static protected $table_column = ['id', 'attendee_email', 'attendee_username', 'attendee_name', 'attendee_phone', 'attendee_password'];
 
 
     public function __construct($args = [])
     {
-        $this->email = $args['email'] ?? '';
-        $this->username = $args['username'] ?? '';
-        $this->name = $args['name'] ?? '';
-        $this->phone = $args['phone'] ?? '';
-        $this->password = $args['password'] ?? '';
-        $this->birthdate = $args['birthdate'] ?? '';
-        $this->image = $args['image'] ?? '';
+        $this->id = $this->uniqid_code_for_attendee_id();
+        $this->attendee_email = $args['attendee_email'] ?? '';
+        $this->attendee_username = $args['attendee_username'] ?? '';
+        $this->attendee_name = $args['attendee_name'] ?? '';
+        $this->attendee_phone = $args['attendee_phone'] ?? '';
+        $this->attendee_password = $args['attendee_password'] ?? '';
     }
 
-    public function create_new_attendee()
+    public function create_attendee()
     {
-        $file_name = $_FILES['image']['name'];
-        $file_size = $_FILES['image']['size'];
-        $file_temp = $_FILES['image']['tmp_name'];
-        $file_error = $_FILES['image']['error'];
-        $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $extension_allowed = ['jpg', 'png', 'jpeg', 'heic', 'svg', 'webp', 'bmp', 'tiff', 'ico'];
+        $this->set_hashed_password();
+        return parent::create();
+    }
 
-        $file_new_name = null;
-
-        // Validate file extension and size
-        if (in_array($file_extension, $extension_allowed)) {
-            if ($file_error === 0) {
-                if ($file_size < 5000000) { // 5 MB limit
-                    // Generate a unique name for the file
-                    $file_new_name = uniqid('', true) . "." . $file_extension;
-                    $file_directory = 'uploads/' . $file_new_name;
-
-                    // Move the uploaded file to the target directory
-                    if (!move_uploaded_file($file_temp, $file_directory)) {
-                        return false;
-                    }
-                    $this->image = $file_new_name;
-                } else {
-                    return false; // File size too large
-                }
-            } else {
-                return false; // File upload error
-            }
+    static public function find_by_attendee_email($email)
+    {
+        $query_command = "SELECT * FROM " . static::$table_name . " ";
+        $query_command .= "WHERE attendee_email = '" . $email . "' ";
+        $obj_array = static::find_by_query_command($query_command);
+        if (!empty($obj_array)) {
+            return array_shift($obj_array);
         } else {
-            return false; // Invalid file type
+            return false;
         }
-
-        return $this->create();
     }
 
 
+    public function uniqid_code_for_attendee_id($length = 7)
+    {
+        $numbers = '0123456789';
+        $code = '';
+        for ($i = 0; $i < $length; $i++) {
+            $code .= $numbers[random_int(0, strlen($numbers) - 1)];
+        }
+        return $code;
+    }
+
+    protected function set_hashed_password()
+    {
+        $this->attendee_hashed_password = password_hash($this->attendee_password, PASSWORD_BCRYPT);
+    }
+    public function verify_password($password)
+    {
+        return password_verify($password, $this->attendee_password);
+    }
 
     public $id;
-    public $email;
-    public $username;
-    public $name;
-    public $phone;
-    public $birthdate;
-    public $password;
-    public $image;
+    public $attendee_email;
+    public $attendee_username;
+    public $attendee_name;
+    public $attendee_phone;
+    public $attendee_password;
+    public $attendee_hashed_password;
 }

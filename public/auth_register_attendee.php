@@ -3,26 +3,28 @@ include("../private/initialize.php");
 
 $errors = [];
 
-if (isset($_POST['auth_register_organizer'])) {
-    $args = $_POST['organizer'];
+if (isset($_POST['auth_register_attendee'])) {
+    $args = $_POST['attendee'];
 
-    if (empty($args['organizer_phone'])) {
+    if (empty($args['attendee_phone'])) {
         $errors[] = "Phone Number can't be empty";
     }
-    if (empty($args['organizer_name'])) {
+    if (empty($args['attendee_name'])) {
         $errors[] = "Name can't be empty";
     }
-    if (empty($args['organizer_email'])) {
+    if (empty($args['attendee_email'])) {
         $errors[] = "Email can't be empty";
     }
-    if (empty($args['organizer_password'])) {
+    if (empty($args['attendee_password'])) {
         $errors[] = "Password can't be empty";
     }
 
     if (empty($errors)) {
-        $organizer = new Organizer($args);
-        $results = $organizer->create();
+        $attendee = new Attendee($args);
+        $results = $attendee->create_attendee();
         if ($results === true) {
+            $organizer = Attendee::find_by_attendee_email($args['attendee_email']);
+            $attendee_session->login($organizer);
             echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
                 swal.fire({
@@ -31,7 +33,7 @@ if (isset($_POST['auth_register_organizer'])) {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(function() {                
-                    window.location.href = 'organizer/organizer_dashboard.php';                
+                    window.location.href = 'attendee/my_ticket.php';                
                 });
             });
         </script>";
@@ -223,37 +225,37 @@ if (isset($_POST['auth_register_organizer'])) {
                 <h3 class="text-center" style="font-size:18px; font-weight:500; color: #343a40;">Creating an account is free and gets your event live in minutes.</h3>
             </div>
             <div class="col-xl-5 offset-xl-1 d-none d-xl-block">
-                <img src="../register-organizer.webp" class="img-fluid">
+                <!-- <img src="../register-organizer.webp" class="img-fluid"> -->
             </div>
             <div class="col-xl-4 col-12">
-                <form id="auth_register_organizer" action="" method="POST" enctype="multipart/form-data">
+                <form id="auth_register_attendee" action="" method="POST" enctype="multipart/form-data">
 
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-person-vcard-fill p-1"></i> </span>
                         </div>
-                        <input type="text" id="organizer_name" name="organizer[organizer_name] " placeholder="Organization / Individual Name" class="form-control border border-start-0">
+                        <input type="text" id="attendee_name" name="attendee[attendee_name] " placeholder="Individual Name" class="form-control border border-start-0">
 
                     </div>
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-person-lines-fill p-1"></i> </span>
                         </div>
-                        <input type="text" id="organizer_phone" name="organizer[organizer_phone]" placeholder="Mobile Number" class="form-control border border-start-0">
+                        <input type="text" id="attendee_phone" name="attendee[attendee_phone]" placeholder="Mobile Number" class="form-control border border-start-0">
 
                     </div>
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-envelope-check p-1"></i> </span>
                         </div>
-                        <input type="email" id="organizer_email" name="organizer[organizer_email]" placeholder="Email" class="form-control border border-start-0">
+                        <input type="email" id="attendee_email" name="attendee[attendee_email]" placeholder="Email" class="form-control border border-start-0">
 
                     </div>
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-shield-fill-exclamation p-1"></i> </span>
                         </div>
-                        <input type="password" id="organizer_password" name="organizer[organizer_password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
+                        <input type="password" id="attendee_password" name="attendee[attendee_password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
 
                     </div>
                     <!-- <div class="form-group mb-3">
@@ -285,11 +287,11 @@ if (isset($_POST['auth_register_organizer'])) {
                     </div>
 
                     <div class="form-group row mb-3">
-                        <button type="submit" name="auth_register_organizer" class=" col btn btn-primary btn-block p-2">Create Account</button>
+                        <button type="submit" name="auth_register_attendee" class=" col btn btn-primary btn-block p-2">Create Account</button>
                     </div>
                     <a id="google-login" class="text-decoration-none" href="<?php echo $client->createAuthUrl(); ?>">
                         <div class="form-group row mb-3">
-                            <button type="submit" name="auth_register_organizer" style="color:#c3063f; border-color:#c3063f" class=" btn  rounded btn-block p-2"> <i class="bi bi-google me-2"></i>Continue with Google</button>
+                            <button type="submit" name="auth_register_attendee_" style="color:#c3063f; border-color:#c3063f" class=" btn  rounded btn-block p-2"> <i class="bi bi-google me-2"></i>Continue with Google</button>
                         </div>
                     </a>
                     <p class="text-center">Already have an account?

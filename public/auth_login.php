@@ -33,6 +33,7 @@ if (isset($_POST['auth_login'])) {
                 });
             });
             </script>";
+            
         } else {
             // Error message for incorrect email or password
             echo "<script>
@@ -88,8 +89,8 @@ if (isset($_POST['auth_login'])) {
                             Login
                         </a>
                         <div class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Attendee</a></li>
-                            <li><a class="dropdown-item" href="#">Organizer</a></li>
+                            <li> <a class="dropdown-item" href="auth_login.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_login.php">Organizer</a></li>
                         </div>
                     </div>
                 </button>
@@ -100,8 +101,8 @@ if (isset($_POST['auth_login'])) {
                             Signup
                         </a>
                         <div class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Attendee</a></li>
-                            <li><a class="dropdown-item" href="#">Organizer</a></li>
+                            <li> <a class="dropdown-item" href="auth_register_attendee.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_register_organizer.php">Organizer</a></li>
                         </div>
                     </div>
                 </button>
@@ -161,7 +162,7 @@ if (isset($_POST['auth_login'])) {
                                             Signup
                                         </a>
                                         <div class="dropdown-menu border border-0">
-                                            <a class="dropdown-item" href="auth_login.php">Attendee</a>
+                                            <a class="dropdown-item" href="auth_register_attendee.php">Attendee</a>
                                             <a class="dropdown-item" href="auth_register_organizer.php">Organizer</a>
                                         </div>
                                     </div>

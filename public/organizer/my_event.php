@@ -162,11 +162,11 @@ if ($event) { ?>
                                         <i class="bi bi-stack" style="color: #c3073f"> Options</i>
                                     </button>
                                     <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="my_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1">
+                                        <a class="dropdown-item" href="my_event.php?id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1">
                                                 <i class="bx bx-edit-alt me-1 mb-2"></i>
                                                 <i class="bi bi-file-earmark-text me-2"></i> Details
                                         </a>
-                                        <a class="dropdown-item" href="edit_event.php?id=<?php echo $event->id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
+                                        <a class="dropdown-item" href="edit_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
                                         <a class="dropdown-item" href="publish_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
                                         <a class="dropdown-item delete-btn" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
                                     </div>
@@ -177,10 +177,12 @@ if ($event) { ?>
                     </tbody>
                 </table>
             </div>
+
+            <!-- View Event Details starts here -->
             <?php
             $id = $_GET['id'] ?? 'null';
             if (isset($id)) {
-                $details = Event::find_by_id($id);
+                $details = Event::find_event_by_id($id);
                 if ($details == true) { ?>
                     <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
@@ -202,7 +204,12 @@ if ($event) { ?>
                                                     <tbody>
                                                         <tr>
                                                             <td width="30%">Status</td>
-                                                            <td><span class="badge bg-danger">Event is not published</span></td>
+                                                            <td><?php if ($event->status === '1') { ?>
+                                                                    <span class="badge bg-success">Published</span>
+                                                                <?php } else {  ?>
+                                                                    <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
+                                                                <?php } ?>
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td width="30%">Title</td>
@@ -292,7 +299,11 @@ if ($event) { ?>
                                                                             <tr>
                                                                                 <td width="30%">Status</td>
                                                                                 <td>
-                                                                                    <span class="badge bg-danger">Event is not published</span>
+                                                                                    <?php if ($event->status === '1') { ?>
+                                                                                        <span class="badge bg-success">Published</span>
+                                                                                    <?php } else {  ?>
+                                                                                        <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
+                                                                                    <?php } ?>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -337,7 +348,11 @@ if ($event) { ?>
                                                                             <tr>
                                                                                 <td width="30%">Status</td>
                                                                                 <td>
-                                                                                    <span class="badge bg-danger">Event is not published</span>
+                                                                                    <?php if ($event->status === '1') { ?>
+                                                                                        <span class="badge bg-success">Published</span>
+                                                                                    <?php } else {  ?>
+                                                                                        <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
+                                                                                    <?php } ?>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

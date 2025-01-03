@@ -60,11 +60,22 @@ function slugify($text)
 }
 
 $session = new Session;
+$attendee_session = new Attendee_Session;
 
 function require_login()
 {
     global $session;
     if (!$session->is_logged_in()) {
+        header('Location: ../index.php');
+    } else {
+        #continue
+    }
+}
+
+function attendee_require_login()
+{
+    global $attendee_session;
+    if (!$attendee_session->is_logged_in()) {
         header('Location: ../index.php');
     } else {
         #continue

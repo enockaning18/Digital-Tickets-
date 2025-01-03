@@ -44,7 +44,7 @@ class Session
     {
         if (isset($_SESSION['id'])) {
             $this->organizer_id = $_SESSION['id'];
-            $this->organizer_name = $_SESSION['organizer_name'];
+            $this->organizer_name = $_SESSION['organizer_name'] ?? null;
         }
         if (isset($_SESSION['user_token'])) {
             $this->token = $_SESSION['user_token'];

@@ -23,9 +23,10 @@ if (isset($_POST['save'])) {
         <div class="card-body">
             <form action="" method="POST" enctype="multipart/form-data">
                 <div id="account_settings">
+
                     <div class="form-group mb-3">
-                        <label for="account_settings_email" class="required">Email</label>
-                        <input type="email" id="account_settings_email" name="attendee[email]" class="form-control">
+                        <label for="account_settings_name" class="required">Name</label>
+                        <input type="text" id="account_settings_name" name="attendee[name]" class="form-control">
                     </div>
 
                     <div class="form-group mb-3">
@@ -34,13 +35,8 @@ if (isset($_POST['save'])) {
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="account_settings_password" class="required">Password</label>
-                        <input type="text" id="account_settings_password" name="attendee[password]" class="form-control">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="account_settings_firstname" class="required">Name</label>
-                        <input type="text" id="account_settings_firstname" name="attendee[name]" class="form-control">
+                        <label for="account_settings_email" class="required">Email</label>
+                        <input type="email" id="account_settings_email" name="attendee[email]" class="form-control">
                     </div>
 
                     <div class="form-group mb-3">
@@ -48,16 +44,9 @@ if (isset($_POST['save'])) {
                         <input type="number" id="account_settings_phone" name="attendee[phone]" class="form-control">
                     </div>
 
-                    <div class="form-group mb-3">
-                        <label for="account_settings_birthdate">Birthdate</label>
-                        <input type="date" id="account_settings_birthdate" name="attendee[birthdate]" class="datepicker form-control">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label class="col-form-label">Profile picture</label>
-                        <div class="">
-                            <input type="file" name="image" id="upload" class="account-file-input form-control p-2" name="attendee[image]" required="required" maxlength="100" />
-                        </div>
+                    <div class="form-group mb-3 d-none">
+                        <label for="account_settings_password hidden" class="required">Password</label>
+                        <input type="hidden" id="account_settings_password" name="attendee[password]" class="form-control">
                     </div>
 
                     <div class="form-group ">

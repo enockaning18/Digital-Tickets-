@@ -61,7 +61,7 @@
                                 Signup
                             </a>
                             <div class="dropdown-menu">
-                                <li><a class="dropdown-item" href="auth_register_organizer.php">Attendee</a></li>
+                                <li><a class="dropdown-item" href="auth_register_attendee.php">Attendee</a></li>
                                 <li><a class="dropdown-item" href="auth_register_organizer.php">Organizer</a></li>
                             </div>
                         </div>
