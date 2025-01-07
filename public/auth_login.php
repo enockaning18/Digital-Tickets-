@@ -3,8 +3,8 @@ include("../private/initialize.php");
 
 $errors = [];
 if (isset($_POST['auth_login'])) {
-    $email = $_POST['organizer_email'];
-    $password = $_POST['organizer_password'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
 
     // Validate input
     if (empty($email)) {
@@ -33,19 +33,34 @@ if (isset($_POST['auth_login'])) {
                 });
             });
             </script>";
-            
+        } else if ($attendee = Attendee::find_by_attendee_email($email)) {
+            $attendee && $attendee->verify_password($password);
+
+            $attendee_session->login($attendee);
+            echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    swal.fire({
+                        title: 'Success! 🎉',
+                        text: 'Login Successfully!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(function() {
+                        window.location.href = 'attendee/my_ticket.php';
+                    });
+                });
+                </script>";
         } else {
             // Error message for incorrect email or password
             echo "<script>
-            document.addEventListener('DOMContentLoaded', function() {
-                swal.fire({
-                    title: 'Error! ❌',
-                    text: 'Invalid email or password!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
+        document.addEventListener('DOMContentLoaded', function() {
+            swal.fire({
+                title: 'Error! ❌',
+                text: 'Invalid email or password!',
+                icon: 'error',
+                confirmButtonText: 'OK'
             });
-            </script>";
+        });
+        </script>";
         }
     }
 }
@@ -237,7 +252,7 @@ if (isset($_POST['auth_login'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text border-0"> <i class="bi bi-person-check-fill p-1"></i> </span>
                             </div>
-                            <input name="organizer_email" value="" class="form-control" placeholder="Mobile Number / Email / Username" type="text">
+                            <input name="email" value="" class="form-control" placeholder="Mobile Number / Email / Username" type="text">
                         </div>
                     </div>
 
@@ -246,7 +261,7 @@ if (isset($_POST['auth_login'])) {
                             <div class="input-group-prepend">
                                 <span class="input-group-text border-0"><i class="bi bi-shield-lock-fill p-1"></i> </span>
                             </div>
-                            <input name="organizer_password" class="form-control" placeholder="Password" type="password">
+                            <input name="password" class="form-control" placeholder="Password" type="password">
                         </div>
                     </div>
 
@@ -261,6 +276,11 @@ if (isset($_POST['auth_login'])) {
                     <div class="form-group mb-3 row">
                         <button type="submit" name="auth_login" class="btn btn-primary btn-block col-12">Sign in</button>
                     </div>
+                    <a id="google-login" class="text-decoration-none" href="<?php echo $attendee_organizer->createAuthUrl(); ?>">
+                        <div class="form-group row mb-3">
+                            <button type="submit" name="auth_register_organizer" style="color:#c3063f; border-color:#c3063f" class=" btn  rounded btn-block p-2"> <i class="bi bi-google me-2"></i>Continue with Google</button>
+                        </div>
+                    </a>
                     <p class="text-center"><a href="/en/resetting/request">Forgot your password ?</a></p>
                     <p class="text-center">Not a member yet ? <a href="/en/signup/attendee" class="text-primary _600">Sign up</a></p>
                     <p class="text-center">Hosting an event ? <a href="auth_register_organizer.php" class="text-primary _600">Sign up as an organizer</a></p>
@@ -268,17 +288,47 @@ if (isset($_POST['auth_login'])) {
                 </form>
 
             </div>
+
+
+            <div id="page-loader" class="loader-overlay">
+                <div class="loader"></div>
+            </div>
         </div>
     </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<link href="../bootstrap-config/css/style.css" rel="stylesheet" />
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
         modal.show();
     });
-</script>
 
+    document.addEventListener("DOMContentLoaded", function() {
+        const modal = new bootstrap.Modal(document.getElementById('exampleModalToggle'));
+        modal.show();
+    });
+
+
+    // loader
+    document.addEventListener("DOMContentLoaded", function() {
+        const loginLink = document.getElementById("google-login");
+        const loaderOverlay = document.getElementById("page-loader");
+
+        loginLink.addEventListener("click", function(event) {
+            // Show the loader overlay
+            loaderOverlay.style.display = "flex";
+
+            // Allow the browser to handle the redirection after showing the loader
+            setTimeout(() => {
+                window.location.href = loginLink.href;
+            }, 0); // Set to `0` to instantly redirect
+
+            // Prevent the default link click behavior
+            event.preventDefault();
+        });
+    });
+</script>
 
 </html>
 <script src="../bootstrap-config/sweetalert2/jquery-3.7.1.min.js"></script>

@@ -78,7 +78,7 @@ $organizer = Organizer::find_all();
                                 <div class="d-flex justify-content-start align-items-center">
                                     <div class="avatar-wrapper">
                                         <div class="avatar me-2 rounded">
-                                            <img src="uploads/<?php echo $event->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                            <img src="uploads/<?php echo $organizer->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column">

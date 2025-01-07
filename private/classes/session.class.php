@@ -4,12 +4,13 @@ class Session
 {
     private $organizer_id;
     public $organizer_name;
-    public $token;
-
+    public $organizer_token;
 
     public function __construct()
     {
-        session_start();
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $this->check_stored_login();
     }
 
@@ -17,37 +18,38 @@ class Session
     {
         if ($organizer) {
             session_regenerate_id();
-            $this->organizer_id = $_SESSION['id'] = $organizer->id;
-            $this->organizer_name = $_SESSION['organizer_name'] = $organizer->organizer_name;
-            $this->token = $_SESSION['user_token'] = $organizer->token;
+            $this->organizer_id = $_SESSION['organizer_id'] = $organizer->id ?? null;
+            $this->organizer_name = $_SESSION['organizer_name'] = $organizer->organizer_name ?? null;
+            $this->organizer_token = $_SESSION['organizer_token'] = $organizer->organizer_token ?? null;
         }
         return true;
     }
 
     public function is_logged_in()
     {
-        return isset($this->organizer_id) || isset($this->token);
+        // Check if the session belongs to an organizer
+        return isset($_SESSION['organizer_id']) || isset($_SESSION['organizer_token']);
     }
 
     public function logout()
     {
-        unset($_SESSION['id']);
+        unset($_SESSION['organizer_id']);
         unset($_SESSION['organizer_name']);
-        unset($_SESSION['user_token']);
+        unset($_SESSION['organizer_token']);
         unset($this->organizer_id);
         unset($this->organizer_name);
-        unset($this->token);
+        unset($this->organizer_token);
         return true;
     }
 
     private function check_stored_login()
     {
-        if (isset($_SESSION['id'])) {
-            $this->organizer_id = $_SESSION['id'];
+        if (isset($_SESSION['organizer_id'])) {
+            $this->organizer_id = $_SESSION['organizer_id'];
             $this->organizer_name = $_SESSION['organizer_name'] ?? null;
         }
-        if (isset($_SESSION['user_token'])) {
-            $this->token = $_SESSION['user_token'];
+        if (isset($_SESSION['organizer_token'])) {
+            $this->organizer_token = $_SESSION['organizer_token'];
         }
     }
 }

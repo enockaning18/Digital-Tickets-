@@ -6,7 +6,7 @@ class Organizer extends databaseObject
 
     static protected $database;
     static protected $table_name = 'organizer';
-    static protected $table_column = ['id','organizer_reference_id', 'organizer_phone', 'organizer_name', 'organizer_email', 'organizer_password'];
+    static protected $table_column = ['id','organizer_reference_id', 'organizer_phone', 'organizer_name', 'email', 'password'];
     public $errors = [];
 
 
@@ -16,8 +16,8 @@ class Organizer extends databaseObject
         $this->organizer_reference_id = $this->uniqid_code_for_reference() ?? '';
         $this->organizer_phone = $args['organizer_phone'] ?? '';
         $this->organizer_name = $args['organizer_name'] ?? '';
-        $this->organizer_email = $args['organizer_email'] ?? '';
-        $this->organizer_hashed_password = $args['organizer_password'] ?? '';
+        $this->email = $args['email'] ?? '';
+        $this->organizer_hashed_password = $args['password'] ?? '';
     }
 
     public function create()
@@ -28,7 +28,7 @@ class Organizer extends databaseObject
 
     protected function set_hashed_password()
     {
-        $this->organizer_password = password_hash($this->organizer_hashed_password, PASSWORD_BCRYPT);
+        $this->password = password_hash($this->organizer_hashed_password, PASSWORD_BCRYPT);
     }
 
 
@@ -37,7 +37,7 @@ class Organizer extends databaseObject
     static public function find_by_organizer_email($email)
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
-        $query_command .= "WHERE organizer_email = '" . $email . "' ";
+        $query_command .= "WHERE email = '" . $email . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
             return array_shift($obj_array);
@@ -49,11 +49,11 @@ class Organizer extends databaseObject
 
     public function verify_password($password)
     {
-        return password_verify($password, $this->organizer_password);
+        return password_verify($password, $this->password);
     }
 
 
-    protected function validate()
+    protected function validate() 
     {
         $this->errors = [];
         if (!has_unique_username($args['organizer_email'] ?? 0)) {
@@ -77,8 +77,8 @@ class Organizer extends databaseObject
     public $id;
     public $organizer_phone;
     public $organizer_name;
-    public $organizer_email;
-    public $organizer_password;
+    public $email;
+    public $password;
     public $organizer_hashed_password;
     public $organizer_reference_id;
 }

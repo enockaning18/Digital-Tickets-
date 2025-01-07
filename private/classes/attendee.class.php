@@ -5,17 +5,17 @@ class Attendee extends databaseObject
 
     static protected $database;
     static protected $table_name = 'attendee';
-    static protected $table_column = ['id', 'attendee_email', 'attendee_username', 'attendee_name', 'attendee_phone', 'attendee_password'];
+    static protected $table_column = ['id', 'email', 'attendee_username', 'attendee_name', 'attendee_phone', 'password'];
 
 
     public function __construct($args = [])
     {
         $this->id = $this->uniqid_code_for_attendee_id();
-        $this->attendee_email = $args['attendee_email'] ?? '';
+        $this->email = $args['email'] ?? '';
         $this->attendee_username = $args['attendee_username'] ?? '';
         $this->attendee_name = $args['attendee_name'] ?? '';
         $this->attendee_phone = $args['attendee_phone'] ?? '';
-        $this->attendee_password = $args['attendee_password'] ?? '';
+        $this->password = $args['password'] ?? '';
     }
 
     public function create_attendee()
@@ -27,7 +27,7 @@ class Attendee extends databaseObject
     static public function find_by_attendee_email($email)
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
-        $query_command .= "WHERE attendee_email = '" . $email . "' ";
+        $query_command .= "WHERE email = '" . $email . "' ";
         $obj_array = static::find_by_query_command($query_command);
         if (!empty($obj_array)) {
             return array_shift($obj_array);
@@ -49,18 +49,18 @@ class Attendee extends databaseObject
 
     protected function set_hashed_password()
     {
-        $this->attendee_hashed_password = password_hash($this->attendee_password, PASSWORD_BCRYPT);
+        $this->attendee_hashed_password = password_hash($this->password, PASSWORD_BCRYPT);
     }
     public function verify_password($password)
     {
-        return password_verify($password, $this->attendee_password);
+        return password_verify($password, $this->password);
     }
 
     public $id;
-    public $attendee_email;
+    public $email;
     public $attendee_username;
     public $attendee_name;
     public $attendee_phone;
-    public $attendee_password;
+    public $password;
     public $attendee_hashed_password;
 }

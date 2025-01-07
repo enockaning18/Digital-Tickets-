@@ -3,8 +3,8 @@
 include(SHARED_PATH . "/organizer_header.php");
 
 if (isset($_GET['code'])) {
-    $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
-    $client->setAccessToken($token['access_token']);
+    $organizer_token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+    $client->setAccessToken($organizer_token['access_token']);
 
     // get profile info
     $google_oauth = new Google_Service_Oauth2($client);
@@ -13,8 +13,7 @@ if (isset($_GET['code'])) {
         'email' => $google_account_info['email'],
         'first_name' => $google_account_info['givenName'],
         'last_name' => $google_account_info['familyName'],
-        'gender' => $google_account_info['gender'],
-        'full_name' => $google_account_info['name'],
+        'organizer_name' => $google_account_info['name'],
         'picture' => $google_account_info['picture'],
         'verifiedEmail' => $google_account_info['verifiedEmail'],
         'token' => $google_account_info['id'],
@@ -26,12 +25,12 @@ if (isset($_GET['code'])) {
     if (mysqli_num_rows($result) > 0) {
         // user is exists
         $userinfo = mysqli_fetch_assoc($result);
-        $token = $userinfo['token'];
+        $organizer_token = $userinfo['token'];
     } else {
         $oauth_google_user = new oauth_google_organizer($userinfo);
         $result = $oauth_google_user->create();
         if ($result) {
-            $token = $userinfo['token'];
+            $organizer_token = $userinfo['token'];
         } else {
             echo "User is not created";
             die();
@@ -39,15 +38,15 @@ if (isset($_GET['code'])) {
     }
 
     // save user data into session
-    $_SESSION['user_token'] = $token;
+    $_SESSION['organizer_token'] = $organizer_token;
 } else {
-    if (!isset($_SESSION['user_token']) && !isset($_SESSION['id'])) {
+    if (!isset($_SESSION['organizer_token']) && !isset($_SESSION['id'])) {
         header("Location: ../index.php");
         die();
     }
 
     // checking if user is already exists in database
-    $query_command = "SELECT * FROM oauth_google_users WHERE token ='{$_SESSION['user_token']}'";
+    $query_command = "SELECT * FROM oauth_google_users WHERE token ='{$_SESSION['organizer_token']}'";
     $result = mysqli_query($database, $query_command);
     if (mysqli_num_rows($result) > 0) {
         // user is exists
@@ -64,7 +63,7 @@ require_login();
 
 <div class="border col-md-12 col-lg-9 d-flex flex-column shadow-sm rounded  p-5">
     <div class="">
-        <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ??  $userinfo['full_name']; ?> !</h3>
+        <h3 style="color:#C3063F;">Hello, <?php echo $session->organizer_name ?? $userinfo['organizer_name']; ?> !</h3>
         <p>Welcome back to your dashboard. Here is a summary of your recent activities and upcoming events <?php echo $userinfo['email'] ?? $session->organizer_name; ?></p>
     </div>
 

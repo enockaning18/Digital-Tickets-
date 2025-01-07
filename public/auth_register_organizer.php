@@ -12,10 +12,10 @@ if (isset($_POST['auth_register_organizer'])) {
     if (empty($args['organizer_name'])) {
         $errors[] = "Name can't be empty";
     }
-    if (empty($args['organizer_email'])) {
+    if (empty($args['email'])) {
         $errors[] = "Email can't be empty";
     }
-    if (empty($args['organizer_password'])) {
+    if (empty($args['password'])) {
         $errors[] = "Password can't be empty";
     }
 
@@ -246,14 +246,14 @@ if (isset($_POST['auth_register_organizer'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-envelope-check p-1"></i> </span>
                         </div>
-                        <input type="email" id="organizer_email" name="organizer[organizer_email]" placeholder="Email" class="form-control border border-start-0">
+                        <input type="email" id="email" name="organizer[email]" placeholder="Email" class="form-control border border-start-0">
 
                     </div>
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-shield-fill-exclamation p-1"></i> </span>
                         </div>
-                        <input type="password" id="organizer_password" name="organizer[organizer_password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
+                        <input type="password" id="password" name="organizer[password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
 
                     </div>
                     <!-- <div class="form-group mb-3">

@@ -1,4 +1,8 @@
-<?php require_once("../private/initialize.php"); ?>
+<?php require_once("../private/initialize.php");
+$organizer_dashboard_url = 'organizer/organizer_dashboard.php';
+$attendee_dashboard_url = 'attendee/my_ticket.php';
+$main_url = 'index.php';
+?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed layout-compact" dir="ltr" data-theme="theme-default" data-template="vertical-menu-template-free">
 
@@ -29,19 +33,31 @@
                 <span class="input-group-text"><i class="bi bi-search fs-5 fw-bold lh-0 "></i></span>
             </div>
 
-            <div class="nav-item dropdown <?php if (!$session->is_logged_in()) {
-                                                echo 'd-none' ?? '';
+
+            <div class="nav-item dropdown <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) {
+                                                echo 'd-none';
                                             } ?>">
                 <a class="nav-link fs-5" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?>
+                    <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?? $attendee_session->attendee_name ?? null ?>
                 </a>
                 <div class="dropdown-menu">
-                    <li><a class="dropdown-item" href="organizer/organizer_dashboard.php">Dashboard</a></li>
+                    <li> <a class="dropdown-item" href="<?php
+                                                        if (isset($session) && $session->is_logged_in()) {
+                                                            // Organizer session is logged in
+                                                            echo $organizer_dashboard_url;
+                                                        } elseif (isset($attendee_session) && $attendee_session->is_logged_in()) {
+                                                            // Attendee session is logged in
+                                                            echo $attendee_dashboard_url;
+                                                        } else {
+                                                            // Default fallback (e.g., home page)
+                                                            echo $main_url;
+                                                        }
+                                                        ?>">Dashboard</a></li>
                     <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                 </div>
             </div>
 
-            <?php if (!$session->is_logged_in()) { ?>
+            <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) { ?>
                 <div class="d-none d-md-flex">
                     <button class="btn btn-outline-primary border-0" type="submit">
                         <div class="nav-item dropdown">
@@ -103,8 +119,8 @@
                                 </li>
 
                                 <li>
-                                    <div class="nav-item dropdown <?php if ($session->is_logged_in()) {
-                                                                        echo 'd-none' ?? '';
+                                    <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
+                                                                        echo 'd-none';
                                                                     } ?>">
                                         <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Login
@@ -116,8 +132,8 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="nav-item dropdown <?php if ($session->is_logged_in()) {
-                                                                        echo 'd-none' ?? '';
+                                    <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
+                                                                        echo 'd-none';
                                                                     } ?>">
                                         <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             Signup

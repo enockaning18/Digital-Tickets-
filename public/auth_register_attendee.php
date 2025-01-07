@@ -12,10 +12,10 @@ if (isset($_POST['auth_register_attendee'])) {
     if (empty($args['attendee_name'])) {
         $errors[] = "Name can't be empty";
     }
-    if (empty($args['attendee_email'])) {
+    if (empty($args['email'])) {
         $errors[] = "Email can't be empty";
     }
-    if (empty($args['attendee_password'])) {
+    if (empty($args['password'])) {
         $errors[] = "Password can't be empty";
     }
 
@@ -23,7 +23,7 @@ if (isset($_POST['auth_register_attendee'])) {
         $attendee = new Attendee($args);
         $results = $attendee->create_attendee();
         if ($results === true) {
-            $organizer = Attendee::find_by_attendee_email($args['attendee_email']);
+            $organizer = Attendee::find_by_attendee_email($args['email']);
             $attendee_session->login($organizer);
             echo "<script>
             document.addEventListener('DOMContentLoaded', function() {
@@ -248,14 +248,14 @@ if (isset($_POST['auth_register_attendee'])) {
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-envelope-check p-1"></i> </span>
                         </div>
-                        <input type="email" id="attendee_email" name="attendee[attendee_email]" placeholder="Email" class="form-control border border-start-0">
+                        <input type="email" id="email" name="attendee[email]" placeholder="Email" class="form-control border border-start-0">
 
                     </div>
                     <div class="form-group input-group mb-3">
                         <div class="input-group-prepend">
                             <span class="input-group-text border-0"> <i class="bi bi-shield-fill-exclamation p-1"></i> </span>
                         </div>
-                        <input type="password" id="attendee_password" name="attendee[attendee_password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
+                        <input type="password" id="password" name="attendee[password]" placeholder="Password" autocomplete="new-password" class="form-control border border-start-0">
 
                     </div>
                     <!-- <div class="form-group mb-3">
@@ -289,7 +289,7 @@ if (isset($_POST['auth_register_attendee'])) {
                     <div class="form-group row mb-3">
                         <button type="submit" name="auth_register_attendee" class=" col btn btn-primary btn-block p-2">Create Account</button>
                     </div>
-                    <a id="google-login" class="text-decoration-none" href="<?php echo $client->createAuthUrl(); ?>">
+                    <a id="google-login" class="text-decoration-none" href="<?php echo $attendee_signup->createAuthUrl(); ?>">
                         <div class="form-group row mb-3">
                             <button type="submit" name="auth_register_attendee_" style="color:#c3063f; border-color:#c3063f" class=" btn  rounded btn-block p-2"> <i class="bi bi-google me-2"></i>Continue with Google</button>
                         </div>
