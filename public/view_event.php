@@ -103,6 +103,8 @@ if ($event_reference_id) {
             </div>
             <hr class="mx-auto" style="width: 80%;">
         </div>
+
+
         <div class="row-3 ">
             <h3 class="py-4 px-3 fs-2 fw-bold">Ticket</h3>
             <div class="d-flex flex-column">
@@ -121,52 +123,58 @@ if ($event_reference_id) {
                         <div class="fs-5">VIP</div>
                         <div class="fs-5">₵150.00</div>
                     </div> -->
+                    <form method="POST" action="cart_action.php">
+                        <input type="hidden" name="ticket_id" value="<?php echo $event->event_reference_id; ?>">
+                        <input type="hidden" name="ticket_price" value="<?php echo $event->ticket_price; ?>">
+                        <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="exampleModalToggleLabel">🎉 Reserve Your Spot</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6 class="b">Program: <?php echo $event->event_name ?></h6>
+                                        <p class="text-sm mb-1 text-muted"><i class="fas fa-clock fa-fw"></i> <?php echo $event->event_date_time_start ?></p>
 
-                    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">🎉 Reserve Your Spot</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h6 class="b">Program: <?php echo $event->event_name ?></h6>
-                                    <p class="text-sm mb-1 text-muted"><i class="fas fa-clock fa-fw"></i> <?php echo $event->event_date_time_start ?></p>
+                                        <p class="text-sm text-muted"><i class="fas fa-map-marker-alt fa-fw"></i>
+                                            <?php echo $event->event_venue ?>
+                                        </p>
+                                        <div class="table-responsive">
+                                            <table class="table  table-condensed mb-0">
+                                                <tbody>
+                                                    <tr class="bg-gray">
+                                                        <td class="border-top-white ">
+                                                            <div class="text-center"><?php echo $event->ticket_name ?></div>
+                                                            <div class="b mt-1 text-center">
+                                                                ₵<?php echo $event->ticket_price ?>
+                                                            </div>
+                                                        </td>
+                                                        <td class="border-top-white text-right">
+                                                            <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
+                                                                <input type="number" id="quantity" name="quantity" class="form-control touchspin-integer bg-white eventdate-ticket-qte"  data-min="0" data-max="10" value="1">
+                                                                <span class="input-group-btn-vertical">
+                                                                    <button class="btn text-white bootstrap-touchspin-up" type="button" style="background-color: #C3063F;" onclick="incrementValue(this)">+</button>
+                                                                    <button class="btn text-white bootstrap-touchspin-down" type="button" style="background-color: #C3063F;" onclick="decrementValue(this)">-</button>
+                                                                </span>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
-                                    <p class="text-sm text-muted"><i class="fas fa-map-marker-alt fa-fw"></i>
-                                        <?php echo $event->event_venue ?>
-                                    </p>
-                                    <div class="table-responsive">
-                                        <table class="table  table-condensed mb-0">
-                                            <tbody>
-                                                <tr class="bg-gray">
-                                                    <td class="border-top-white ">
-                                                        <div class="text-center"><?php echo $event->ticket_name ?></div>
-                                                        <div class="b mt-1 text-center">
-                                                            ₵<?php echo $event->ticket_price ?>
-                                                        </div>
-                                                    </td>
-                                                    <td class="border-top-white text-right">
-                                                        <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                                                            <input type="number" class="form-control touchspin-integer bg-white eventdate-ticket-qte" name="2ab8d30142" data-min="0" data-max="10" value="0">
-                                                            <span class="input-group-btn-vertical">
-                                                                <button class="btn text-white bootstrap-touchspin-up" type="button" style="background-color: #C3063F;" onclick="incrementValue(this)">+</button>
-                                                                <button class="btn text-white bootstrap-touchspin-down" type="button" style="background-color: #C3063F;" onclick="decrementValue(this)">-</button>
-                                                            </span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" name="add_to_cart" class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Add to Cart</button>
 
-                                            </tbody>
-                                        </table>
+                                        <!-- <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a> -->
                                     </div>
                                 </div>
-                                <div class="modal-footer">
-                                    <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a>
-                                </div>
+
                             </div>
                         </div>
-                    </div>
+                    </form>
                     <button class="d-flex justify-content-center gap-2 border rounded mx-3 mb-5 py-3 px-3 text-white" style="background-color: #C3063F;" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">
                         <div style="rotate: 300deg;"><i class="bi bi-ticket-perforated fs-5"></i></div>
                         <div class="fs-5">Get TIcket</div>
@@ -176,6 +184,7 @@ if ($event_reference_id) {
             </div>
             <hr class="mx-auto" style="width: 80%;">
         </div>
+
 
         <div class="row-3 py-5 px-3">
             <div class="d-flex flex-column ">

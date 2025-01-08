@@ -18,7 +18,7 @@ class Session
     {
         if ($organizer) {
             session_regenerate_id();
-            $this->organizer_id = $_SESSION['organizer_id'] = $organizer->id ?? null;
+            $this->organizer_id = $_SESSION['id'] = $organizer->id ?? null;
             $this->organizer_name = $_SESSION['organizer_name'] = $organizer->organizer_name ?? null;
             $this->organizer_token = $_SESSION['organizer_token'] = $organizer->organizer_token ?? null;
         }
@@ -28,12 +28,12 @@ class Session
     public function is_logged_in()
     {
         // Check if the session belongs to an organizer
-        return isset($_SESSION['organizer_id']) || isset($_SESSION['organizer_token']);
+        return isset($_SESSION['id']) || isset($_SESSION['organizer_token']);
     }
 
     public function logout()
     {
-        unset($_SESSION['organizer_id']);
+        unset($_SESSION['id']);
         unset($_SESSION['organizer_name']);
         unset($_SESSION['organizer_token']);
         unset($this->organizer_id);
@@ -44,8 +44,8 @@ class Session
 
     private function check_stored_login()
     {
-        if (isset($_SESSION['organizer_id'])) {
-            $this->organizer_id = $_SESSION['organizer_id'];
+        if (isset($_SESSION['id'])) {
+            $this->organizer_id = $_SESSION['id'];
             $this->organizer_name = $_SESSION['organizer_name'] ?? null;
         }
         if (isset($_SESSION['organizer_token'])) {
