@@ -57,7 +57,7 @@ if (isset($_POST['add_new_event'])) {
 $event = new Event();
 ?>
 
-<div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-5">
+<div id="basic-info" class="border col-md-12 col-lg-9 flex-column shadow-sm rounded p-md-5 ">
     <!-- Display Validation Errors -->
     <?php if (!empty($errors)) { ?>
 
@@ -147,7 +147,7 @@ $event = new Event();
 </div>
 
 <!-- Event Media Starts Here -->
-<div id="event-media" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-5" style="display: none;">
+<div id="event-media" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-md-5" style="display: none;">
     <div class="mb-5 text-center">
         <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Media</h2>
         <h5>Create a Memorable Experience</h5>
@@ -157,7 +157,7 @@ $event = new Event();
     <h4>Step 2: Event Media</h4>
     <div class="mb-4">
         <label for="event_event" class="mb-3" require>Upload Events Image</label>
-        <input type="file" name="image" id="upload" class="account-file-input form-control p-2" name="event[image]" maxlength="100" />
+        <input type="file" name="image" id="upload" class="account-file-input form-control " name="event[image]" maxlength="100" />
     </div>
     <div class="mb-4">
         <h4>Optional</h4>
@@ -211,27 +211,27 @@ $event = new Event();
             </div>
         </div>
     </div>
-    <div class="d-flex gap-0 justify-content-center gap-4">
+    <div class=" d-block d-md-flex gap-0 justify-content-center gap-4">
         <div>
             <button type="button" class="btn text-white" style="background-color: #333" id="nextBtn" onclick="showView('event-media','basic-info')">Previous: Basic Info</button>
         </div>
-        <div>
+        <div class="my-2 my-md-0">
             <button type="button" class="btn text-white" style="background-color: #c3073f" id="nextBtn" onclick="showView('event-media','timing-location')">Next: Event Timing & Location</button>
         </div>
     </div>
 </div>
 
 <!-- Event Timing & Location Starts Here -->
-<div id="timing-location" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-5" style="display: none;">
+<div id="timing-location" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-md-5" style="display: none;">
     <div class="mb-5 text-center">
-        <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Media</h2>
+        <h2 class="fw-bolder" style="color: #FD6C5D;">Event Timing</h2>
         <h5>Create a Memorable Experience</h5>
     </div>
     <h4>Step 3: Event Timing & Location</h4>
 
     <label class="fs-5 mb-4"> Where & When</label>
 
-    <div class="py-5 ps-5 border rounded">
+    <div class="py-0 ps-0 py-md-5 ps-md-5 border-0 border-md-1 rounded">
         <p class="fw-bold">Enable Sales On Event Date ?</p>
         <span><i class="bi bi-info-circle-fill" style="color: #C3063F;"> </i>Enable sales for an event date does not affect the ticket individual sales status</span>
 
@@ -284,11 +284,11 @@ $event = new Event();
             </select>
         </div>
 
-        <div class="d-flex gap-0 justify-content-center gap-4">
+        <div class="d-block d-md-flex gap-0 justify-content-center gap-4">
             <div>
                 <button type="button" class="btn text-white" style="background-color: #333" id="nextBtn" onclick="showView('timing-location','event-media')">Previous: Event Media</button>
             </div>
-            <div>
+            <div class="my-2 my-md-0">
                 <button type="button" class="btn text-white" style="background-color: #c3073f" id="nextBtn" onclick="showView('timing-location','event-ticket')">Next: Event Timing & Location</button>
             </div>
         </div>
@@ -296,7 +296,7 @@ $event = new Event();
 </div>
 
 <!-- Ticket Configration -->
-<div id="event-ticket" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-5" style="display: none;">
+<div id="event-ticket" class="border col-md-12 col-lg-9  flex-column shadow-sm rounded p-md-5" style="display: none;">
 
     <div class="mb-5 text-center">
         <h2 class="fw-bolder" style="color: #FD6C5D;">Add Event Media</h2>
@@ -345,8 +345,17 @@ $event = new Event();
         </div>
     </div>
 
-    <button type="button" class="btn text-white" style="background-color: #333" id="nextBtn" onclick="showView('event-ticket','timing-location',)">Previous: Event Timing & Location</button>
-    <button type="submit" id="account_settings_save" name="add_new_event" class="btn btn-primary btn">Save Changes</button>
+    <div class="d-block d-md-flex gap-0 justify-content-center gap-4">
+        <div>
+            <button type="button" class="btn text-white" style="background-color: #333" id="nextBtn" onclick="showView('event-ticket','timing-location',)">Previous: Event Timing & Location</button>
+        </div>
+        <div class="my-2 my-md-0">
+            <button type="submit" id="account_settings_save" name="add_new_event" class="btn btn-primary btn">Save Changes</button>
+        </div>
+    </div>
+
+
+
     </form>
 
 
