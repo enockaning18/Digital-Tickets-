@@ -1,7 +1,9 @@
 <?php
 require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
+attendee_require_login();
 $cartItems = Cart::getCartItems();
+
 ?>
 
 
@@ -42,30 +44,31 @@ $cartItems = Cart::getCartItems();
                                             <dl class="text-center mt-2">
                                                 <dd><?php echo htmlspecialchars($event->ticket_name); ?></dd>
                                             </dl>
-                                        </div>
 
-                                        <!-- Event Details -->
-                                        <figcaption class="my-auto">
-                                            <a href="/en/event/party-shop-media-xmas-trip-to-cape-coast" class="text-decoration-none">
-                                                <h6 style="color:#C3073F;"><?php echo htmlspecialchars($event->event_name); ?></h6>
-                                            </a>
-                                            <dl class="mb-0 small">
-                                                <dt>When</dt>
-                                                <dd><?php echo htmlspecialchars($event->event_date_time_start); ?></dd>
-                                            </dl>
-                                            <dl class="mb-0 small">
-                                                <dt>Where</dt>
-                                                <dd><?php echo htmlspecialchars($event->event_venue); ?></dd>
-                                            </dl>
-                                            <dl class="mb-0 small">
-                                                <dt>Organized by</dt>
-                                                <dd>
-                                                    <a href="/en/organizer/party-shop-media" class="text-decoration-none" target="_blank" style="color:#C3073F;">
-                                                        <?php echo htmlspecialchars($event->organizer_name); ?>
-                                                    </a>
-                                                </dd>
-                                            </dl>
-                                        </figcaption>
+                                        </div>
+                                        <div>
+                                            <!-- Event Details -->
+                                            <figcaption class="my-auto">
+                                                <a href="/en/event/party-shop-media-xmas-trip-to-cape-coast" class="text-decoration-none">
+                                                    <h6 style="color:#C3073F;"><?php echo htmlspecialchars($event->event_name); ?></h6>
+                                                </a>
+                                                <dl class="mb-0 small">
+                                                    <dt>When</dt>
+                                                    <dd><?php echo htmlspecialchars($event->event_date_time_start);  ?></dd>
+                                                </dl>
+                                                <dl class="mb-0 small">
+                                                    <dt>Where</dt>
+                                                    <dd><?php echo htmlspecialchars($event->event_venue); ?></dd>
+                                                </dl>
+                                                <dl class="mb-0 small">
+                                                    <dt>Organized by</dt>
+                                                    <dd>
+                                                        <a href="/en/organizer/party-shop-media" class="text-decoration-none" target="_blank" style="color:#C3073F;">
+                                                            <?php echo htmlspecialchars($event->organizer_name); ?>
+                                                        </a>
+                                                    </dd>
+                                                </dl>
+                                            </figcaption>
                                     </figure>
 
                                     <!-- Responsive Pricing Section -->
@@ -101,7 +104,7 @@ $cartItems = Cart::getCartItems();
                                                 <button type="submit" name="action" value="update_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
                                                     Update
                                                 </button>
-                                                <button type="submit" name="action" value="clear_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
+                                                <button type="submit" name="action" value="remove_from_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
                                                     <i class="bi bi-trash3"></i>
                                                 </button>
                                             </div>
@@ -140,24 +143,90 @@ $cartItems = Cart::getCartItems();
             </div>
         </div>
 
-        <form name="checkout" method="post" class="" novalidate="novalidate">
-
-            <div class="card mt-4 rounded shadow border-0 d-none d-md-block">
+        <form action="paystack_payment.php" method="POST">
+            <input type="hidden" id="quantity" name="quantity" value="<?php echo htmlspecialchars($quantity ?? 1); ?>">
+            <div class=" card mt-4 rounded shadow border-0 d-none d-md-block">
                 <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
                     <h5 class="mb-0">Send Ticket to Email</h5>
                 </div>
                 <div class="card-body">
-                    <form name="checkout" method="post" class="" novalidate="novalidate">
-                        <div class="mb-3">
-                            <label for="checkout_email" class="form-label required">Enter your Email Address</label>
-                            <input type="email" id="checkout_email" name="checkout[email]" class="form-control" placeholder="example@mail.com" required>
-                            <small class="text-muted">We'll send your ticket to this email.</small>
-                        </div>
-                    </form>
+                    <div class="mb-3">
+                        <label for="checkout_email" class="form-label required">Enter your Email Address</label>
+                        <input type="email" id="checkout_email" name="email_address" value="admin@mail.com" class="form-control" placeholder="example@mail.com" required>
+
+                        <label for="checkout_email" class="form-label required mt-3">Enter your Phone Number</label>
+                        <input type="phone_number" id="checkout_phone_number" name="phone_number" value="0556062693" class="form-control" placeholder="000 000 0000" required>
+                        <small class="text-muted">We'll send your ticket to this email.</small>
+                    </div>
+
                 </div>
             </div>
 
             <div class="card mt-4 rounded shadow border-0 d-none d-md-block">
+                <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
+                    <h5 class="b mb-0">Pay With</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-row">
+                        <div class="col-12 form-group">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input class="form-check-input" type="radio" name="paystack_checkout" id="paystack_checkout" value="paystack_checkout" checked>
+                                <label class="custom-control-label required my-auto" for="paystack_checkout">
+                                    <img src="../bootstrap-config/images/64f0f53a3bc46248573985.png" class="img-80-80 mr-3 ml-3">
+                                    Mobile Money, Bank Card
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 d-none d-md-block">
+                <button id="checkout_submit" type="submit" value="pay_now" name="pay_now" class="btn text-white w-100 p-2" style="background-color: C3073F;">
+                    <i class="bi bi-wallet2 me-2"></i>Pay Now
+                </button>
+            </div>
+
+    </div>
+
+    <div class="border col-sm-12 col-lg-4 d-flex flex-column border border-0  p-0">
+
+        <div class="rounded  text-white ps-4 py-2 mb-3" style="background-color: #C3073F">
+            <h5> Payment Info</h5>
+        </div>
+
+        <div class="sticky-top sticky-sidebar">
+
+            <div class="d-flex my-4 justify-content-between">
+                <div>
+                    <h4>Total</h4>
+                </div>
+                <div class="">
+                    <h4> GH₵ <?php echo $total; ?>.00</h4>
+                </div>
+            </div>
+            <!-- Left-aligned message about the processing fee below the total, shown only if there's an amount -->
+            <div class="text-left text-danger">
+                <small>* A processing fee will be applied during payment.</small>
+            </div>
+
+            <div class="card mt-4 rounded shadow border-0 d-block d-md-none">
+                <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
+                    <h5 class="mb-0">Send Ticket to Email</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="checkout_email" class="form-label required">Enter your Email Address</label>
+                        <input type="email" id="checkout_email" name="email_address" value="admin@mail.com" class="form-control" placeholder="example@mail.com" required>
+
+                        <label for="checkout_email" class="form-label required mt-3">Enter your Phone Number</label>
+                        <input type="phone_number" id="checkout_phone_number" name="phone_number" value="0556062693" class="form-control" placeholder="000 000 0000" required>
+                        <small class="text-muted">We'll send your ticket to this email.</small>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4 rounded shadow border-0 d-block d-md-none">
                 <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
                     <h5 class="b mb-0">Pay With</h5>
                 </div>
@@ -175,80 +244,13 @@ $cartItems = Cart::getCartItems();
                     </div>
                 </div>
             </div>
-            <div class="mt-4 d-none d-md-block">
-                <button id="checkout_submit" type="submit" class="btn text-white w-100 p-2" style="background-color: C3073F;">
+            <div class="mt-4  d-block d-md-none">
+                <button id="checkout_submit" type="submit" name="pay_now" value="pay_now" class="btn text-white w-100 p-2" style="background-color: C3073F;">
                     <i class="bi bi-wallet2 me-2"></i>Pay Now
                 </button>
             </div>
-
-
-        </form>
-    </div>
-
-    <div class="border col-sm-12 col-lg-4 d-flex flex-column border border-0  p-0">
-
-        <div class="rounded  text-white ps-4 py-2 mb-3" style="background-color: #C3073F">
-            <h5> Payment Info</h5>
-        </div>
-
-        <div class="sticky-top sticky-sidebar">
-
-            <div class="d-flex my-4 justify-content-between">
-                <div>
-                    <h4>Total</h4>
-                </div>
-                <div class="">
-                    <h4> GH₵ <?php echo $subtotal; ?>.00</h4>
-                </div>
-            </div>
-            <!-- Left-aligned message about the processing fee below the total, shown only if there's an amount -->
-            <div class="text-left text-danger">
-                <small>* A processing fee will be applied during payment.</small>
-            </div>
-
-            <form name="checkout" method="post" class="" novalidate="novalidate">
-
-                <div class="card mt-4 rounded shadow border-0 d-block d-md-none">
-                    <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
-                        <h5 class="mb-0">Send Ticket to Email</h5>
-                    </div>
-                    <div class="card-body">
-                        <form name="checkout" method="post" class="" novalidate="novalidate">
-                            <div class="mb-3">
-                                <label for="checkout_email" class="form-label required">Enter your Email Address</label>
-                                <input type="email" id="checkout_email" name="checkout[email]" class="form-control" placeholder="example@mail.com" required>
-                                <small class="text-muted">We'll send your ticket to this email.</small>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="card mt-4 rounded shadow border-0 d-block d-md-none">
-                    <div class="card-header border-bottom-0" style="background-color:#F1F3F7;">
-                        <h5 class="b mb-0">Pay With</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-row">
-                            <div class="col-12 form-group">
-                                <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" id="paystack_checkout" type="radio" name="payment_gateway" value="paystack_checkout" checked="checked">
-                                    <label class="custom-control-label required my-auto" for="paystack_checkout">
-                                        <img src="../bootstrap-config/images/64f0f53a3bc46248573985.png" class="img-80-80 mr-3 ml-3">
-                                        Mobile Money, Bank Card
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="mt-4">
-                    <button id="checkout_submit" type="submit" class="btn text-white w-100 p-2" style="background-color: C3073F;">
-                        <i class="bi bi-wallet2 me-2"></i>Pay Now
-                    </button>
-                </div>
-
-
             </form>
+
 
             <dl class="dlist-align h5" id="amountInDollar" style="display: none">
                 <dt>Total in (USD)</dt>
@@ -261,8 +263,8 @@ $cartItems = Cart::getCartItems();
                 </div>
             </div>
         </div>
-
     </div>
+
 
 
 

@@ -1,5 +1,6 @@
 <?php
 require_once('../private/initialize.php');
+attendee_require_login();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? 'add_to_cart';

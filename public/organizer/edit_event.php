@@ -316,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <div class="mb-4">
-                <label class="fw-bold mb-1">Price</label>
+                <label class="fw-bold mb-1">z</label>
                 <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_price]" value="<?php echo h($event->ticket_price) ?>" required="required" />
             </div>
 

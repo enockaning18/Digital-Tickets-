@@ -75,7 +75,7 @@ function attendee_require_login()
 {
     global $attendee_session;
     if (!$attendee_session->is_logged_in()) {
-        header('Location: ../index.php');
+        header('Location: ../index.php') || header('Location:index.php');;
         exit;
     }
 }
@@ -116,3 +116,5 @@ $attendee_signup->setClientSecret($client_secret);
 $attendee_signup->setRedirectUri($oauth_register_attendee_url);
 $attendee_signup->addScope("email");
 $attendee_signup->addScope("profile");
+?>
+
