@@ -3,10 +3,13 @@ include(SHARED_PATH . "/organizer_header.php");
 
 require_login();
 $organizer_id = $_SESSION['id'] ?? $_SESSION['user_token'];
-$event = Event::find_by_reference_id($organizer_id);
+// $event = Event::find_by_reference_id($organizer_id);
+$query_command = " SELECT * FROM event ";
+$query_command .= " INNER JOIN `organizer` ON organizer_id  = organizer.id ";
+$query_command .= " WHERE organizer_id = '" . $organizer_id . "'";
+$result = $database->execute_query($query_command);
 
-if ($event) { ?>
-
+if ($result && mysqli_num_rows($result) > 0) { ?>
 
     <div class="border col-md-12 col-lg-9 flex-column shadow-sm rounded 0-0 p-md-5">
         <div class="d-block d-md-flex  justify-content-between align-items-center  py-3 px-4 border rounded shadow-sm" style="background-color: #ffffff;">
@@ -116,64 +119,63 @@ if ($event) { ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <!-- Event Column -->
-
-                            <td>
-                                <div class="d-flex justify-content-start align-items-center">
-                                    <div class="avatar-wrapper">
-                                        <div class="avatar me-2 rounded">
-                                            <img src="uploads/<?php echo $event->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                        <?php while ($event = mysqli_fetch_object($result)) { ?>
+                            <tr>
+                                <td>
+                                    <div class="d-flex justify-content-start align-items-center">
+                                        <div class="avatar-wrapper">
+                                            <div class="avatar me-2 rounded">
+                                                <img src="uploads/<?php echo $event->image ?>" alt="Avatar" class="rounded-circle" style="width: 50px; height: 50px;">
+                                            </div>
+                                        </div>
+                                        <div class="d-flex flex-column">
+                                            <span class="emp_name text-truncate" style="color: #c3073f;"><?php echo $event->event_name ?></span>
                                         </div>
                                     </div>
-                                    <div class="d-flex flex-column">
-                                        <span class="emp_name text-truncate" style="color: #c3073f;"><?php echo $event->event_name ?></span>
+                                </td>
+
+                                <td>
+                                    <div>
+                                        <div><strong>20%</strong></div>
+                                        <small class="text-muted">0 tickets sold</small>
                                     </div>
-                                </div>
-                            </td>
-
-                            <td>
-                                <div>
-                                    <div><strong>20%</strong></div>
-                                    <small class="text-muted">0 tickets sold</small>
-                                </div>
-                                <div class="progress progress-xs" style=" height: 5px;">
-                                    <div class="progress-bar bg-yellow" role="progressbar" style="width: 20%; background-color: #f39c12;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                            </td>
-
-                            <td>
-                                <?php if ($event->status === '1') { ?>
-                                    <span class="p-2 fs-6 fs-md-5 bg-success text-white">Published</span>
-                                <?php } else {  ?>
-                                    <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Not Published</span>
-                                <?php } ?>
-
-                            </td>
-
-                            <td>
-                                <span>0%</span>
-                            </td>
-
-
-                            <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn p-0" data-bs-toggle="dropdown">
-                                        <i class="bi bi-stack" style="color: #c3073f"> Options</i>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="my_event.php?id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1">
-                                                <i class="bx bx-edit-alt me-1 mb-2"></i>
-                                                <i class="bi bi-file-earmark-text me-2"></i> Details
-                                        </a>
-                                        <a class="dropdown-item" href="edit_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
-                                        <a class="dropdown-item" href="publish_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
-                                        <a class="dropdown-item delete-btn" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
+                                    <div class="progress progress-xs" style=" height: 5px;">
+                                        <div class="progress-bar bg-yellow" role="progressbar" style="width: 20%; background-color: #f39c12;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
 
+                                <td>
+                                    <?php if ($event->status === '1') { ?>
+                                        <span class="p-2 fs-6 fs-md-5 bg-success text-white">Published</span>
+                                    <?php } else {  ?>
+                                        <span class="p-2 fs-6 fs-md-5" style="background-color: #f39c12;">Not Published</span>
+                                    <?php } ?>
+
+                                </td>
+
+                                <td>
+                                    <span>0%</span>
+                                </td>
+
+
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0" data-bs-toggle="dropdown">
+                                            <i class="bi bi-stack" style="color: #c3073f"> Options</i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="my_event.php?id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1">
+                                                    <i class="bx bx-edit-alt me-1 mb-2"></i>
+                                                    <i class="bi bi-file-earmark-text me-2"></i> Details
+                                            </a>
+                                            <a class="dropdown-item" href="edit_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-pencil-square me-2"></i> Edit</a>
+                                            <a class="dropdown-item" href="publish_event.php?event_reference_id=<?php echo $event->event_reference_id ?>"><i class="bx bx-edit-alt me-1"></i><i class="bi bi-eye me-2"></i> Publish(Go Live)</a>
+                                            <a class="dropdown-item delete-btn" href=""><i class="bx bx-edit-alt me-1"></i> <i class="bi bi-trash me-2"></i>Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
@@ -204,7 +206,8 @@ if ($event) { ?>
                                                     <tbody>
                                                         <tr>
                                                             <td width="30%">Status</td>
-                                                            <td><?php if ($event->status === '1') { ?>
+                                                            <td><?php if ($details->status === '1') { ?>
+
                                                                     <span class="badge bg-success">Published</span>
                                                                 <?php } else {  ?>
                                                                     <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
@@ -299,7 +302,7 @@ if ($event) { ?>
                                                                             <tr>
                                                                                 <td width="30%">Status</td>
                                                                                 <td>
-                                                                                    <?php if ($event->status === '1') { ?>
+                                                                                    <?php if ($details->status === '1') { ?>
                                                                                         <span class="badge bg-success">Published</span>
                                                                                     <?php } else {  ?>
                                                                                         <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
@@ -348,7 +351,7 @@ if ($event) { ?>
                                                                             <tr>
                                                                                 <td width="30%">Status</td>
                                                                                 <td>
-                                                                                    <?php if ($event->status === '1') { ?>
+                                                                                    <?php if ($details->status === '1') { ?>
                                                                                         <span class="badge bg-success">Published</span>
                                                                                     <?php } else {  ?>
                                                                                         <span class="badge bg-danger" style="background-color: #f39c12;">Not Published</span>
@@ -415,12 +418,10 @@ if ($event) { ?>
         <div class="d-block d-md-flex  align-items-center  py-3 px-4 border rounded shadow-sm text-white" style="background-color:#C3073F">
             <i class="bi bi-info-circle-fill me-2"></i>No orders found
         </div>
-
-
-
     </div>
-
 <?php } ?>
+
+
 
 </section>
 </div>

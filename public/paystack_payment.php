@@ -12,6 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $phone_number = trim($_POST['phone_number'] ?? '');
     $quantity = intval($_POST['quantity'] ?? 0);
 
+
     if (empty($email) || empty($phone_number) || $quantity <= 0) {
         $errors[] = "All fields are required, and quantity must be greater than 0.";
     }

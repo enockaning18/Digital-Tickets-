@@ -34,11 +34,15 @@ $main_url = 'index.php';
             </div>
 
 
-            <div class="nav-item dropdown <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) {
-                                                echo 'd-none';
-                                            } ?>">
-                <a class="nav-link fs-5" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?? $attendee_session->attendee_name ?? null ?>
+            <div class="nav-item dropdown d-flex align-items-center gap-1 <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) {
+                                                                                echo 'd-none';
+                                                                            } ?>">
+                <a href="check_out.php" class="nav-link <?php if (!$attendee_session->is_logged_in()) {
+                                                            echo 'd-none';
+                                                        } ?>"><i class="bi bi-inboxes-fill me-2"></i></a>
+
+                <a class="nav-link" style="font-size: 18px;" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?? $attendee_session->attendee_name ?>
                 </a>
                 <div class="dropdown-menu">
                     <li> <a class="dropdown-item" href="<?php
@@ -115,7 +119,8 @@ $main_url = 'index.php';
                                     <a class="nav-link" href="#">Premium Event</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Help Center</a>
+                                    <a class="nav-link" href="#">Help Center </a>
+
                                 </li>
 
                                 <li>

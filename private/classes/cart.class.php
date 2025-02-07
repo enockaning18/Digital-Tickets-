@@ -36,4 +36,13 @@ class Cart
     {
         return $_SESSION['cart'] ?? [];
     }
+
+    public static function initializeCartForUser($userId)
+    {
+        // If using a session-based cart
+        if (!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = []; // Initialize an empty cart
+            $_SESSION['cart_user'] = $userId; // Associate cart with the user ID
+        }
+    }
 }

@@ -152,7 +152,7 @@ if ($event_reference_id) {
                                                         </td>
                                                         <td class="border-top-white text-right">
                                                             <div class="input-group bootstrap-touchspin bootstrap-touchspin-injected">
-                                                                <input type="number" id="quantity" name="quantity" class="form-control touchspin-integer bg-white eventdate-ticket-qte"  data-min="0" data-max="10" value="1">
+                                                                <input type="number" id="quantity" name="quantity" class="form-control touchspin-integer bg-white eventdate-ticket-qte" data-min="0" data-max="10" value="1">
                                                                 <span class="input-group-btn-vertical">
                                                                     <button class="btn text-white bootstrap-touchspin-up" type="button" style="background-color: #C3063F;" onclick="incrementValue(this)">+</button>
                                                                     <button class="btn text-white bootstrap-touchspin-down" type="button" style="background-color: #C3063F;" onclick="decrementValue(this)">-</button>
@@ -167,8 +167,6 @@ if ($event_reference_id) {
                                     </div>
                                     <div class="modal-footer">
                                         <button type="submit" name="add_to_cart" class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Add to Cart</button>
-
-                                        <!-- <a href="check_out.php"><button class="btn text-white" data-bs-target="#exampleModalToggle2" data-bs-toggle="modal" style="background-color: #C3063F;">Processed to Checkout</button></a> -->
                                     </div>
                                 </div>
 
