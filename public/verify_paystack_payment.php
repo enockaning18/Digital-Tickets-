@@ -1,4 +1,7 @@
 <?php
+
+use Google\Service\Spanner\Transaction;
+
 require_once('../private/initialize.php');
 attendee_require_login();
 $cartItems = Cart::getCartItems();
@@ -8,6 +11,7 @@ if (!isset($_GET['reference'])) {
 }
 
 $reference = $_GET['reference'];
+$barcode = htmlspecialchars($_GET['barcode']);
 $secretKey = 'sk_test_42b24c01bafc378c48675c405a11458a912083c9';
 
 // Initialize cURL
@@ -37,15 +41,19 @@ if ($http_code !== 200 || !$result['status']) {
 $transactionData = $result['data'];
 if ($transactionData['status'] == 'success') {
     $amount = $transactionData['amount'] / 100;
+    $transaction_status = $transactionData['status'];
     $customerEmail = $transactionData['customer']['email'];
     $reference = $transactionData['reference'];
     $paymentDate = $transactionData['paid_at'];
 
     // Insert payment record
-    $query = "INSERT INTO ticket_payments (reference, email, amount, payment_date) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO ticket_payments (reference, email, amount, payment_date, transaction_status) VALUES (?, ?, ?, ?, ?)";
     $stmt = $database->prepare($query);
-    $stmt->bind_param("ssds", $reference, $customerEmail, $amount, $paymentDate);
+    $stmt->bind_param("ssdss", $reference, $customerEmail, $amount, $paymentDate, $transaction_status);
     $stmt->execute();
+
+    $query_command = "UPDATE attendee_orders SET reference = '" . $reference . "' WHERE bar_code = $barcode ";
+    $result = $database->execute_query($query_command);
 
     // Ensure cart items is an array
     if (!is_array($cartItems)) {

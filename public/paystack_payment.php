@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $totalAmount = 0;
 
             foreach ($cartItems as $ticketId => $cartQuantity) {
-                $event = Event::find_reference_at_view($ticketId);
+                $event = Event::find_event_by_id($ticketId);
                 $ticket_name = $event->ticket_name;
                 $unit_price = $event->ticket_price;
                 $ticket_id = $event->id;
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             amount: <?php echo $subtotal; ?>,
                             currency: 'GHS',
                             callback: function(response) {
-                                window.location.href = 'verify_paystack_payment.php?reference=' + response.reference;
+                                window.location.href = 'verify_paystack_payment.php?reference=' + response.reference + '&barcode=<?php echo $bar_code; ?>';
                             },
                             onClose: function() {
                                 alert('Payment was not completed.');
@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         handler.openIframe();
                     });
                 </script>
+
             <?php else : ?>
                 <p>Error: Unable to process payment. Invalid total amount.</p>
             <?php endif; ?>

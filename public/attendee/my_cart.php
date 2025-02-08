@@ -91,9 +91,6 @@ $cartItems = Cart::getCartItems();
                                                 <?php echo htmlspecialchars($subtotal ?? 0); ?>
                                             </div>
 
-                                            <button type="submit" name="action" value="remove_from_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                                <i class="bi bi-trash3"></i>
-                                            </button>
                                         </div>
 
                                         <!-- Action Buttons -->
@@ -134,6 +131,32 @@ $cartItems = Cart::getCartItems();
                     <?php endforeach; ?>
                 </tbody>
             </table>
+            <form method="POST" action="../cart_action.php">
+                <input type="hidden" name="ticket_id" value="<?php echo htmlspecialchars($ticketId); ?>">
+
+                <div class="d-flex gap-4 mt-2 justify-content-center">
+                    <div>
+                        <a href="../index.php" class="text-decoration-none">
+                            <div class="btn btn-md px-4 py-2" style="border-color: #C3073F; color:#C3073F;">
+                                <i class="bi bi-ticket-detailed-fill me-2"></i> Buy more tickets
+                            </div>
+                        </a>
+                    </div>
+
+                    <div>
+                        <button type="submit" name="action" value="update_cart" class="btn btn-md px-4 py-2" style="border-color: #C3073F; color:#C3073F">
+                            <i class="bi bi-arrow-clockwise me-2"></i> Update Cart
+                        </button>
+                    </div>
+
+                    <div>
+                        <button type="submit" name="action" value="clear_cart" class="btn btn-md px-4 py-2" style="border-color: #C3073F; color:#C3073F">
+                            <i class="bi bi-cart-x-fill me-2"></i> Empty Cart
+                        </button>
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
     </div>

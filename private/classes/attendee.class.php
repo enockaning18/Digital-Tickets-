@@ -36,6 +36,15 @@ class Attendee extends databaseObject
         }
     }
 
+    static public function find_purchased_ticket($attendee_id)
+    {
+        $query_command = " SELECT * FROM attendee_orders ";
+        $query_command .= " JOIN `event` ON attendee_orders.ticket_id = event.id ";
+        $query_command .= " JOIN `attendee` ON attendee_orders.attendee_id = attendee.id ";
+        $query_command .= " WHERE attendee_orders.attendee_id = '" . $attendee_id . "'";
+        return static::find_by_query_command($query_command);
+    }
+
 
     public function uniqid_code_for_attendee_id($length = 7)
     {
@@ -55,6 +64,8 @@ class Attendee extends databaseObject
     {
         return password_verify($password, $this->password);
     }
+
+
 
     public $id;
     public $email;
