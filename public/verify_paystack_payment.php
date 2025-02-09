@@ -95,9 +95,8 @@ if ($transactionData['status'] == 'success') {
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
                 
-                $email = 'hackforlife100@gmail.com';
                 $mail->setFrom('enockaning18@gmail.com', 'Event Team');
-                $mail->addAddress($email);
+                $mail->addAddress($customerEmail);
 
                 // Email content
                 $mail->isHTML(true);
