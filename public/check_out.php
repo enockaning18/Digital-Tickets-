@@ -85,7 +85,7 @@ $cartItems = Cart::getCartItems();
                                             <div class="d-flex align-items-center mt-2 justify-content-center">
                                                 <!-- Price -->
                                                 <div class="text-center" style="flex-grow: 1;">
-                                                    <?php echo htmlspecialchars($event->ticket_price); ?>
+                                                    GH₵ <?php echo htmlspecialchars($event->ticket_price); ?>
                                                 </div>
 
                                                 <!-- Quantity Input -->
@@ -95,18 +95,22 @@ $cartItems = Cart::getCartItems();
 
                                                 <!-- Subtotal -->
                                                 <div class="text-center" style="flex-grow: 1;">
-                                                    <?php echo htmlspecialchars($subtotal ?? 0); ?>
+                                                    GH₵ <?php echo htmlspecialchars($subtotal ?? 0); ?>
                                                 </div>
                                             </div>
 
                                             <!-- Action Buttons -->
                                             <div class="d-flex flex-row flex-sm-column gap-2 mt-2 justify-content-center">
-                                                <button type="submit" name="action" value="update_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                                    Update
-                                                </button>
-                                                <button type="submit" name="action" value="remove_from_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                                    <i class="bi bi-trash3"></i>
-                                                </button>
+                                                <div>
+                                                    <button type="submit" name="action" value="update_cart" class="btn btn-outline-danger btn-sm">
+                                                        <i class="bi bi-arrow-clockwise"></i>
+                                                    </button>
+                                                </div>
+                                                <div>
+                                                    <button type="submit" name="action" value="remove_from_cart" class="btn btn-outline-dark btn-sm">
+                                                        <i class="bi bi-trash3"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                         </form>
                                     </div>
@@ -115,19 +119,23 @@ $cartItems = Cart::getCartItems();
                                 </td>
 
                                 <td width="15%" class="d-none d-sm-table-cell">
-                                    <span><?php echo $event->ticket_price; ?></span>
+                                    <span>GH₵ <?php echo $event->ticket_price; ?></span>
                                 </td>
                                 <td width="15%" class="text-center d-none d-sm-table-cell">
                                     <form method="POST" action="cart_action.php">
                                         <input type="hidden" name="ticket_id" value="<?php echo $ticketId; ?>">
                                         <input type="number" id="quantity" name="quantity" value="<?php echo $quantity; ?>" min="1" class="form-control touchspin-integer bg-white eventdate-ticket-qte" data-min="0" data-max="10" value="1">
-                                        <div class="d-flex flex-row flex-sm-column gap-2 mt-2">
-                                            <button type="submit" name="action" value="update_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                                Update
-                                            </button>
-                                            <button type="submit" name="action" value="clear_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                                <i class="bi bi-trash3"></i>
-                                            </button>
+                                        <div class="d-flex gap-2 mt-2">
+                                            <div>
+                                                <button type="submit" name="action" value="update_cart" class="btn btn-outline-danger btn-sm">
+                                                    <i class="bi bi-arrow-clockwise"></i>
+                                                </button>
+                                            </div>
+                                            <div>
+                                                <button type="submit" name="action" value="remove_from_cart" class="btn btn-outline-dark btn-sm">
+                                                    <i class="bi bi-trash3"></i>
+                                                </button>
+                                            </div>
                                         </div>
                                     </form>
                                 </td>

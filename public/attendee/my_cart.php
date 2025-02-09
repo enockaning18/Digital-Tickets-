@@ -113,11 +113,11 @@ $cartItems = Cart::getCartItems();
                                 <form method="POST" action="../cart_action.php">
                                     <input type="hidden" name="ticket_id" value="<?php echo $ticketId; ?>">
                                     <input type="number" id="quantity" name="quantity" value="<?php echo $quantity; ?>" min="1" class="form-control touchspin-integer bg-white eventdate-ticket-qte" data-min="0" data-max="10" value="1">
-                                    <div class="d-flex flex-row flex-sm-column gap-2 mt-2">
-                                        <button type="submit" name="action" value="update_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
-                                            Update
+                                    <div class="mt-2">
+                                        <button type="submit" name="action" value="update_cart" class="btn btn-outline-danger btn-sm">
+                                            <i class="bi bi-arrow-clockwise"></i>
                                         </button>
-                                        <button type="submit" name="action" value="clear_cart" class="btn btn-sm text-white px-3" style="background-color: #C3073F;">
+                                        <button type="submit" name="action" value="remove_from_cart" class="btn btn-outline-dark btn-sm">
                                             <i class="bi bi-trash3"></i>
                                         </button>
                                     </div>
@@ -150,15 +150,24 @@ $cartItems = Cart::getCartItems();
                     </div>
 
                     <div>
-                        <button type="submit" name="action" value="clear_cart" class="btn btn-md px-4 py-2" style="border-color: #C3073F; color:#C3073F">
+                        <button type="submit" name="action" value="remove_from_cart" class="btn btn-md px-4 py-2" style="border-color: #C3073F; color:#C3073F">
                             <i class="bi bi-cart-x-fill me-2"></i> Empty Cart
                         </button>
                     </div>
                 </div>
             </form>
 
+            <div class="mt-4 d-none d-md-block">
+                <a href="../check_out.php">
+                    <button id="checkout_submit" type="submit" value="pay_now" name="pay_now" class="btn text-white w-100 p-2" style="background-color: C3073F;">
+                        <i class="bi bi-wallet2 me-2"></i>Pay Now
+                    </button>
+                </a>
+
+            </div>
         </div>
     </div>
+
     </div>
 
 <?php } else { ?>
