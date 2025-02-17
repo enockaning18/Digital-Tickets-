@@ -25,6 +25,7 @@ require_once('status_error_functions.php');
 require_once('validation_functions.php');
 require_once('shared/scripts.php');
 require_once('vendor/autoload.php');
+require __DIR__ . "/vendor/autoload.php";
 
 
 $database = db_connection();
@@ -123,3 +124,24 @@ $attendee_signup->setClientSecret($client_secret);
 $attendee_signup->setRedirectUri($oauth_register_attendee_url);
 $attendee_signup->addScope("email");
 $attendee_signup->addScope("profile");
+
+
+
+use Endroid\QrCode\QrCode;
+use Endroid\QrCode\Writer\PngWriter;
+use Endroid\QrCode\Color\Color;
+use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
+
+function generateQRCode($text, $savePath) {
+    $qr_code = QrCode::create($text)  // Generate QR using text (Reference Code)
+        ->setSize(600)
+        ->setMargin(40)
+        ->setForegroundColor(new Color(0, 0, 0)) 
+        ->setBackgroundColor(new Color(255, 255, 255));
+
+    $writer = new PngWriter;
+    $result = $writer->write($qr_code);
+
+    // Save QR Code to the given file path
+    $result->saveToFile($savePath);
+}

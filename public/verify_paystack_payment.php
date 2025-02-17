@@ -47,11 +47,13 @@ if ($transactionData['status'] == 'success') {
     $customerEmail = $transactionData['customer']['email'];
     $reference = $transactionData['reference'];
     $paymentDate = $transactionData['paid_at'];
+    $payment_channel = $transactionData['authorization']['channel'];
+    $payment_brand = $transactionData['authorization']['brand'];
 
     // Insert payment record securely
-    $query = "INSERT INTO ticket_payments (reference, email, amount, payment_date, transaction_status) VALUES (?, ?, ?, ?, ?)";
+    $query = "INSERT INTO ticket_payments (reference, email, amount, payment_date, transaction_status, payment_channel, payment_brand) VALUES (?, ?, ?, ?, ?, ?, ?)";
     $stmt = $database->prepare($query);
-    $stmt->bind_param("ssdss", $reference, $customerEmail, $amount, $paymentDate, $transaction_status);
+    $stmt->bind_param("ssdssss", $reference, $customerEmail, $amount, $paymentDate, $transaction_status, $payment_channel, $payment_brand);
     $stmt->execute();
 
     // Secure barcode update
@@ -85,8 +87,78 @@ if ($transactionData['status'] == 'success') {
         if ($stmt->execute()) {
             unset($_SESSION['cart']); // Clear cart session
 
+            // Generate QR Code with reference
+            $qrCodePath = __DIR__ . "/qr-codes/$reference.png";
+            generateQRCode($reference, $qrCodePath);
+
+            // Fetch ticket details
+            $query_command = "SELECT attendee.id, attendee.attendee_name, event.image, event.id, event.event_name, event.ticket_name, 
+attendee_orders.created_at, event.event_venue, event.id, event.ticket_price, attendee_orders.quantity, 
+amount_payed, transaction_status, event.event_date_time_start 
+FROM attendee_orders 
+JOIN event ON attendee_orders.ticket_id = event.id 
+JOIN attendee ON attendee_orders.attendee_id = attendee.id 
+JOIN ticket_payments ON attendee_orders.reference = ticket_payments.reference 
+WHERE attendee_orders.reference = ?";
+            $stmt = $database->prepare($query_command);
+            $stmt->bind_param("s", $reference);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            $ticketDetailsHTML = "";
+            while ($ticket_info = $result->fetch_assoc()) {
+                $ticketDetailsHTML .= '
+<div class="container">
+<p class="header">Hi ' . htmlspecialchars($ticket_info['attendee_name']) . '!</p>
+<p>Your order for <strong>' . htmlspecialchars($ticket_info['event_name']) . '</strong> has been successfully processed. Below are your ticket details:</p>
+
+<div class="order-box">
+<table class="order-summary">
+<tr>
+  <th>Order #' . htmlspecialchars($ticket_info['id']) . '</th>
+  <th class="text-end">' . htmlspecialchars($ticket_info['created_at']) . '</th>
+</tr>
+<tr>
+  <td>' . htmlspecialchars($ticket_info['ticket_name']) . '</td>
+  <td class="text-end">GHS ' . htmlspecialchars($ticket_info['ticket_price']) . '</td>
+</tr>
+<tr>
+  <td>Subtotal:</td>
+  <td class="text-end">GHS ' . htmlspecialchars($ticket_info['amount_payed']) . '</td>
+</tr>
+<tr>
+  <td>Org Fee:</td>
+  <td class="text-end">GHS 0.00</td>
+</tr>
+<tr>
+  <td>Membership Discount:</td>
+  <td class="text-end text-danger">-GHS 0.00</td>
+</tr>
+<tr>
+  <td><strong>Total:</strong></td>
+  <td class="text-end"><strong>GHS ' . htmlspecialchars($ticket_info['amount_payed']) . '</strong></td>
+</tr>
+</table>
+</div>
+
+<h5 class="mt-4">📅 Event Date & Time: ' . htmlspecialchars($ticket_info['event_date_time_start']) . '</h5>
+<p>📍 Venue: <strong>' . htmlspecialchars($ticket_info['event_venue']) . '</strong></p>
+
+<div class="qr-code">
+<p>Please present this QR code at the event for entry:</p>
+<img src="https://d3a9-197-253-113-2.ngrok-free.app/event/public/qr-codes/'. htmlspecialchars($reference).'"  alt="QR Code" width="150">
+</div>
+
+<div class="footer">
+<p>For any inquiries, contact our support team.</p>
+<p><strong>Your Event Team</strong></p>
+</div>
+</div>';
+            }
+
+            // Send email
+            $mail = new PHPMailer(true);
             try {
-                $mail = new PHPMailer(true);
                 $mail->isSMTP();
                 $mail->Host = 'smtp.gmail.com';
                 $mail->SMTPAuth = true;
@@ -94,27 +166,75 @@ if ($transactionData['status'] == 'success') {
                 $mail->Password = 'zrwy kvks fxxp jizd'; // Use App Password
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port = 587;
-                
-                $mail->setFrom('enockaning18@gmail.com', 'Event Team');
+
+                $mail->setFrom('your-email@gmail.com', 'Event Team');
                 $mail->addAddress($customerEmail);
+
+                // Attach QR Code
+                if (file_exists($qrCodePath)) {
+                    $mail->addAttachment($qrCodePath, 'Your_Ticket_QR.png');
+                }
 
                 // Email content
                 $mail->isHTML(true);
                 $mail->Subject = 'Payment Confirmation - Your Ticket Purchase';
-                $mail->Body = "<h3>Dear Customer,</h3>
-<p>Thank you for your payment! Your ticket purchase was successful.</p>
-<ul>
-    <li>Transaction Reference: <b>$reference</b></li>
-    <li>Amount Paid: <b>GHS $amount</b></li>
-    <li>Payment Date: <b>$paymentDate</b></li>
-</ul>
-<p>Best Regards,<br><strong>Your Event Team</strong></p>";
+                $mail->Body = '<!DOCTYPE html>
+<html lang="en">
+<h___ead>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Event Ticket Confirmation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<style>
+body {
+background-color: #f8f9fa;
+}
+.container {
+max-width: 600px;
+margin: 20px auto;
+background: #ffffff;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.header {
+font-size: 24px;
+font-weight: bold;
+}
+.order-box {
+background: #f5f5f5;
+padding: 15px;
+border-radius: 8px;
+}
+.order-summary {
+width: 100%;
+border-collapse: collapse;
+}
+.order-summary th, .order-summary td {
+padding: 8px;
+border-bottom: 1px solid #ddd;
+}
+.qr-code {
+text-align: center;
+margin: 20px 0;
+}
+.footer {
+font-size: 12px;
+color: #666;
+text-align: center;
+margin-top: 15px;
+}
+</style>
+</h___ead>
+<body>' . $ticketDetailsHTML . '</body></html>';
 
                 $mail->send();
-                echo "Email confirmation sent.";
+                echo "Email confirmation sent with QR code.";
             } catch (Exception $e) {
                 echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
             }
+
+
 
             // SweetAlert for success message
             echo "<script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>";
