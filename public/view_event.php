@@ -2,6 +2,7 @@
 require_once('../private/initialize.php');
 require_once('../private/shared/index_header.php');
 
+
 // Get event ID and slug from URL
 $event_reference_id = $_GET['event_reference_id'] ?? null;
 $event_slug = $_GET['event_name'] ?? null;
@@ -253,6 +254,19 @@ if ($event_reference_id) {
             input.value = currentValue - 1;
         }
     }
+</script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            document.getElementById('skeleton-loader').style.display = '';
+            document.getElementById('real-events').style.display = 'block';
+            document.getElementById('index_loader').style.display = 'none';
+            document.getElementById('main_loader').style.display = 'block';
+            document.getElementById('section_main_loader').style.display = 'block';
+            document.getElementById('index_page_header').style.display = 'block';
+            document.getElementById('index_footer').style.display = 'block';
+        }, 2000); // 2 seconds delay for demonstration
+    });
 </script>
 
 </php>

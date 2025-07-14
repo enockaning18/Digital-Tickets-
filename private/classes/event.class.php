@@ -11,7 +11,7 @@ class Event extends databaseObject
         'event_date_time_end', 'event_mode',
         'event_venue', 'ticket_name',
         'ticket_type', 'ticket_price',
-        'ticket_quantity', 'event_reference_id', 'organizer_id', 'status'
+        'ticket_quantity', 'event_reference_id', 'organizer_id', 'status', 'total_tickets'
     ];
 
     public function __construct($args = [])
@@ -34,6 +34,7 @@ class Event extends databaseObject
         $this->ticket_quantity = $args['ticket_quantity'] ?? '';
         $this->organizer_id = $_SESSION['id'] ?? '';
         $this->status = 0;
+        $this->total_tickets = $args['ticket_quantity'] ?? '';
     }
 
     static public function find_by_reference_id($id)
@@ -164,4 +165,5 @@ class Event extends databaseObject
     public $organizer_id;
     public $organizer_name;
     public $status;
+    public $total_tickets ;
 }

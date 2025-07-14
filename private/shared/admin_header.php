@@ -132,13 +132,13 @@
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                         <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">Discover</a>
+                                            <a class="nav-link active" aria-current="page" href="index.php">Discover</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Find Event</a>
+                                            <a class="nav-link" href="find_event.php">Find Event</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Seal Tickets</a>
+                                            <a class="nav-link" href="">Seal Tickets</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#">Private Event</a>
@@ -169,8 +169,8 @@
 
             <div class="container-xxl  p-0 ">
                 <nav class="p-3 mx-auto d-none d-md-flex justify-content-between  gap-2 mb-5">
-                    <div><a href="" class="text-decoration-none text-black"> Discover</a> </div>
-                    <div><a href="" class="text-decoration-none text-black"> Find Event</a></div>
+                    <div><a href="index.php" class="text-decoration-none text-black"> Discover</a> </div>
+                    <div><a href="find_event.php" class="text-decoration-none text-black"> Find Event</a></div>
                     <div><a href="" class="text-decoration-none text-black"> Seal Tickets</a></div>
                     <div><a href="" class="text-decoration-none text-black"> Private Event</a> </div>
                     <div><a href="" class="text-decoration-none text-black"> Premium Event</a> </div>

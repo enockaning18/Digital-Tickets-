@@ -146,7 +146,7 @@ WHERE attendee_orders.reference = ?";
 
 <div class="qr-code">
 <p>Please present this QR code at the event for entry:</p>
-<img src="https://d3a9-197-253-113-2.ngrok-free.app/event/public/qr-codes/'. htmlspecialchars($reference).'"  alt="QR Code" width="150">
+<img src="https://d3a9-197-253-113-2.ngrok-free.app/event/public/qr-codes/' . htmlspecialchars($reference) . '"  alt="QR Code" width="150">
 </div>
 
 <div class="footer">
@@ -229,7 +229,7 @@ margin-top: 15px;
 <body>' . $ticketDetailsHTML . '</body></html>';
 
                 $mail->send();
-                echo "Email confirmation sent with QR code.";
+                // echo "Email confirmation sent with QR code.";
             } catch (Exception $e) {
                 echo "Email could not be sent. Mailer Error: " . $mail->ErrorInfo;
             }
@@ -243,6 +243,7 @@ margin-top: 15px;
         Swal.fire({
             title: 'Success! 🎉',
             text: 'Payment Successful!',
+            text: 'Email confirmation sent with QR code!',
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(function() {

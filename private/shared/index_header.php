@@ -11,6 +11,7 @@ $main_url = 'index.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     <title>Team Event</title>
+    <link rel="icon" type="image/ico" sizes="50x50" href="../qr-code.ico">
 
     <link rel="icon" type="image" href="" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -22,153 +23,153 @@ $main_url = 'index.php';
 </head>
 
 <body style="font-family:'Exo 2','sans-serif';">
-    <container>
-        <header class="d-flex justify-content-between align-items-center shadow-sm p-3">
-            <div>
-                <a href="../public/index.php"> <img src="../bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt=""></a>
+
+    <header class="d-flex justify-content-between align-items-center shadow-sm p-3">
+        <div>
+            <a href="../public/index.php"> <img src="../bootstrap-config/images/logo.png" style="height: 50px; width: 50px;" alt=""></a>
+        </div>
+
+        <div class="input-group d-none d-md-flex border-0 nav-item" style="max-width: 500px;">
+            <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." />
+            <span class="input-group-text"><i class="bi bi-search fs-5 fw-bold lh-0 "></i></span>
+        </div>
+
+
+        <div class="nav-item dropdown d-flex align-items-center gap-1 <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) {
+                                                                            echo 'd-none';
+                                                                        } ?>">
+            <a href="check_out.php" class="nav-link <?php if (!$attendee_session->is_logged_in()) {
+                                                        echo 'd-none';
+                                                    } ?>"><i class="bi bi-inboxes-fill me-2"></i></a>
+
+            <a class="nav-link" style="font-size: 18px;" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?? $attendee_session->attendee_name ?>
+            </a>
+            <div class="dropdown-menu">
+                <li> <a class="dropdown-item" href="<?php
+                                                    if (isset($session) && $session->is_logged_in()) {
+                                                        // Organizer session is logged in
+                                                        echo $organizer_dashboard_url;
+                                                    } elseif (isset($attendee_session) && $attendee_session->is_logged_in()) {
+                                                        // Attendee session is logged in
+                                                        echo $attendee_dashboard_url;
+                                                    } else {
+                                                        // Default fallback (e.g., home page)
+                                                        echo $main_url;
+                                                    }
+                                                    ?>">Dashboard</a></li>
+                <li><a class="dropdown-item" href="logout.php">Logout</a></li>
             </div>
+        </div>
 
-            <div class="input-group d-none d-md-flex border-0 nav-item" style="max-width: 500px;">
-                <input type="text" class="form-control" placeholder="Search..." aria-label="Search..." />
-                <span class="input-group-text"><i class="bi bi-search fs-5 fw-bold lh-0 "></i></span>
-            </div>
-
-
-            <div class="nav-item dropdown d-flex align-items-center gap-1 <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) {
-                                                                                echo 'd-none';
-                                                                            } ?>">
-                <a href="check_out.php" class="nav-link <?php if (!$attendee_session->is_logged_in()) {
-                                                            echo 'd-none';
-                                                        } ?>"><i class="bi bi-inboxes-fill me-2"></i></a>
-
-                <a class="nav-link" style="font-size: 18px;" href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-person-check-fill "></i><?php echo $session->organizer_name ?? $attendee_session->attendee_name ?>
-                </a>
-                <div class="dropdown-menu">
-                    <li> <a class="dropdown-item" href="<?php
-                                                        if (isset($session) && $session->is_logged_in()) {
-                                                            // Organizer session is logged in
-                                                            echo $organizer_dashboard_url;
-                                                        } elseif (isset($attendee_session) && $attendee_session->is_logged_in()) {
-                                                            // Attendee session is logged in
-                                                            echo $attendee_dashboard_url;
-                                                        } else {
-                                                            // Default fallback (e.g., home page)
-                                                            echo $main_url;
-                                                        }
-                                                        ?>">Dashboard</a></li>
-                    <li><a class="dropdown-item" href="logout.php">Logout</a></li>
-                </div>
-            </div>
-
-            <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) { ?>
-                <div class="d-none d-md-flex">
-                    <button class="btn btn-outline-primary border-0" type="submit">
-                        <div class="nav-item dropdown">
-                            <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Login
-                            </a>
-                            <div class="dropdown-menu">
-                                <li><a class="dropdown-item" href="auth_login.php">Attendee</a></li>
-                                <li><a class="dropdown-item" href="auth_login.php">Organizer</a></li>
-                            </div>
-                        </div>
-                    </button>
-
-                    <button class="btn btn-outline-primary border-0" type="submit">
-                        <div class="nav-item dropdown">
-                            <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Signup
-                            </a>
-                            <div class="dropdown-menu">
-                                <li><a class="dropdown-item" href="auth_register_attendee.php">Attendee</a></li>
-                                <li><a class="dropdown-item" href="auth_register_organizer.php">Organizer</a></li>
-                            </div>
-                        </div>
-                    </button>
-                </div>
-            <?php } ?>
-
-            <!-- Hamburger menu for small screens -->
-            <nav class="navbar d-md-none bg-white">
-                <div class="container-fluid bg-white" style="background-color:ffff; color:#c3073f">
-                    <button class="navbar-toggler bg-white" style=" color:#c3073f" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon text-success"></span>
-                    </button>
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">Discover</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Find Event</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Seal Tickets</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Private Event</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Premium Event</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Help Center </a>
-
-                                </li>
-
-                                <li>
-                                    <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
-                                                                        echo 'd-none';
-                                                                    } ?>">
-                                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Login
-                                        </a>
-                                        <div class="dropdown-menu border border-0">
-                                            <a class="dropdown-item" href="auth_login.php">Attendee</a>
-                                            <a class="dropdown-item" href="auth_login.php">Organizer</a>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
-                                                                        echo 'd-none';
-                                                                    } ?>">
-                                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            Signup
-                                        </a>
-                                        <div class="dropdown-menu border border-0">
-                                            <a class="dropdown-item" href="auth_login.php">Attendee</a>
-                                            <a class="dropdown-item" href="auth_register_organizer.php">Organizer</a>
-                                        </div>
-                                    </div>
-                                </li>
-
-
-                            </ul>
-                            <form class="d-flex mt-3" role="search">
-                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-success" type="submit">Search</button>
-                            </form>
+        <?php if (!$session->is_logged_in() && !$attendee_session->is_logged_in()) { ?>
+            <div class="d-none d-md-flex">
+                <button class="btn btn-outline-primary border-0" type="submit">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Login
+                        </a>
+                        <div class="dropdown-menu">
+                            <li><a class="dropdown-item" href="auth_login.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_login.php">Organizer</a></li>
                         </div>
                     </div>
-                </div>
-            </nav>
-            <!-- Hamburger menu ends here -->
-        </header>
+                </button>
 
-        <div class="container-xl p-0">
-            <nav class="p-3 mx-auto d-none d-md-flex justify-content-between gap-2 mb-5">
-                <div><a href="" class="text-decoration-none text-black"> Discover</a> </div>
-                <div><a href="" class="text-decoration-none text-black"> Find Event</a></div>
-                <div><a href="" class="text-decoration-none text-black"> Seal Tickets</a></div>
-                <div><a href="" class="text-decoration-none text-black"> Private Event</a> </div>
-                <div><a href="" class="text-decoration-none text-black"> Premium Event</a> </div>
-                <div><a href="" class="text-decoration-none text-black"> Help Center</a> </div>
-            </nav>
+                <button class="btn btn-outline-primary border-0" type="submit">
+                    <div class="nav-item dropdown">
+                        <a class="nav-link " href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Signup
+                        </a>
+                        <div class="dropdown-menu">
+                            <li><a class="dropdown-item" href="auth_register_attendee.php">Attendee</a></li>
+                            <li><a class="dropdown-item" href="auth_register_organizer.php">Organizer</a></li>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        <?php } ?>
+
+        <!-- Hamburger menu for small screens -->
+        <nav class="navbar d-md-none bg-white">
+            <div class="container-fluid bg-white" style="background-color:ffff; color:#c3073f">
+                <button class="navbar-toggler bg-white" style=" color:#c3073f" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon text-success"></span>
+                </button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.php">Discover</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="find_event.php">Find Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Seal Tickets</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Private Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Premium Event</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Help Center </a>
+
+                            </li>
+
+                            <li>
+                                <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
+                                                                    echo 'd-none';
+                                                                } ?>">
+                                    <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Login
+                                    </a>
+                                    <div class="dropdown-menu border border-0">
+                                        <a class="dropdown-item" href="auth_login.php">Attendee</a>
+                                        <a class="dropdown-item" href="auth_login.php">Organizer</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="nav-item dropdown <?php if ($session->is_logged_in() && $attendee_session->is_logged_in()) {
+                                                                    echo 'd-none';
+                                                                } ?>">
+                                    <a class="nav-link " href="" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Signup
+                                    </a>
+                                    <div class="dropdown-menu border border-0">
+                                        <a class="dropdown-item" href="auth_login.php">Attendee</a>
+                                        <a class="dropdown-item" href="auth_register_organizer.php">Organizer</a>
+                                    </div>
+                                </div>
+                            </li>
+
+
+                        </ul>
+                        <form class="d-flex mt-3" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <!-- Hamburger menu ends here -->
+    </header>
+
+    <div class="container-xl p-0">
+        <nav class="p-3 mx-auto d-none d-md-flex justify-content-between gap-2 mb-5">
+            <div><a href="index.php" class="text-decoration-none text-black"> Discover</a> </div>
+            <div><a href="find_event.php" class="text-decoration-none text-black">Find Event</a></div>
+            <div><a href="" class="text-decoration-none text-black"> Seal Tickets</a></div>
+            <div><a href="" class="text-decoration-none text-black"> Private Event</a> </div>
+            <div><a href="" class="text-decoration-none text-black"> Premium Event</a> </div>
+            <div><a href="" class="text-decoration-none text-black"> Help Center</a> </div>
+        </nav>

@@ -56,6 +56,38 @@ if (isset($_POST['save'])) {
         </div>
 
 
+        <?php
+        $modal_id = 'modal_' . preg_replace('/[^A-Za-z0-9\_]/', '', '661661122');
+        ?>
+
+        <div class="row">
+            <!-- Modal -->
+            <div class="modal fade" id="<?php echo $modal_id; ?>" aria-hidden="true" aria-labelledby="<?php echo $modal_id; ?>message" tabindex="-1">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="<?php echo $modal_id; ?>message">Contact Organizer</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Contact form or organizer details go here.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button -->
+            <div class="col-md-6 mb-4 d-none d-md-block">
+                <div class="card shadow-sm border-0">
+                    <div class="card-body p-4">
+                        <span class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#<?php echo $modal_id; ?>">Contact Organizer
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
     </div>

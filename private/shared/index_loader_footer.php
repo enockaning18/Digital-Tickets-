@@ -1,4 +1,4 @@
-<footer id="index_footer" class="text-black pt-5 pb-4 " style="background-color: #F1F3F7; display:none;">
+<footer class="text-black pt-5 pb-4 " style="background-color: #F1F3F7;">
     <div class="container">
         <div class="row">
             <!-- About Section -->

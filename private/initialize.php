@@ -23,6 +23,7 @@ require_once('db_credentials.php');
 require_once('db_functions.php');
 require_once('status_error_functions.php');
 require_once('validation_functions.php');
+require_once('calc_queries.php');
 require_once('shared/scripts.php');
 require_once('vendor/autoload.php');
 require __DIR__ . "/vendor/autoload.php";

@@ -74,21 +74,6 @@
                                                 <i class="bi bi-calendar-check me-2"></i> My Cart
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="my_event.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-calendar-plus me-2"></i> My Favorite
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="my_venues.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-geo-alt-fill me-2"></i> Following
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-person-gear me-2"></i> Account Settings
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -171,16 +156,6 @@
                             <li>
                                 <a href="my_cart.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
                                     <i class="bi bi-inboxes-fill me-2"></i>My Cart
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                    <i class="bi bi-heart-fill me-2"></i> My Favorite
-                                </a>
-                            </li>
-                            <li>
-                                <a href="following.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                    <i class="bi bi-geo-alt-fill me-2"></i> Following
                                 </a>
                             </li>
                             <li>

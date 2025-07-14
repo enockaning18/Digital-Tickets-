@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
         <title>Team Event</title>
-
+        <link rel="icon" type="image/ico" sizes="50x50" href="../qr-code.ico">
         <link rel="icon" type="image" href="" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -127,10 +127,10 @@
                                 <div class="offcanvas-body">
                                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                                         <li class="nav-item">
-                                            <a class="nav-link active" aria-current="page" href="#">Discover</a>
+                                            <a class="nav-link active" aria-current="page" href="index.php">Discover</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#">Find Event</a>
+                                            <a class="nav-link" href="find_event.php">Find Event</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#">Seal Tickets</a>
@@ -206,6 +206,18 @@
                                 <a href="my_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-geo-alt-fill me-2"></i>
                                     My Venues
+                                </a>
+                            </li>
+                            <li class=" align-items-center ">
+                                <a href="order_list.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-cart3 me-2"></i>
+                                    Order List
+                                </a>
+                            </li>
+                            <li class=" align-items-center ">
+                                <a href="system_report.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-file-earmark-spreadsheet me-2"></i>
+                                    System Report
                                 </a>
                             </li>
                             <li class=" align-items-center ">

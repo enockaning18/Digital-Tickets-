@@ -1,15 +1,23 @@
-<?php include("../../private/initialize.php");
+<?php
+
+use Google\Service\Analytics\Resource\Data;
+
+include("../../private/initialize.php");
 include(SHARED_PATH . "/organizer_header.php");
 
 require_login();
 $organizer_id = $_SESSION['id'] ?? $_SESSION['user_token'];
 // $event = Event::find_by_reference_id($organizer_id);
-$query_command = " SELECT * FROM event ";
+$query_command = " SELECT * FROM event  ";
 $query_command .= " INNER JOIN `organizer` ON organizer_id  = organizer.id ";
 $query_command .= " WHERE organizer_id = '" . $organizer_id . "'";
 $result = $database->execute_query($query_command);
 
+
+
 if ($result && mysqli_num_rows($result) > 0) { ?>
+
+
 
     <div class="border col-md-12 col-lg-9 flex-column shadow-sm rounded 0-0 p-md-5">
         <div class="d-block d-md-flex  justify-content-between align-items-center  py-3 px-4 border rounded shadow-sm" style="background-color: #ffffff;">
@@ -134,15 +142,39 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                     </div>
                                 </td>
 
+                                <?php
+                                $find_id = Event::find_event_by_id($event->event_reference_id);
+
+                                if ($find_id == true) {
+                                    $ticket_bought_query_command = " SELECT SUM(quantity) AS quantity   FROM `attendee_orders` WHERE ticket_id = ' " . $find_id->id . "' AND reference != 'NULL'; ";
+                                    $bought_ticket = $database->execute_query($ticket_bought_query_command);
+
+                                    // Initialize progress percentage
+                                    $progress_percentage = 0;
+
+                                    // Check if the query returned a result
+                                    if ($bought_ticket && $ticket = mysqli_fetch_array($bought_ticket)) {
+                                        if ($event->total_tickets > 0) {
+                                            $progress_percentage = ($ticket['quantity'] / $event->total_tickets) * 100;
+                                        }
+                                    }
+                                }
+
+                                ?>
+
                                 <td>
                                     <div>
-                                        <div><strong>20%</strong></div>
-                                        <small class="text-muted">0 tickets sold</small>
+                                        <div><strong><?php echo round($progress_percentage, 2); ?>%</strong></div>
+                                        <small class="text-muted"><?php echo $ticket['quantity']; ?> tickets sold</small>
                                     </div>
-                                    <div class="progress progress-xs" style=" height: 5px;">
-                                        <div class="progress-bar bg-yellow" role="progressbar" style="width: 20%; background-color: #f39c12;" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress progress-xs" style="height: 5px;">
+                                        <div class="progress-bar bg-yellow" role="progressbar" style="width: <?php echo round($progress_percentage, 2); ?>%; background-color: #f39c12;" aria-valuenow="<?php echo round($progress_percentage, 2); ?>" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
                                     </div>
                                 </td>
+
+
+
 
                                 <td>
                                     <?php if ($event->status === '1') { ?>
@@ -154,7 +186,7 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                 </td>
 
                                 <td>
-                                    <span>0%</span>
+                                    <span><?php echo $ticket['quantity']; ?> </span>
                                 </td>
 
 
@@ -183,9 +215,19 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
             <!-- View Event Details starts here -->
             <?php
             $id = $_GET['id'] ?? 'null';
+
             if (isset($id)) {
                 $details = Event::find_event_by_id($id);
-                if ($details == true) { ?>
+                if ($details == true) {
+                    // calculate number of tickets bought
+                    $ticket_bought_query_command = " SELECT SUM(quantity) AS quantity, total_tickets   FROM `attendee_orders` INNER JOIN event ON attendee_orders.ticket_id = event.id WHERE ticket_id = '" . $details->id . "' AND reference != 'NULL'; ";
+                    $bought_ticket = $database->execute_query($ticket_bought_query_command);
+
+                    $amount_bought = " SELECT SUM(amount_payed) AS amount_payed   FROM `attendee_orders` WHERE ticket_id = '" . $details->id . "' AND reference != 'NULL'; ";
+                    $bought_amount = $database->execute_query($amount_bought); ?>
+
+
+
                     <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
@@ -310,10 +352,12 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>Sales</td>
-                                                                                <td>
-                                                                                    0
-                                                                                </td>
+                                                                                <td>Sales (Amount)</td>
+                                                                                <?php while ($total_amount = mysqli_fetch_array($bought_amount)) { ?>
+                                                                                    <td>
+                                                                                        GH₵ <?php echo $total_amount['amount_payed'] ?>
+                                                                                    </td>
+                                                                                <?php } ?>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Reference</td>
@@ -344,7 +388,7 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                                                 </div>
                                                             </td>
                                                             <td class="col-12 col-lg-6 p-3">
-                                                                <h6>Ticket 1</h6>
+                                                                <h6>Ticket (<?php echo $details->ticket_name ?>)</h6>
                                                                 <div class="table-responsive">
                                                                     <table class="table table-borderless table-striped table-hover table-sm">
                                                                         <tbody>
@@ -360,9 +404,10 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Sales</td>
-                                                                                <td>
-                                                                                    0
-                                                                                </td>
+                                                                                <?php while ($ticket = mysqli_fetch_array($bought_ticket)) { ?>
+                                                                                    <td>
+                                                                                        <?php echo $ticket['quantity'] ?> / <?php echo $ticket['total_tickets'] ?>
+                                                                                    </td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Price</td>
@@ -372,7 +417,12 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Quantity</td>
-                                                                                <td><?php echo $details->ticket_quantity ?></td>
+                                                                                <td><?php if ($details->ticket_quantity === '0') {
+                                                                                        echo 'Out of Stock';
+                                                                                    } else {
+                                                                                        echo $details->ticket_quantity;
+                                                                                    }
+                                                                                } ?></td>
                                                                             </tr>
                                                                             <tr>
                                                                                 <td>Reference</td>
