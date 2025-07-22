@@ -13,11 +13,11 @@ $paymentDate = "january 1st";
 try {
     // Server settings
     $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com'; // Change this if using a different email provider
+    $mail->Host = 'smtp.gmail.com'; 
     $mail->SMTPAuth = true;
-    $mail->Username = 'enockaning18@mail.com'; // Replace with your email
-    $mail->Password = 'Mr.Okyere@2003'; // Replace with your email password or app password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use SSL if needed
+    $mail->Username = 'enockaning18@mail.com'; 
+    $mail->Password = 'Mr.Okyere@2003'; 
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
     $mail->Port = 587; // 465 for SSL
 
     // Recipients

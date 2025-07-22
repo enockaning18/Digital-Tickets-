@@ -6,245 +6,125 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 ?>
-<div class="box shadow-none bg-gray mb-4">
-    <div class="row">
-        <div class="col-sm-12 col-lg-6 text-center text-lg-left mb-3 mb-lg-0">
-            <span class="center-lg-y text-muted">35 event(s) found</span>
+<div class="card shadow-sm border-0 mb-5 p-3 bg-light">
+    <div class="row align-items-center justify-content-between">
+        <!-- Left: Event Count -->
+        <div class="col-12 col-lg-6 text-center text-lg-start mb-2 mb-lg-0">
+            <span class="text-muted fw-semibold fs-6">🎉 48 event(s) found</span>
         </div>
-        <div class="col-sm-12 col-lg-6 text-center text-lg-right">
-            <a href="#events-calendar" class="btn btn-primary has-tooltip" data-toggle="collapse" title="" aria-expanded="false" aria-controls="events-calendar" data-original-title="Show events calendar"><i class="far fa-calendar fa-fw"></i></a>
-            <a href="https://ayatickets.com/rss" class="btn btn-primary" data-toggle="tooltip" title="" target="_blank" data-original-title="Events RSS feed"><i class="fas fa-rss fa-fw"></i></a>
+
+        <!-- Right: Buttons -->
+        <div class="col-12 col-lg-6 text-center text-lg-end d-flex justify-content-center justify-content-lg-end gap-2">
+            <!-- Calendar View Toggle -->
+            <button class="btn btn-outline-primary" data-bs-toggle="collapse" data-bs-target="#events-calendar" aria-expanded="false" aria-controls="events-calendar" title="Toggle Calendar View">
+                <i class="bi bi-calendar3"></i> Calendar
+            </button>
+
+            <div id="loadingSpinner" style="display:none;" class="text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+
+            <!-- RSS Feed -->
+            <a href="https://ayatickets.com/rss" target="_blank" class="btn btn-outline-secondary" title="Events RSS Feed">
+                <i class="bi bi-rss-fill"></i> RSS
+            </a>
         </div>
     </div>
 </div>
 
 
+
 <!-- main container starts here -->
 <div class="row">
     <aside class="col-lg-3 order-2 order-lg-1">
-        <div class="card card-filter">
-            <form method="get">
-                <article class="card-group-item">
-                    <header class="card-header">
-                        <a href="#" data-toggle="collapse" data-target="#filter-keyword">
-                            <i class="icon-action fa fa-chevron-down"></i>
-                            <h6 class="title">Keyword</h6>
-                        </a>
-                    </header>
-                    <div class="filter-content collapse show" id="filter-keyword">
-                        <div class="card-body">
-                            <input id="keyword" name="keyword" type="text" class="form-control" value="">
-                        </div>
-                    </div>
-                </article>
-                <article class="card-group-item">
-                    <header class="card-header">
-                        <a href="#" data-toggle="collapse" data-target="#filter-category">
-                            <i class="icon-action fa fa-chevron-down"></i>
-                            <h6 class="title">Category</h6>
-                        </a>
-                    </header>
-                    <div class="filter-content collapse show" id="filter-category">
-                        <div class="card-body">
-                            <div class="select2-container select2" id="s2id_category"><a href="javascript:void(0)" class="select2-choice select2-default" tabindex="-1"> <span class="select2-chosen" id="select2-chosen-1">Select an option</span><abbr class="select2-search-choice-close"></abbr> <span class="select2-arrow" role="presentation"><b role="presentation"></b></span></a><label for="s2id_autogen1" class="select2-offscreen"></label><input class="select2-focusser select2-offscreen" type="text" aria-haspopup="true" role="button" aria-labelledby="select2-chosen-1" id="s2id_autogen1">
-                                <div class="select2-drop select2-display-none select2-with-searchbox">
-                                    <div class="select2-search"> <label for="s2id_autogen1_search" class="select2-offscreen"></label> <input type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" class="select2-input" role="combobox" aria-expanded="true" aria-autocomplete="list" aria-owns="select2-results-1" id="s2id_autogen1_search" placeholder=""> </div>
-                                    <ul class="select2-results" role="listbox" id="select2-results-1"> </ul>
-                                </div>
-                            </div><select id="category" name="category" class="select2 select2-offscreen" data-sort-options="1" tabindex="-1" title="">
-                                <option value="">&nbsp;</option>
-                                <option value="business-professional">Business / Professional</option>
-                                <option value="charity-causes">Charity / Causes</option>
-                                <option value="cinema-theatre-movies">Cinema / Theatre / Movies</option>
-                                <option value="community-culture">Community / Culture</option>
-                                <option value="conference-seminar-networking">Conference / Seminar / Networking</option>
-                                <option value="family-education">Family / Education</option>
-                                <option value="fashion-beauty">Fashion / Beauty</option>
-                                <option value="festivals-spectacle">Festivals / Spectacle</option>
-                                <option value="food-drink">Food / Drink</option>
-                                <option value="game-competition">Game / Competition</option>
-                                <option value="museum-monument">Museum / Monument</option>
-                                <option value="music-concerts-live-shows">Music / Concerts / Live Shows</option>
-                                <option value="other">Other</option>
-                                <option value="performing-visual-arts">Performing / Visual Arts</option>
-                                <option value="religion-spirituality">Religion / Spirituality</option>
-                                <option value="sports-fitness-health-and-wellness">Sports / Fitness / Health and Wellness</option>
-                                <option value="travel-outdoor-camp">Travel / Outdoor / Camp</option>
-                                <option value="workshop-training">Workshop / Training</option>
-                            </select>
-                        </div>
-                    </div>
-                </article>
-                <article class="card-group-item">
-                    <header class="card-header">
-                        <a href="#" data-toggle="collapse" data-target="#filter-date">
-                            <i class="icon-action fa fa-chevron-down"></i>
-                            <h6 class="title">Date</h6>
-                        </a>
-                    </header>
-                    <div class="filter-content collapse show" id="filter-date">
-                        <div class="card-body">
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-today" name="startdate" value="today">
-                                    <label class="custom-control-label" for="date-today">Today</label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">0</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-tomorrow" name="startdate" value="tomorrow">
-                                    <label class="custom-control-label" for="date-tomorrow">Tomorrow</label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">6</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-thisweekend" name="startdate" value="thisweekend">
-                                    <label class="custom-control-label" for="date-thisweekend">
-                                        This weekend
-                                    </label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">9</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-thisweek" name="startdate" value="thisweek">
-                                    <label class="custom-control-label" for="date-thisweek">
-                                        This week
-                                    </label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">10</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-nextweek" name="startdate" value="nextweek">
-                                    <label class="custom-control-label" for="date-nextweek">
-                                        Next week
-                                    </label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">14</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-thismonth" name="startdate" value="thismonth">
-                                    <label class="custom-control-label" for="date-thismonth">
-                                        This month
-                                    </label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">21</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input" id="date-nextmonth" name="startdate" value="nextmonth">
-                                    <label class="custom-control-label" for="date-nextmonth">
-                                        Next month
-                                    </label>
-                                </div>
-                                <span class="float-right form-check-label">
-                                    <span class="badge badge-light round">4</span>
-                                </span>
-                                <div class="clearfix"></div>
-                            </div>
-                            <div class="form-check">
-                                <div class="float-left custom-control custom-radio form-check-input">
-                                    <input type="radio" class="custom-control-input datepicker" id="date-pickadate" name="startdate" value="all">
-                                    <label class="custom-control-label" for="date-pickadate">
-                                        Pick a date
-                                    </label>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-                <article class="card-group-item">
-                    <header class="card-header">
-                        <a href="#" data-toggle="collapse" data-target="#filter-price">
-                            <i class="icon-action fa fa-chevron-down"></i>
-                            <h6 class="title">Ticket price</h6>
-                        </a>
-                    </header>
-                    <div class="filter-content collapse show" id="filter-seated-guests">
-                        <div class="card-body">
+        <div class="card shadow-sm border-0 p-3">
+            <form id="filterForm">
+                <!-- Keyword -->
+                <div class="mb-4">
+                    <label for="keyword" class="form-label fw-semibold text-muted">Keyword</label>
+                    <input id="keyword" name="keyword" type="text" class="form-control" placeholder="Search by keyword...">
+                </div>
 
-                            <div class="custom-control custom-checkbox form-check-input ml-0 mb-4">
-                                <input type="checkbox" class="custom-control-input" id="free-events-only" name="freeonly" value="1">
-                                <label class="custom-control-label" for="free-events-only">
-                                    Free events only
-                                </label>
-                            </div>
+                <!-- Category -->
+                <div class="mb-4">
+                    <label for="category" class="form-label fw-semibold text-muted">Category</label>
+                    <select id="category" name="category" class="form-select">
+                        <option value="">Select a category</option>
+                        <option value="business-professional">Business / Professional</option>
+                        <option value="charity-causes">Charity / Causes</option>
+                        <option value="cinema-theatre-movies">Cinema / Theatre / Movies</option>
+                        <option value="community-culture">Community / Culture</option>
+                        <option value="conference-seminar-networking">Conference / Seminar / Networking</option>
+                        <option value="family-education">Family / Education</option>
+                        <option value="fashion-beauty">Fashion / Beauty</option>
+                        <option value="festivals-spectacle">Festivals / Spectacle</option>
+                        <option value="food-drink">Food / Drink</option>
+                        <option value="game-competition">Game / Competition</option>
+                        <option value="museum-monument">Museum / Monument</option>
+                        <option value="music-concerts-live-shows">Music / Concerts / Live Shows</option>
+                        <option value="other">Other</option>
+                        <option value="performing-visual-arts">Performing / Visual Arts</option>
+                        <option value="religion-spirituality">Religion / Spirituality</option>
+                        <option value="sports-fitness-health-and-wellness">Sports / Fitness / Health and Wellness</option>
+                        <option value="travel-outdoor-camp">Travel / Outdoor / Camp</option>
+                        <option value="workshop-training">Workshop / Training</option>
+                    </select>
+                </div>
 
-                            <div class="events-price-range-slider-wrapper">
-                                <div class="range-slider mb-3 noUi-target noUi-ltr noUi-horizontal" data-min="0" data-max="10000" data-start-left="0" data-start-right="10000">
-                                    <div class="noUi-base">
-                                        <div class="noUi-connects">
-                                            <div class="noUi-connect" style="transform: translate(0%, 0px) scale(1, 1);"></div>
-                                        </div>
-                                        <div class="noUi-origin" style="transform: translate(-1000%, 0px); z-index: 5;">
-                                            <div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="10000.0" aria-valuenow="0.0" aria-valuetext="0">
-                                                <div class="noUi-touch-area"></div>
-                                            </div>
-                                        </div>
-                                        <div class="noUi-origin" style="transform: translate(0%, 0px); z-index: 4;">
-                                            <div class="noUi-handle noUi-handle-upper" data-handle="1" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="10000.0" aria-valuenow="10000.0" aria-valuetext="10000">
-                                                <div class="noUi-touch-area"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row ranger-slider-inputs">
-                                    <div class="col-12 col-sm-6">
-                                        <label for="pricemin">Min</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₵</span>
-                                            </div>
-                                            <input id="pricemin" name="pricemin" type="text" class="form-control range-slider-min-input" value="" placeholder="Min">
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-sm-6">
-                                        <label for="pricemax">Max</label>
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">₵</span>
-                                            </div>
-                                            <input id="pricemax" name="pricemax" type="text" class="form-control range-slider-max-input" value="" placeholder="Max">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Date -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-muted">Date</label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="today" name="startdate" value="today">
+                        <label class="form-check-label" for="today">Today</label>
                     </div>
-                </article>
-                <article class="card-group-item">
-                    <div class="card-body">
-                        <button class="btn btn-block btn-outline-primary"><i class="fas fa-search"></i> Search</button>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="tomorrow" name="startdate" value="tomorrow">
+                        <label class="form-check-label" for="tomorrow">Tomorrow</label>
                     </div>
-                </article>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="thisweekend" name="startdate" value="thisweekend">
+                        <label class="form-check-label" for="thisweekend">This Weekend</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="thismonth" name="startdate" value="thismonth">
+                        <label class="form-check-label" for="thismonth">This Month</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" id="pickadate" name="startdate" value="all">
+                        <label class="form-check-label" for="pickadate">Pick a Date</label>
+                    </div>
+                </div>
+
+                <!-- Price Range -->
+                <div class="mb-4">
+                    <label class="form-label fw-semibold text-muted">Ticket Price</label>
+                    <div class="form-check mb-2">
+                        <input type="checkbox" class="form-check-input" id="free-events-only" name="freeonly" value="1">
+                        <label class="form-check-label" for="free-events-only">Free Events Only</label>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <input type="number" name="pricemin" class="form-control" placeholder="Min ₵">
+                        <input type="number" name="pricemax" class="form-control" placeholder="Max ₵">
+                    </div>
+                </div>
+
+                <!-- Search Button -->
+                <div>
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="fas fa-search me-1"></i> Search
+                    </button>
+                </div>
             </form>
         </div>
     </aside>
+
+
+
     <div class="col-lg-9 order-1 order-lg-2">
-        <div class="row">
+        <div class="row" id="eventResults">
 
 
 
@@ -254,7 +134,7 @@ ini_set('display_errors', 1);
                 <div class="col-12 col-sm-6 col-lg-6 mb-3">
                     <div class="card-event shadow-sm" onclick="window.location.href='view_event.php?event=<?php echo urlencode($event_name_slug) ?>&event_reference_id=<?php echo $event->event_reference_id ?>'" style="cursor: pointer;">
 
-                        <div class="position-relative event-image" style="background-image: url('organizer/uploads/<?php echo $event->image ?>');">
+                        <div class="position-relative event-image" loading="lazy" style="background-image: url('organizer/uploads/<?php echo $event->image ?>');">
                             <a href="view_event.php?event=<?php echo urlencode($event_name_slug) ?>&event_reference_id=<?php echo $event->event_reference_id ?>" class="stretched-link"></a>
                             <div class="date-badge"> <?php echo $event->event_date_time_start ?></div>
                         </div>
@@ -430,7 +310,58 @@ ini_set('display_errors', 1);
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
+
+                .card-filter label {
+                    font-size: 0.9rem;
+                    color: #555;
+                }
+
+                .card-filter .form-control,
+                .card-filter .form-select {
+                    border-radius: 0.375rem;
+                }
+
+                .card-filter .form-check-label {
+                    font-weight: 500;
+                    color: #333;
+                }
+
+                .card.bg-light {
+                    background-color: #f8f9fa !important;
+                    border-radius: 0.75rem;
+                }
+
+                .btn-outline-primary,
+                .btn-outline-secondary {
+                    border-width: 1.5px;
+                }
+
+                .text-muted.fs-6 {
+                    font-size: 1rem;
+                }
             </style>
+
+            <script>
+                document.getElementById('filterForm').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+                    const queryString = new URLSearchParams(formData).toString();
+
+                    document.getElementById('loadingSpinner').style.display = 'block';
+
+                    fetch('../private/shared/filter_events.php?' + queryString)
+                        .then(response => response.text())
+                        .then(html => {
+                            document.getElementById('eventResults').innerHTML = html;
+                        })
+                        .catch(error => console.error('Error:', error))
+                        .finally(() => {
+                            document.getElementById('loadingSpinner').style.display = 'none';
+                        });
+                });
+            </script>
+
 
 
             <?php include('../private/shared/index_footer.php'); ?>

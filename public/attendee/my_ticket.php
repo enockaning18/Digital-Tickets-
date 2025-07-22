@@ -56,14 +56,28 @@ $modal_id = 'modal_' . preg_replace('/[^A-Za-z0-9\_]/', '',  $reference); ?>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="" method="POST">
-                                    <input type="hidden" name="_csrf_token" value="19Pp8n2jmBRpyZo3tMJCB9Pm_QNpz3v6iM0OYy3zGMs">
+                                <form action="email_organizer.php" method="POST">
+                                    <input type="hidden" name="ticket_reference" value="<?php echo $reference ?>">
+                                    <input type="hidden" name="customer_email" value="<?php echo $reference_result['email'] ?>">
+                                    <input type="hidden" name="event_name" value="<?php echo $reference_result['event_name'] ?>">
 
                                     <div class="form-group">
+                                        <div class="row mb-3">
+                                            <div class="col">
+                                                <label for="reply_email" class="form-label required">Email</label>
+                                                <input type="email" placeholder="gmail@gmail.com" name="reply_email" required class="form-control">
+                                            </div>
+                                            <div class="col">
+                                                <label for="phone_number" class="form-label required">Phone Number</label>
+                                                <input type="number" placeholder="+233 000 000 0000" name="reply_number" required class="form-control">
+                                            </div>
+                                        </div>
+
                                         <label for="message" class="form-label required">Your Message</label>
-                                        <textarea name="message" id="message" class="form-control" rows="5" required=""></textarea>
+                                        <textarea name="message_text_area" id="message" class="form-control" rows="5" required></textarea>
+
                                     </div>
-                                    <button type="submit" class="btn text-white btn-block mt-4 w-100" style="background: #C3063F;">
+                                    <button type="submit" name="send_message" class="btn text-white btn-block mt-4 w-100" style="background: #C3063F;">
                                         <i class="bi bi-send-check-fill me-2"></i></i> Send Message
                                     </button>
                                 </form>
@@ -376,14 +390,28 @@ $modal_id = 'modal_' . preg_replace('/[^A-Za-z0-9\_]/', '',  $reference); ?>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="POST">
-                                                <input type="hidden" name="_csrf_token" value="19Pp8n2jmBRpyZo3tMJCB9Pm_QNpz3v6iM0OYy3zGMs">
+                                            <form action="email_organizer.php" method="POST">
+                                                <input type="hidden" name="ticket_reference" value="<?php echo $purchased_data['reference'] ?>">
+                                                <input type="hidden" name="customer_email" value="<?php echo $purchased_data['email'] ?>">
+                                                <input type="hidden" name="event_name" value="<?php echo $purchased_data['event_name'] ?>">
 
                                                 <div class="form-group">
+                                                    <div class="row mb-3">
+                                                        <div class="col">
+                                                            <label for="reply_email" class="form-label required">Email</label>
+                                                            <input type="email" placeholder="gmail@gmail.com" name="reply_email" required class="form-control">
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="phone_number" class="form-label required">Phone Number</label>
+                                                            <input type="number" placeholder="+233 000 000 0000" name="reply_number" required class="form-control">
+                                                        </div>
+                                                    </div>
+
                                                     <label for="message" class="form-label required">Your Message</label>
-                                                    <textarea name="message" id="message" class="form-control" rows="5" required=""></textarea>
+                                                    <textarea name="message_text_area" id="message" class="form-control" rows="5" required></textarea>
+
                                                 </div>
-                                                <button type="submit" class="btn text-white btn-block mt-4 w-100" style="background: #C3063F;">
+                                                <button type="submit" name="send_message" class="btn text-white btn-block mt-4 w-100" style="background: #C3063F;">
                                                     <i class="bi bi-send-check-fill me-2"></i></i> Send Message
                                                 </button>
                                             </form>

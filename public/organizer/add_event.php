@@ -114,26 +114,25 @@ $event = new Event();
             <div class="mb-4">
                 <label for="event_category" class="mb-2" require>Event Category</label>
                 <select class="form-select p-2" id="floatingSelectGrid" name="event[event_category]" style="background-color: #F1F3F7;">
-                    <option selected>Select Event Category</option>
-                    <option value="" selected>Select event category</option>
-                    <option value="Business / Professional">Business / Professional</option>
-                    <option value="Charity / Causes">Charity / Causes</option>
-                    <option value="Cinema / Theatre / Movies">Cinema / Theatre / Movies</option>
-                    <option value="Community / Culture">Community / Culture</option>
-                    <option value="Conference / Seminar / Networking">Conference / Seminar / Networking</option>
-                    <option value="Family / Education">Family / Education</option>
-                    <option value="Fashion / Beauty">Fashion / Beauty</option>
-                    <option value="Festivals / Spectacle">Festivals / Spectacle</option>
-                    <option value="Food / Drink">Food / Drink</option>
-                    <option value="Game / Competition">Game / Competition</option>
-                    <option value="Museum / Monument">Museum / Monument</option>
-                    <option value="Music / Concerts / Live Shows">Music / Concerts / Live Shows</option>
-                    <option value="Other">Other</option>
-                    <option value="Performing / Visual Arts">Performing / Visual Arts</option>
-                    <option value="Religion / Spirituality">Religion / Spirituality</option>
-                    <option value="Sports / Fitness / Health and Wellness">Sports / Fitness / Health and Wellness</option>
-                    <option value="Travel / Outdoor / Camp">Travel / Outdoor / Camp</option>
-                    <option value="Workshop / Training">Workshop / Training</option>
+                    <option value="">Select Category</option>
+                    <option value="business-professional">Business / Professional</option>
+                    <option value="charity-causes">Charity / Causes</option>
+                    <option value="cinema-theatre-movies">Cinema / Theatre / Movies</option>
+                    <option value="community-culture">Community / Culture</option>
+                    <option value="conference-seminar-networking">Conference / Seminar / Networking</option>
+                    <option value="family-education">Family / Education</option>
+                    <option value="fashion-beauty">Fashion / Beauty</option>
+                    <option value="festivals-spectacle">Festivals / Spectacle</option>
+                    <option value="food-drink">Food / Drink</option>
+                    <option value="game-competition">Game / Competition</option>
+                    <option value="museum-monument">Museum / Monument</option>
+                    <option value="music-concerts-live-shows">Music / Concerts / Live Shows</option>
+                    <option value="other">Other</option>
+                    <option value="performing-visual-arts">Performing / Visual Arts</option>
+                    <option value="religion-spirituality">Religion / Spirituality</option>
+                    <option value="sports-fitness-health-and-wellness">Sports / Fitness / Health and Wellness</option>
+                    <option value="travel-outdoor-camp">Travel / Outdoor / Camp</option>
+                    <option value="workshop-training">Workshop / Training</option>
                 </select>
             </div>
 

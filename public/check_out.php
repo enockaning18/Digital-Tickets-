@@ -4,6 +4,7 @@ require_once('../private/shared/index_header.php');
 attendee_require_login();
 $cartItems = Cart::getCartItems();
 
+
 ?>
 
 
