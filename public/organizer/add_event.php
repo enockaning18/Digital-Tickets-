@@ -333,7 +333,8 @@ $event = new Event();
             </div>
 
             <div class="mb-4">
-                <label class="fw-bold mb-1">Price</label>
+                <label class="fw-bold mb-1">Ticket Price</label>
+                
                 <input type="number" style="background-color: #f1f3f7" class="form-control" name="event[ticket_price]" />
             </div>
 

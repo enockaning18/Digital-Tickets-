@@ -154,7 +154,7 @@ ini_set('display_errors', 1);
 
                             <!-- PRICE & USSD row -->
                             <div class="d-flex align-items-center justify-content-between mt-3">
-                                <span class="badge-price"><?php echo $event->ticket_price ?>.00</span>
+                                <span class="badge-price">GHC <?php echo $event->ticket_price ?>.00</span>
                                 <a href="tel:*365*88*757#" class="ussd-code" onclick="event.stopPropagation();">*365*88*757#</a>
                             </div>
 

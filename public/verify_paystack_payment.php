@@ -247,7 +247,8 @@ margin-top: 15px;
             icon: 'success',
             confirmButtonText: 'OK'
         }).then(function() {
-            window.location.href = 'attendee/my_ticket.php';
+            window.location.href = 'attendee/my_ticket.php?reference=$reference';
+
         });
     });
 </script>";

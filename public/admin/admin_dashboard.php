@@ -1,5 +1,8 @@
 <?php include("../../private/initialize.php");
+include("../../private/admin_analysis.php");
 include(SHARED_PATH . "/admin_header.php");
+
+
 
 ?>
 
@@ -32,7 +35,7 @@ include(SHARED_PATH . "/admin_header.php");
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php  ?></span></div>
                     <div class="">Events Added</div>
                 </div>
             </div>

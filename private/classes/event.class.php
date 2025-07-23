@@ -78,6 +78,7 @@ class Event extends databaseObject
     static public function find_event_published()
     {
         $query_command = "SELECT * FROM " . static::$table_name . " ";
+        $query_command .=" JOIN `organizer` ON organizer_id  = organizer.id ";
         $query_command .= " WHERE status = '" . 1 . "' ";
         return static::find_by_query_command($query_command);
     }
@@ -165,5 +166,5 @@ class Event extends databaseObject
     public $organizer_id;
     public $organizer_name;
     public $status;
-    public $total_tickets ;
+    public $total_tickets;
 }

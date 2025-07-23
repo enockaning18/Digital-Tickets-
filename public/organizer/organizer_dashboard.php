@@ -1,4 +1,5 @@
 <?php include("../../private/initialize.php");
+require_once("../../private/organizer_analysis.php");
 
 include(SHARED_PATH . "/organizer_header.php");
 
@@ -88,7 +89,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_all_events ?></span></div>
                     <div class="">Events Added</div>
                 </div>
             </div>
@@ -99,7 +100,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_publish_events ?></span></div>
                     <div class="">Published Event</div>
                 </div>
             </div>
@@ -110,7 +111,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_draft_events ?></span></div>
                     <div class="">Upcoming Events</div>
                 </div>
             </div>
@@ -138,7 +139,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_all_orders ?></span></div>
                     <div class="">Orders Placed</div>
                 </div>
             </div>
@@ -149,7 +150,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_payed_ticket ?></span></div>
                     <div class="">Payed Orders</div>
                 </div>
             </div>
@@ -160,7 +161,7 @@ require_login();
                 </div>
 
                 <div class="d-flex flex-column gap-1 align-items-center mb-2">
-                    <div><span class="fw-bold fs-2">0</span></div>
+                    <div><span class="fw-bold fs-2"><?php echo $fetch_payed_ticket ?></span></div>
                     <div class="">Ticket Sold</div>
                 </div>
             </div>

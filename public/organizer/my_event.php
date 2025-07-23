@@ -207,6 +207,94 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                                     </div>
                                 </td>
                             </tr>
+
+                            <?php
+
+                            $event_reference_id = $event->event_reference_id ?? "null";
+
+                            ?>
+                            <script>
+                                // Initialize SweetAlert2 with Bootstrap buttons
+                                const swalWithBootstrapButtons = Swal.mixin({
+                                    customClass: {
+                                        confirmButton: "btn btn-success me-2",
+                                        cancelButton: "btn btn-danger me-2"
+                                    },
+                                    buttonsStyling: false
+                                });
+
+                                // Attach click event to the delete button
+                                document.querySelector(".delete-btn").addEventListener("click", function(e) {
+                                    e.preventDefault(); // Prevent default action (e.g., navigation)
+
+                                    // Use the PHP variable inside the JavaScript code
+                                    const eventReferenceId = "<?php echo $event_reference_id; ?>";
+
+                                    swalWithBootstrapButtons
+                                        .fire({
+                                            title: "Are you sure?",
+                                            text: "You won't be able to revert this!",
+                                            icon: "warning",
+                                            showCancelButton: true,
+                                            confirmButtonText: "Yes, delete it!",
+                                            cancelButtonText: "No, cancel!",
+                                            reverseButtons: true
+                                        })
+                                        .then((result) => {
+                                            if (result.isConfirmed) {
+                                                // Perform the delete action via AJAX
+                                                fetch('delete_event.php', {
+                                                        method: 'POST',
+                                                        headers: {
+                                                            'Content-Type': 'application/json'
+                                                        },
+                                                        body: JSON.stringify({
+                                                            event_reference_id: eventReferenceId
+                                                        })
+                                                    })
+                                                    .then(response => {
+                                                        console.log('Raw Response:', response); // Log raw response for debugging
+                                                        if (!response.ok) {
+                                                            throw new Error(`HTTP error! status: ${response.status}`);
+                                                        }
+                                                        return response.json(); // Parse JSON response
+                                                    })
+                                                    .then(data => {
+                                                        console.log('Parsed Response:', data); // Log parsed response
+                                                        if (data.success) {
+                                                            swalWithBootstrapButtons.fire({
+                                                                title: "Deleted!",
+                                                                text: "Your Event has been deleted.",
+                                                                icon: "success"
+                                                            });
+                                                        } else {
+                                                            swalWithBootstrapButtons.fire({
+                                                                title: "Error!",
+                                                                text: data.error || "Something went wrong. Please try again.",
+                                                                icon: "error"
+                                                            });
+                                                        }
+                                                    })
+                                                    .catch(error => {
+                                                        console.error('Fetch Error:', error);
+                                                        swalWithBootstrapButtons.fire({
+                                                            title: "Deleted!",
+                                                            text: "Your Event has been deleted.",
+                                                            icon: "success"
+                                                        }).then(function() {
+                                                            window.location.href = 'my_event.php';
+                                                        });
+                                                    });
+                                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                                swalWithBootstrapButtons.fire({
+                                                    title: "Cancelled",
+                                                    text: "Your event is safe :)",
+                                                    icon: "error"
+                                                });
+                                            }
+                                        });
+                                });
+                            </script>
                         <?php } ?>
                     </tbody>
                 </table>
@@ -532,93 +620,7 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
     });
 </script>
 
-<?php
 
-$event_reference_id = $event->event_reference_id ?? "null";
-
-?>
-<script>
-    // Initialize SweetAlert2 with Bootstrap buttons
-    const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-            confirmButton: "btn btn-success me-2",
-            cancelButton: "btn btn-danger me-2"
-        },
-        buttonsStyling: false
-    });
-
-    // Attach click event to the delete button
-    document.querySelector(".delete-btn").addEventListener("click", function(e) {
-        e.preventDefault(); // Prevent default action (e.g., navigation)
-
-        // Use the PHP variable inside the JavaScript code
-        const eventReferenceId = "<?php echo $event_reference_id; ?>";
-
-        swalWithBootstrapButtons
-            .fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonText: "Yes, delete it!",
-                cancelButtonText: "No, cancel!",
-                reverseButtons: true
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    // Perform the delete action via AJAX
-                    fetch('delete_event.php', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({
-                                event_reference_id: eventReferenceId
-                            })
-                        })
-                        .then(response => {
-                            console.log('Raw Response:', response); // Log raw response for debugging
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            return response.json(); // Parse JSON response
-                        })
-                        .then(data => {
-                            console.log('Parsed Response:', data); // Log parsed response
-                            if (data.success) {
-                                swalWithBootstrapButtons.fire({
-                                    title: "Deleted!",
-                                    text: "Your Event has been deleted.",
-                                    icon: "success"
-                                });
-                            } else {
-                                swalWithBootstrapButtons.fire({
-                                    title: "Error!",
-                                    text: data.error || "Something went wrong. Please try again.",
-                                    icon: "error"
-                                });
-                            }
-                        })
-                        .catch(error => {
-                            console.error('Fetch Error:', error);
-                            swalWithBootstrapButtons.fire({
-                                title: "Deleted!",
-                                text: "Your Event has been deleted.",
-                                icon: "success"
-                            }).then(function() {
-                                window.location.href = 'my_event.php';
-                            });
-                        });
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire({
-                        title: "Cancelled",
-                        text: "Your event is safe :)",
-                        icon: "error"
-                    });
-                }
-            });
-    });
-</script>
 
 
 <?php include(SHARED_PATH . "/organizer_footer.php"); ?>
