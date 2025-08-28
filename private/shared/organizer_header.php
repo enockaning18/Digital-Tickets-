@@ -89,16 +89,32 @@
                                                 <i class="bi bi-geo me-2"></i> Add A New Venue
                                             </a>
                                         </li>
+
                                         <li>
-                                            <a href="organizer_program.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-person-vcard me-2"></i> My Organizer Program
+                                            <a href="order_list.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-cart3 me-2"></i>
+                                                Order List
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
-                                                <i class="bi bi-patch-question me-2"></i> Help Center
+                                            <a href="../code_scanner.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-webcam-fill me-2"></i>
+                                                Verify Ticket
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="system_report.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-file-earmark-spreadsheet me-2"></i>
+                                                System Report
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="help_center.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                                <i class="bi bi-patch-question me-2"></i>
+                                                Help Center
+                                            </a>
+                                        </li>
+
                                         <li>
                                             <a href="account_settings.php" class="sidebar-link d-flex align-items-center ps-4 py-3">
                                                 <i class="bi bi-person-gear me-2"></i> Account Settings
@@ -206,6 +222,12 @@
                                 <a href="my_venue.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
                                     <i class="bi bi-geo-alt-fill me-2"></i>
                                     My Venues
+                                </a>
+                            </li>
+                            <li class=" align-items-center ">
+                                <a href="../code_scanner.php" class="sidebar-link d-flex align-items-center ps-4 py-3 ">
+                                    <i class="bi bi-webcam-fill me-2"></i>
+                                    Verify Ticket
                                 </a>
                             </li>
                             <li class=" align-items-center ">
