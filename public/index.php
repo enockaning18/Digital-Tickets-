@@ -28,7 +28,8 @@ ini_set('display_errors', 1);
 
 <body style="font-family:'Exo 2','sans-serif';">
 
-    
+
+
 
     <section style="background-color: rgb(5, -0, 10);">
         <header class=" container d-flex justify-content-between align-items-center py-3">
