@@ -158,7 +158,7 @@ ini_set('display_errors', 1);
             <div class="container">
                 <div class="row gy-4">
 
-                    <!-- Column 1: Email Signup -->
+
                     <div class="col-md-4">
                         <h5 class="fw-bold">Email Sign Up</h5>
                         <p class="small">Subscribe for updates & special offers!</p>
@@ -170,7 +170,7 @@ ini_set('display_errors', 1);
                         </form>
                     </div>
 
-                    <!-- Column 2: Links -->
+
                     <div class="col-md-4">
                         <h5 class="fw-bold">Quick Links</h5>
                         <div class="row">
@@ -195,7 +195,7 @@ ini_set('display_errors', 1);
                         </div>
                     </div>
 
-                    <!-- Column 3: Social / Tracker -->
+
                     <div class="col-md-4">
                         <h5 class="fw-bold">Coach Tracker</h5>
                         <p class="small mb-2">Track your coach in real time.</p>
@@ -211,15 +211,12 @@ ini_set('display_errors', 1);
 
                 <hr class="border-light my-4">
 
-                <!-- Bottom row -->
+
                 <div class="text-center small">
                     <p class="mb-0">&copy; 2025 Event App. All rights reserved.</p>
                 </div>
             </div>
         </footer>
-
-        <!-- Bootstrap Icons -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     </section>
 
