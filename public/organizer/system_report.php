@@ -71,12 +71,6 @@ if ($result && mysqli_num_rows($result) > 0) { ?>
                             </select>
                         </div>
 
-                        <!-- Reference Number
-                        <div class="col-12 col-sm-6 col-md-3">
-                            <label for="reference" class="mb-2">Reference Number</label>
-                            <input type="text" name="reference" id="reference" class="form-control ">
-                        </div> -->
-
                         <!-- Start Date -->
                         <div class="col-12 col-sm-6 col-md-3">
                             <label for="start_date" class="mb-2">Start Date</label>
