@@ -12,6 +12,7 @@ class Session
             session_start();
         }
         $this->check_stored_login();
+        
     }
 
     public function login($organizer)
