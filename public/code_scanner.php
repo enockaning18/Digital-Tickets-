@@ -53,7 +53,7 @@
             if (!decodedText) return;
 
             document.getElementById('result').innerHTML = "⏳ Verifying reference...";
-            html5QrcodeScanner.clear(); // Stop scanning after first success
+            html5QrcodeScanner.clear(); // Stop scanning after first success to prevent multiple scans
             verifyReference(decodedText);
         }
 
