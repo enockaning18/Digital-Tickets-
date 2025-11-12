@@ -29,7 +29,7 @@ ini_set('display_errors', 1);
     <div id="real-events">
         <ul class="row d-flex justify-content-around gap-1 align-items-center p-0">
             <?php foreach ($event as $event) { ?>
-                <li class="card col-10 col-sm-5 col-md-5 col-lg-3 mb-4 p-0 border-1 ">
+                <li class="card col-10 col-sm-5 col-md-5 col-lg-3 mb-4 p-0 border-1">
                     <div>
                         <div class="card-image rounded-top img-lazy-load" loading="lazy" style="background-image: url('organizer/uploads/<?php echo $event->image ?>'); background-size: contain; background-position: center center;     background-repeat: no-repeat; height:14rem; background-size: cover; background-position: center;"></div>
                         <div class="card-body">
